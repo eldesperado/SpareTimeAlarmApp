@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D2134" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Configuration" representedClassName="PRODUCT_MODULE_NAME.Configuration" syncable="YES">
+        <attribute name="style" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="volume" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="DateRepeat" representedClassName="PRODUCT_MODULE_NAME.DateRepeat" syncable="YES">
+        <attribute name="fri" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="mon" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="sat" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="sun" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="thu" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="tue" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="wed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="belongToRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Record" inverseName="repeatDates" inverseEntity="Record" syncable="YES"/>
+    </entity>
+    <entity name="Record" representedClassName="PRODUCT_MODULE_NAME.Record" syncable="YES">
+        <attribute name="isRepeat" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="ringtoneType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="salutationText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="repeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DateRepeat" inverseName="belongToRecord" inverseEntity="DateRepeat" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Configuration" positionX="-36" positionY="-174" width="128" height="75"/>
+        <element name="Record" positionX="189" positionY="15" width="128" height="120"/>
+        <element name="DateRepeat" positionX="-36" positionY="36" width="128" height="165"/>
+    </elements>
+</model>
