@@ -4,4 +4,3 @@ use_frameworks!
 link_with 'SpareTimeAlarmApp', 'SpareTimeAlarmAppTests'
 
 pod 'SwiftDate'
-pod 'RealmSwift'

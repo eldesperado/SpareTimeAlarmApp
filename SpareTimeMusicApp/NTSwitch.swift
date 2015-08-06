@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SevenSwitch
+import UIKit
 
 class NTSwitch: SevenSwitch {
     

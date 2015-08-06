@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import SevenSwitch
 
 class AlarmRecordTableViewCell: UITableViewCell {
 
     @IBOutlet weak var alarmTimeLabel: UILabel!
     @IBOutlet weak var alarmRepeatDatesLabel: UILabel!
+    let enableSwitch = NTSwitch()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,9 +29,18 @@ class AlarmRecordTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureCell(alarmTime time: NSNumber, repeatDates: String) {
-        self.alarmTimeLabel.text = time.stringValue
-        self.alarmRepeatDatesLabel.text = repeatDates
+    func configureCell(alarmRecord record: AlarmRecord) {
+        // Get Alarm Time as a String
+        let alarmString = RecordHelper.getAlarmTime(alarmTime: record.alarmTime)
+        self.alarmTimeLabel.text = alarmString
+        
+        // Get Repeat Dates as a String
+        let repeatDateString = RecordHelper.getRepeatDatesString(record.repeatDates)
+        self.alarmRepeatDatesLabel.text = repeatDateString
+        
+        // Set Value for switch
+        self.enableSwitch.on = record.isActive.boolValue
+        
         // FIXME: Move to another function
         // Add Separator
         let topSeparator = UIView(frame: CGRectMake(0, 1.0, self.contentView.frame.size.width, 1))
@@ -43,11 +52,10 @@ class AlarmRecordTableViewCell: UITableViewCell {
         self.addSubview(topSeparator)
         self.addSubview(rightSeparator)
         
-        let enableSwitch = NTSwitch()
-        let switchTopPadding = (self.contentView.frame.height - enableSwitch.frame.height) / 2
-        let switchRightPadding = self.contentView.frame.width - enableSwitch.frame.width - 13
-        enableSwitch.frame = CGRect(origin: CGPointMake(switchRightPadding, switchTopPadding), size: enableSwitch.frame.size)
-        self.addSubview(enableSwitch)
+        let switchTopPadding = (self.contentView.frame.height - self.enableSwitch.frame.height) / 2
+        let switchRightPadding = self.contentView.frame.width - self.enableSwitch.frame.width - 13
+        self.enableSwitch.frame = CGRect(origin: CGPointMake(switchRightPadding, switchTopPadding), size: self.enableSwitch.frame.size)
+        self.addSubview(self.enableSwitch)
     }
 
 }

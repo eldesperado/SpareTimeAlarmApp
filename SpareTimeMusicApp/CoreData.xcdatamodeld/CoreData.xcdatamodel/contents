@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D2134" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Configuration" representedClassName="PRODUCT_MODULE_NAME.Configuration" syncable="YES">
-        <attribute name="style" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="volume" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-    </entity>
-    <entity name="DateRepeat" representedClassName="PRODUCT_MODULE_NAME.DateRepeat" syncable="YES">
-        <attribute name="fri" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="mon" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="sat" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="sun" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="thu" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="tue" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="wed" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="belongToRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Record" inverseName="repeatDates" inverseEntity="Record" syncable="YES"/>
-    </entity>
-    <entity name="Record" representedClassName="PRODUCT_MODULE_NAME.Record" syncable="YES">
+    <entity name="AlarmRecord" representedClassName="AlarmRecord" syncable="YES">
+        <attribute name="alarmTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isRepeat" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="ringtoneType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="salutationText" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="repeatDates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DateRepeat" inverseName="belongToRecord" inverseEntity="DateRepeat" syncable="YES"/>
+        <relationship name="repeatDates" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="RepeatDate" inverseName="ofRecord" inverseEntity="RepeatDate" syncable="YES"/>
+    </entity>
+    <entity name="RepeatDate" representedClassName="RepeatDate" syncable="YES">
+        <attribute name="isFri" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isMon" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSat" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSun" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isThu" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isTue" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isWed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="ofRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AlarmRecord" inverseName="repeatDates" inverseEntity="AlarmRecord" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Configuration" positionX="-36" positionY="-174" width="128" height="75"/>
-        <element name="Record" positionX="189" positionY="15" width="128" height="120"/>
-        <element name="DateRepeat" positionX="-36" positionY="36" width="128" height="165"/>
+        <element name="AlarmRecord" positionX="-225" positionY="24" width="128" height="133"/>
+        <element name="RepeatDate" positionX="-54" positionY="18" width="128" height="163"/>
     </elements>
 </model>

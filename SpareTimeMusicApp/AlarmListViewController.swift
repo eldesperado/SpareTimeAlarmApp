@@ -14,7 +14,13 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var recordsTableView: UITableView!
     
     var timer = NSTimer()
-    let alarmRecordArray = [["time" : 360, "repeat" : "Mon, Tue"], ["time" : 180, "repeat" : "Mon, Tue, Thu"], ["time" : 66, "repeat" : "Mon, Tue, Sun"]]
+    
+    lazy var cdh: CoreDataHelper = {
+        let cdh = CoreDataHelper()
+        return cdh
+        }()
+    
+    var alarmRecordArray: [AlarmRecord]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +29,10 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.navigationController!.navigationBar.translucent = true
         self.navigationController!.view.backgroundColor = UIColor.clearColor()
         self.navigationController!.view.backgroundColor = UIColor.clearColor()
+        // Add Demo Data
+//        self.cdh.insertAlarmRecord(845, ringtoneType: 0, isRepeat: true, repeatDate: nil)
+        // Load Data
+        self.alarmRecordArray = self.cdh.listAllActiveAlarmRecordsMostRecently()
         // Display Clock
         updateClock()
         // Hide footer
@@ -33,6 +43,8 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.clockView.setNeedsDisplay()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateClock"), userInfo: nil, repeats: false)
     }
+    
+    // pragmark: UITableViewDelegates
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -45,10 +57,8 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     let textCellIdentifier = "alarmRecordCell"
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: AlarmRecordTableViewCell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! AlarmRecordTableViewCell
-        let record = alarmRecordArray[indexPath.row]
-        let time: NSNumber = record["time"] as! NSNumber
-        let repeatDates: String = record["repeat"] as! String
-        cell.configureCell(alarmTime: time, repeatDates: repeatDates)
+        let record: AlarmRecord = alarmRecordArray[indexPath.row]
+        cell.configureCell(alarmRecord: record)
         
         return cell
     }
