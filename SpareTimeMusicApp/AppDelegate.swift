@@ -57,7 +57,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Save Background NSManagedObjectContext
         self.cdh.saveContext()
     }
-
-
 }
 

@@ -12,15 +12,18 @@ class AlarmRecordTableViewCell: UITableViewCell {
 
     @IBOutlet weak var alarmTimeLabel: UILabel!
     @IBOutlet weak var alarmRepeatDatesLabel: UILabel!
-    let enableSwitch = NTSwitch()
+    @IBOutlet weak var repeatRingtoneSwitch: NTSwitch!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
+    private var record: AlarmRecord?
+    // Dependency Injection Pattern
+    private var coreDataHelper: CoreDataHelper?
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -29,7 +32,26 @@ class AlarmRecordTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureCell(alarmRecord record: AlarmRecord) {
+    @IBAction func repeatRingtoneSwitchValueChanged(sender: AnyObject) {
+        if let alarmRecord = self.record {
+            if let cdh = self.coreDataHelper {
+                // Update isRepeat shows that whether the ringtone is repeated or not
+                // Find ManagedObject in background managed object context
+                let record = cdh.findRecordInBackgroundManagedObjectContext(alarmRecord.objectID) as! AlarmRecord
+                // Update boolean value
+                record.isRepeat = self.repeatRingtoneSwitch.isOn()
+                // Save context
+                self.coreDataHelper!.saveContext()
+            }
+        }
+    }
+    
+    
+    func configureCell(alarmRecord record: AlarmRecord, coreDataHelper: CoreDataHelper) {
+        // Store AlarmRecord
+        self.record = record
+        // Assign CoreDataHelper
+        self.coreDataHelper = coreDataHelper
         // Get Alarm Time as a String
         let alarmString = RecordHelper.getAlarmTime(alarmTime: record.alarmTime)
         self.alarmTimeLabel.text = alarmString
@@ -39,23 +61,17 @@ class AlarmRecordTableViewCell: UITableViewCell {
         self.alarmRepeatDatesLabel.text = repeatDateString
         
         // Set Value for switch
-        self.enableSwitch.on = record.isActive.boolValue
-        
-        // FIXME: Move to another function
-        // Add Separator
-        let topSeparator = UIView(frame: CGRectMake(0, 1.0, self.contentView.frame.size.width, 1))
+        self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
+        // Update View
+        setupCellViews()
+    }
+    
+    override func setupCellViews() {
+        super.setupCellViews()
         let rightSeperatorPaddingConstant: CGFloat = 0.52
         let rightSeperatorTopPadding = self.contentView.frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
         let rightSeparator = UIView(frame: CGRectMake(self.contentView.frame.size.width - 1, rightSeperatorTopPadding, 1.0, self.contentView.frame.height * rightSeperatorPaddingConstant))
-        topSeparator.backgroundColor = UIColor(white: 1, alpha: 0.15)
-        rightSeparator.backgroundColor = topSeparator.backgroundColor
-        self.addSubview(topSeparator)
+        rightSeparator.backgroundColor = separatorColour
         self.addSubview(rightSeparator)
-        
-        let switchTopPadding = (self.contentView.frame.height - self.enableSwitch.frame.height) / 2
-        let switchRightPadding = self.contentView.frame.width - self.enableSwitch.frame.width - 13
-        self.enableSwitch.frame = CGRect(origin: CGPointMake(switchRightPadding, switchTopPadding), size: self.enableSwitch.frame.size)
-        self.addSubview(self.enableSwitch)
     }
-
 }

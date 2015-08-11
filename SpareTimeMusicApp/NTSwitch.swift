@@ -22,10 +22,10 @@ class NTSwitch: SevenSwitch {
     }
     
     func setup() {
-        self.onTintColor = UIColor(red: 43.0/255.0, green: 100.0/255.0, blue: 243.0/255.0, alpha: 1)
+        self.onTintColor = UIColor.untAzulColor()
         self.borderColor = UIColor(white: 1, alpha: 0.41)
-        self.shadowColor = UIColor.clearColor()
-        self.thumbTintColor = UIColor.clearColor()
+        self.shadowColor = UIColor.untTransparentColor()
+        self.thumbTintColor = UIColor.untTransparentColor()
         self.onThumbTintColor = UIColor.whiteColor()
     }
     

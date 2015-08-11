@@ -9,7 +9,19 @@
 import CoreData
 import UIKit
 
-class CoreDataHelper: NSObject {
+protocol CoreDataOperation {
+    // FETCH: Fetches AlarmRecord table's records
+    func listAllAlarmRecordsMostRecently() -> [AlarmRecord]?
+    func listAllActiveAlarmRecordsMostRecently() -> [AlarmRecord]?
+    func listAlarmRecords(listingParameters parameters: CoreDataHelper.ListingParameters) -> [AlarmRecord]?
+    // INSERT: Insert AlarmRecord table's records in background
+    func insertAlarmRecord(alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String?, isRepeat: Bool, repeatDate: RepeatDate?)
+    // DELETE: Delete AlarmRecord and RepeatDate in cascade
+    func deleteAlarmRecord(alarmRecord record: AlarmRecord)
+}
+
+
+class CoreDataHelper: NSObject, CoreDataOperation {
     let store: CoreDataStore!
     
     override init() {

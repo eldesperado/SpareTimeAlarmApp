@@ -17,6 +17,10 @@
             <string>RotondaC</string>
             <string>RotondaC</string>
             <string>RotondaC</string>
+            <string>RotondaC</string>
+            <string>RotondaC</string>
+            <string>RotondaC</string>
+            <string>RotondaC</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -60,24 +64,32 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UEf-Ks-Y9b" id="19m-uS-Kzv">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="06:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0if-fe-eCk">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0if-fe-eCk">
                                                     <rect key="frame" x="14" y="16" width="163" height="20"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.51000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today, Wednesday, Thursday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRx-w5-2Rw">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.51000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today, Wednesday, Thursday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRx-w5-2Rw">
                                                     <rect key="frame" x="13.5" y="46" width="258" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Vv-Lw-gUJ" userLabel="NTSwitch" customClass="NTSwitch" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="317" y="23" width="50" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="repeatRingtoneSwitchValueChanged:" destination="UEf-Ks-Y9b" eventType="valueChanged" id="b4o-EL-1yC"/>
+                                                    </connections>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="alarmRepeatDatesLabel" destination="nRx-w5-2Rw" id="acc-Tf-taJ"/>
                                             <outlet property="alarmTimeLabel" destination="0if-fe-eCk" id="1i7-Cp-CG4"/>
+                                            <outlet property="repeatRingtoneSwitch" destination="7Vv-Lw-gUJ" id="Qu3-qy-BMk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -93,7 +105,7 @@
                         <barButtonItem key="leftBarButtonItem" image="setting" id="qm4-Uu-tvA"/>
                         <barButtonItem key="rightBarButtonItem" image="add" id="Mfa-4r-Ixc">
                             <connections>
-                                <segue destination="eZc-bn-BDZ" kind="show" id="bbh-bu-5Ut"/>
+                                <segue destination="ZVn-Di-sJc" kind="show" id="mfz-O9-X7f"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -101,6 +113,8 @@
                     <connections>
                         <outlet property="clockView" destination="6Eq-hV-Q0f" id="7ug-Yl-X7h"/>
                         <outlet property="recordsTableView" destination="adV-7c-7EC" id="zc6-NH-OTD"/>
+                        <outlet property="timeToWakeUpLabel" destination="d40-zy-C28" id="HNo-xG-Krc"/>
+                        <segue destination="ZVn-Di-sJc" kind="show" identifier="configureAlarmRecord" id="Udu-mJ-ifY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -150,38 +164,41 @@
             </objects>
             <point key="canvasLocation" x="846.5" y="1035.5"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="2aZ-a9-aGT">
+        <!--Edit Alarm Table View Controller-->
+        <scene sceneID="qiN-sy-tvR">
             <objects>
-                <viewController id="eZc-bn-BDZ" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Cgp-4P-1sN"/>
-                        <viewControllerLayoutGuide type="bottom" id="1Nl-FX-PUO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="10V-He-Wbj">
+                <tableViewController id="ZVn-Di-sJc" customClass="EditAlarmTableViewController" customModule="SpareTimeAlarmApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YVJ-G9-u3q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="qR8-la-I3x">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nKm-Id-8Pm">
-                                <rect key="frame" x="-6" y="44" width="387" height="623"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="6m0-g7-CDA">
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="0zA-yu-ZJj" userLabel="Time Picker View">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="179"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zno-h1-Mum" customClass="NTTimeIntervalPickerView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="8" width="387" height="179"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <sections>
+                            <tableViewSection id="AKt-Dv-Vre">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="Pxd-lj-OiY">
                                         <rect key="frame" x="0.0" y="296" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6m0-g7-CDA" id="FK5-fn-aQv">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pxd-lj-OiY" id="6ur-nG-oGy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQn-2y-LTf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfO-w2-ab8">
                                                     <rect key="frame" x="22" y="16" width="68" height="20"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today, Wednesday, Thursday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILq-MS-x9a">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today, Wednesday, Thursday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFg-33-5t2">
                                                     <rect key="frame" x="22" y="46" width="258" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -191,13 +208,61 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="Lcx-kU-fch">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="Bt8-yc-uob">
                                         <rect key="frame" x="0.0" y="296" width="375" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lcx-kU-fch" id="THz-sE-F4I">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bt8-yc-uob" id="agT-Fo-pqd">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat ringtone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIq-Qo-UsE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ringtone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeH-Vj-WB2">
+                                                    <rect key="frame" x="22" y="16" width="81" height="21"/>
+                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ring, Dong, Bong" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhB-jm-jK3">
+                                                    <rect key="frame" x="22" y="46" width="258" height="21"/>
+                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="LYX-I0-DcJ">
+                                        <rect key="frame" x="0.0" y="296" width="375" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LYX-I0-DcJ" id="gZ6-cc-Ud1">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salutation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3u-H8-uXS">
+                                                    <rect key="frame" x="22" y="16" width="320" height="21"/>
+                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wake up!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ3-hr-wFk">
+                                                    <rect key="frame" x="22" y="46" width="258" height="21"/>
+                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="GFY-j3-ey4">
+                                        <rect key="frame" x="0.0" y="296" width="375" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GFY-j3-ey4" id="iLc-VE-YJD">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lc-Vc-zo6" userLabel="NTSwitch" customClass="NTSwitch" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="317" y="23" width="50" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat ringtone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUg-uf-I29">
                                                     <rect key="frame" x="22" y="29" width="146" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -207,23 +272,33 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="ZVn-Di-sJc" id="S90-nk-Dnn"/>
+                            <outlet property="delegate" destination="ZVn-Di-sJc" id="IFb-xe-dMq"/>
+                        </connections>
+                    </tableView>
                     <connections>
-                        <segue destination="lIP-pt-uty" kind="show" id="Bcd-vY-aVT"/>
+                        <outlet property="alarmSettingTableView" destination="YVJ-G9-u3q" id="Wuw-tc-28L"/>
+                        <outlet property="alarmTimePickerView" destination="Zno-h1-Mum" id="ZIO-R9-TzM"/>
+                        <outlet property="repeatDatesLabel" destination="vFg-33-5t2" id="ZiL-fz-gPm"/>
+                        <outlet property="repeatRingtoneSwitch" destination="4Lc-Vc-zo6" id="YjO-kn-N33"/>
+                        <outlet property="ringtoneTypeStringLabel" destination="fhB-jm-jK3" id="Jfd-o5-VdI"/>
+                        <outlet property="salutationTextLabel" destination="PZ3-hr-wFk" id="GAH-ZQ-2LC"/>
+                        <segue destination="lIP-pt-uty" kind="show" identifier="showRepeatDates" id="snA-x0-zdg"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QdI-ao-TQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PWl-Gc-YHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1298.5" y="257.5"/>
+            <point key="canvasLocation" x="1292.5" y="257.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Repeat Date Selection View Controller-->
         <scene sceneID="JEA-Jg-O5w">
             <objects>
-                <viewController id="lIP-pt-uty" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPs-uy-tqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="lIP-pt-uty" customClass="RepeatDateSelectionViewController" customModule="SpareTimeAlarmApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="stu-Fa-fUs"/>
                         <viewControllerLayoutGuide type="bottom" id="ZPL-iJ-aBd"/>
@@ -235,11 +310,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="jB4-Pk-4Mg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-sc-oJ4">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-sc-oJ4">
                                 <rect key="frame" x="0.0" y="44" width="390" height="623"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="ljb-Z9-aaR">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repeatDateCell" rowHeight="50" id="ljb-Z9-aaR" customClass="RepeatDateSelectionTableViewCell" customModule="SpareTimeAlarmApp" customModuleProvider="target">
                                         <rect key="frame" x="-6" y="296" width="387" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ljb-Z9-aaR" id="Zpd-3A-npL">
@@ -251,17 +326,27 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="done small" translatesAutoresizingMaskIntoConstraints="NO" id="3wm-li-sb5">
+                                                    <rect key="frame" x="347" y="17" width="17" height="15"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="checkIconImageView" destination="3wm-li-sb5" id="1Va-6s-3IA"/>
+                                            <outlet property="dateLabel" destination="AYy-vd-UEE" id="qV5-KX-Lmr"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="lIP-pt-uty" id="RTK-7b-4Zj"/>
+                                    <outlet property="delegate" destination="lIP-pt-uty" id="8Yn-gh-1ZQ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SPs-uy-tqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1777.5" y="257.5"/>
         </scene>
@@ -270,7 +355,6 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bnS-U5-PrB" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <nil key="simulatedStatusBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Xx-vc-l2K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -291,6 +375,10 @@
         <image name="add" width="21" height="21"/>
         <image name="background" width="375" height="667"/>
         <image name="button" width="320" height="64"/>
+        <image name="done small" width="17" height="15"/>
         <image name="setting" width="21" height="21"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Udu-mJ-ifY"/>
+    </inferredMetricsTieBreakers>
 </document>

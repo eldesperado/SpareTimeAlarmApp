@@ -16,31 +16,64 @@ enum EntityTableName: String {
 
 struct RecordHelper {
     static func getRepeatDatesString(repeatDates: RepeatDate) -> String {
+        // Get Current Date
+        let currentDay = DateTimeHelper.getCurrentDate().dayOfWeek
+
         var string = ""
+        // FIXME: Please fix this ugly code
         if repeatDates.isMon.boolValue {
-            string += "Mon"
+            if currentDay == 2 {
+                string += "Today"
+            } else {
+                string += "Mon"
+            }
         }
         if repeatDates.isTue.boolValue {
-            string += ", Tue"
+            if currentDay == 3 {
+                string += ", Today"
+            } else {
+                string += ", Tue"
+            }
+
         }
         if repeatDates.isWed.boolValue {
-            string += ", Wed"
+            if currentDay == 4 {
+                string += ", Today"
+            } else {
+                string += ", Wed"
+            }
         }
         if repeatDates.isThu.boolValue {
-            string += ", Thu"
+            if currentDay == 5 {
+                string += ", Today"
+            } else {
+                string += ", Thu"
+            }
         }
         if repeatDates.isFri.boolValue {
+            if currentDay == 6 {
+                string += ", Today"
+            } else {
+                string += ", Thu"
+            }
+
             string += ", Fri"
         }
         if repeatDates.isSat.boolValue {
-            string += ", Sat"
+            if currentDay == 7 {
+                string += ", Today"
+            } else {
+                string += ", Sat"
+            }
         }
         if repeatDates.isSun.boolValue {
-            string += ", Sun"
+            if currentDay == 8 {
+                string += ", Today"
+            } else {
+                string += ", Sun"
+            }
         }
-        if string == "Mon, Tue, Wed, Thu, Fri, Sat, Sun" {
-            return "Everyday"
-        }
+
         if string.isEmpty {
             return "No Repeat"
         }
@@ -51,9 +84,11 @@ struct RecordHelper {
     }
     
     static func getAlarmTime(let alarmTime time: NSNumber) -> String {
-        let hour = time.integerValue / 360
-        let minute = time.integerValue % 60
-        return "\(hour):\(minute)"
+        let hour = time.integerValue / 60
+        let minute = time.integerValue - hour * 60
+        let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
+        let minuteString = minute < 10 ? "0\(minute)" : "\(minute)"
+        return "\(hourString):\(minuteString)"
     }
 }
 
@@ -64,8 +99,8 @@ extension CoreDataHelper {
         var predicateFilter: NSPredicate?
     }
     
-    // pragmark: AlarmRecord Table
-    // FETCH: Fetches AlarmRecord table's records
+    // MARK: AlarmRecord Table
+    // MARK: FETCH: Fetches AlarmRecord table's records
 
     func listAllAlarmRecordsMostRecently() -> [AlarmRecord]? {
         // Create option
@@ -76,7 +111,7 @@ extension CoreDataHelper {
     
     func listAllActiveAlarmRecordsMostRecently() -> [AlarmRecord]? {
         // Create option
-        let sortDescriptor = NSSortDescriptor(key: "alarmTime" , ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "alarmTime" , ascending: true)
         let predicate = NSPredicate(format: "isActive == true")
         let options = ListingParameters(sortDescriptor: sortDescriptor, predicateFilter: predicate)
         return listAlarmRecords(listingParameters: options)
@@ -105,7 +140,9 @@ extension CoreDataHelper {
         return result as? [AlarmRecord]
     }
     
-    // INSERT: Insert AlarmRecord table's records in background
+    
+    
+    // MARK: INSERT: Insert AlarmRecord table's records in background
     func insertAlarmRecord(alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String? = "", isRepeat: Bool, repeatDate: RepeatDate?) {
         
         var newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
@@ -130,6 +167,24 @@ extension CoreDataHelper {
             newRecord.repeatDates = newRDates
         }
         
+        // Save in background thread
+        self.saveContext()
+    }
+    
+    // MARK: Find object
+    func findRecordInBackgroundManagedObjectContext(managedObjectId: NSManagedObjectID) -> NSManagedObject {
+        return findRecord(managedObjectId, managedObjectContext: self.backgroundContext!)
+    }
+    private func findRecord(managedObjectId: NSManagedObjectID, managedObjectContext: NSManagedObjectContext) -> NSManagedObject {
+        let managedObject = managedObjectContext.objectWithID(managedObjectId)
+        return managedObject
+    }
+    
+    // MARK: DELETE: Delete AlarmRecord and RepeatDate in cascade
+    func deleteAlarmRecord(alarmRecord record: AlarmRecord) {
+        // Find this object in background managed object context
+        let managedObject = findRecord(record.objectID, managedObjectContext: self.backgroundContext!)
+        self.backgroundContext!.deleteObject(managedObject)
         // Save in background thread
         self.saveContext()
     }
