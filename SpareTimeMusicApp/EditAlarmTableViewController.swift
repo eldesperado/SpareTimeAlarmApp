@@ -19,6 +19,11 @@ class EditAlarmTableViewController: UITableViewController {
 
     var alarmRecord: AlarmRecord?
     
+    lazy var cdh: CoreDataHelper = {
+        let cdh = CoreDataHelper()
+        return cdh
+        }()
+    
     // Private constant
     private let REPEAT_DATE_CELL: Int = 0
     private let RINGTONE_TYPE_CELL: Int = 1
@@ -34,12 +39,43 @@ class EditAlarmTableViewController: UITableViewController {
         setup()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        // Update Navigation Title
+        if alarmRecord == nil {
+            self.navigationItem.title = "New Alarm"
+        } else {
+            self.navigationItem.title = "Edit Alarm"
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // Check whether alarmRecord variable has value or not, if not create a temporary new alarm record to create new alarm
+        if self.alarmRecord == nil {
+            self.alarmRecord = self.cdh.createTempAlarmRecord()
+        }
+    }
+    
     // MARK: Actions
     @IBAction func alarmTimePickerValueChanged(sender: AnyObject) {
     }
     
-    func rightNavItemEditClick(sender: UIButton!) {
-        
+    let unwindSegueId = "doneEditingAlarmUnwindSegue"
+    @IBAction func doneBarButtonDidTouch(sender: AnyObject) {
+        if let record = self.alarmRecord {
+            let backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as! AlarmRecord
+            backgroundObject.alarmTime = self.alarmTimePickerView.timeInterval
+            backgroundObject.salutationText = (self.salutationTextLabel.text != nil ? self.salutationTextLabel.text! : "")
+            backgroundObject.isRepeat = self.repeatRingtoneSwitch.isOn()
+            backgroundObject.isActive = NSNumber(int: 1)
+            // Update alarmRecord
+            self.alarmRecord = backgroundObject
+            // Save new alarm
+            self.cdh.saveContext()
+            // Perform Unwind Segue
+            self.performSegueWithIdentifier(self.unwindSegueId, sender: self)
+        }
     }
     
     // MARK: - Table view data source
@@ -80,9 +116,11 @@ class EditAlarmTableViewController: UITableViewController {
             self.salutationTextLabel.text = record.salutationText as String
             
             // Set Value for switch
-            self.repeatRingtoneSwitch.on = record.isActive.boolValue
+            self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
         } else {
             // Set Default values
+            self.repeatDatesLabel.text = "Select Repeat Dates"
+            self.ringtoneTypeStringLabel.text = "Select Ringtone Type"
             self.salutationTextLabel.text = ""
             self.repeatRingtoneSwitch.on = false
             // Set current time for time picker view
@@ -97,28 +135,18 @@ class EditAlarmTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == self.pushIdentifer {
             if let record: AlarmRecord = sender as? AlarmRecord {
+                let backgroundRecord = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as! AlarmRecord
                 let repeatDateSelectionVC = segue.destinationViewController as! RepeatDateSelectionViewController
-                repeatDateSelectionVC.repeatDates = record.repeatDates
+                repeatDateSelectionVC.repeatDates = backgroundRecord.repeatDates
             }
         }
     }
+    
     
     // MARK: Setup View
     private func setupView() {
         // Hide Back Button Title
         hideBackButtonTitle()
-        // Configure Navigation Bar Button Items
-        configureNavigationBar()
-    }
-    
-    // Configure Navigation Bar
-    private func configureNavigationBar() {
-        let buttonDone: UIButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
-        buttonDone.frame = CGRectMake(0, 0, 43, 30)
-        buttonDone.setImage(UIImage(named:"done"), forState: UIControlState.Normal)
-        buttonDone.addTarget(self, action: "rightNavItemEditClick:", forControlEvents: UIControlEvents.TouchUpInside)
-        var rightBarButtonItemDone: UIBarButtonItem = UIBarButtonItem(customView: buttonDone)
-        self.navigationItem.setRightBarButtonItem(rightBarButtonItemDone, animated: false)
     }
 
 }

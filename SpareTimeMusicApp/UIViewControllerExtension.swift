@@ -8,7 +8,9 @@
 
 import UIKit
 
+
 extension UIViewController {
+
     func setupNavigation() {
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
@@ -20,5 +22,13 @@ extension UIViewController {
     
     func hideBackButtonTitle() {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+    }
+}
+
+extension UILabel {
+    // Fixing AutoLayout bug (http://benguild.com/2014/07/15/fixing-autolayout-uIlabel-ios/)
+    public override func layoutSubviews() {
+        self.preferredMaxLayoutWidth = self.bounds.size.width
+        super.layoutSubviews()
     }
 }

@@ -1,4 +1,4 @@
-//
+ //
 //  AlarmListViewController.swift
 //  SpareTimeMusicApp
 //
@@ -22,16 +22,20 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         }()
     
     var alarmRecordArray: [AlarmRecord]!
+    var workingRecord: AlarmRecord?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Setup View
-        setupView()
         // Load Data
         loadData()
+        // Setup View
+        setupView()
     }
     
     func loadData() {
+        if self.alarmRecordArray != nil {
+            self.alarmRecordArray = nil
+        }
         self.alarmRecordArray = self.cdh.listAllActiveAlarmRecordsMostRecently()
     }
     
@@ -102,9 +106,43 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         updateClock()
     }
     
-    private func updateClock() {
+    func updateClock() {
         self.clockView.setNeedsDisplay()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateClock"), userInfo: nil, repeats: false)
     }
 
+    // MARK: Actions
+    @IBAction func doneEditingAlarmRecord(segue:UIStoryboardSegue) {
+        let editAlarmRecordVC = segue.sourceViewController as! EditAlarmTableViewController
+        // Get created or edited alarm record from EditAlarmRecordVC
+        self.workingRecord = editAlarmRecordVC.alarmRecord
+        if let record = self.workingRecord {
+            // Find which cell containing this record
+            if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
+                // Update Alarm Array
+                updateTableViewCell(record, recordIndex: recordIndex)
+            } else {
+                // Add new Cell
+                insertTableViewCell(record)
+            }
+        }
+    }
+
+    private func updateTableViewCell(record: AlarmRecord, recordIndex: Int) {
+        // Update Alarm Array
+        loadData()
+        // Update Cell
+        self.updateTableViewCell(recordIndex, section: 0, tableView: self.recordsTableView, newAlarmRecord: record, coreDataHelper: self.cdh)
+    }
+    
+    func insertTableViewCell(record: AlarmRecord) {
+        // Update before add new cell
+        loadData()
+        // Find which cell containing this record
+        if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
+            self.recordsTableView.beginUpdates()
+            self.recordsTableView.insertRowsAtIndexPaths([NSIndexPath(forItem: recordIndex, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
+            self.recordsTableView.endUpdates()
+        }
+    }
 }

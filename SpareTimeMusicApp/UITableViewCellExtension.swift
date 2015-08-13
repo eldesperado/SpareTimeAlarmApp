@@ -15,9 +15,10 @@ private protocol NTTableViewCellLayout {
 }
 
 extension UITableViewCell: NTTableViewCellLayout {
+    // MARK: Private Attributes
     private var topSeparator: UIView {
         get {
-            let view = UIView(frame: CGRectMake(0, 1.0, self.contentView.frame.size.width, 1))
+            let view = UIView(frame: CGRectMake(0, 1.0, self.frame.size.width, 1))
             view.backgroundColor = self.separatorColour
             return view
         }
@@ -26,8 +27,8 @@ extension UITableViewCell: NTTableViewCellLayout {
     private var rightSeparator: UIView {
         get {
             let rightSeperatorPaddingConstant: CGFloat = 0.52
-            let rightSeperatorTopPadding = self.contentView.frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
-            let view = UIView(frame: CGRectMake(self.contentView.frame.size.width - 1, rightSeperatorTopPadding, 1.0, self.contentView.frame.height * rightSeperatorPaddingConstant))
+            let rightSeperatorTopPadding = self.frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
+            let view = UIView(frame: CGRectMake(self.frame.size.width - 1, rightSeperatorTopPadding, 1.0, self.frame.height * rightSeperatorPaddingConstant))
             view.backgroundColor = self.separatorColour
             return view
         }
@@ -45,11 +46,11 @@ extension UITableViewCell: NTTableViewCellLayout {
         setupCellViews()
     }
     
+    // MARK: Setup Default TableViewCells
     func setupCellViews() {
         // Add Separator
         self.topSeparator.removeFromSuperview()
         self.topSeparator.layoutIfNeeded()
         self.addSubview(self.topSeparator)
     }
-
 }

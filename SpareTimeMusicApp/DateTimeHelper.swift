@@ -29,4 +29,12 @@ struct DateTimeHelper {
         let weekdayString = dateFormatter.stringFromDate(date)
         return (components.hour, components.day, components.weekday, weekdayString)
     }
+    
+    static func getAlarmTime(let alarmTime time: NSNumber) -> String {
+        let hour = time.integerValue / 60
+        let minute = time.integerValue - hour * 60
+        let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
+        let minuteString = minute < 10 ? "0\(minute)" : "\(minute)"
+        return "\(hourString):\(minuteString)"
+    }
 }

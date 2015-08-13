@@ -47,5 +47,25 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell: RepeatDateSelectionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RepeatDateSelectionTableViewCell
         cell.checkIconImageView.hidden = !cell.checkIconImageView.hidden
-    }    
+        if let date = self.repeatDates {
+            switch (indexPath.row) {
+            case NumberToDate.Monday.rawValue:
+                date.isMon = !date.isMon.boolValue
+            case NumberToDate.Tuesday.rawValue:
+                date.isTue = !date.isTue.boolValue
+            case NumberToDate.Wednesday.rawValue:
+                date.isWed = !date.isWed.boolValue
+            case NumberToDate.Thursday.rawValue:
+                date.isThu = !date.isThu.boolValue
+            case NumberToDate.Friday.rawValue:
+                date.isFri = !date.isFri.boolValue
+            case NumberToDate.Saturday.rawValue:
+                date.isSat = !date.isSat.boolValue
+            case NumberToDate.Sunday.rawValue:
+                date.isSun = !date.isSun.boolValue
+            default:
+                break
+            }
+        }
+    }
 }

@@ -53,7 +53,7 @@ class AlarmRecordTableViewCell: UITableViewCell {
         // Assign CoreDataHelper
         self.coreDataHelper = coreDataHelper
         // Get Alarm Time as a String
-        let alarmString = RecordHelper.getAlarmTime(alarmTime: record.alarmTime)
+        let alarmString = DateTimeHelper.getAlarmTime(alarmTime: record.alarmTime)
         self.alarmTimeLabel.text = alarmString
         
         // Get Repeat Dates as a String

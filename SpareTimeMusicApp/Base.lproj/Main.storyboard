@@ -33,14 +33,14 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="44" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ORN-t9-DFr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="adV-7c-7EC">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="U9H-0c-LTU">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
@@ -84,6 +84,13 @@
                                                     </connections>
                                                 </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="nRx-w5-2Rw" firstAttribute="top" secondItem="0if-fe-eCk" secondAttribute="bottom" constant="10" id="2qH-tL-ZlN"/>
+                                                <constraint firstItem="0if-fe-eCk" firstAttribute="leading" secondItem="19m-uS-Kzv" secondAttribute="leading" constant="14" id="6At-wn-EXE"/>
+                                                <constraint firstAttribute="bottom" secondItem="nRx-w5-2Rw" secondAttribute="bottom" constant="9" id="ACx-1x-18y"/>
+                                                <constraint firstItem="0if-fe-eCk" firstAttribute="top" secondItem="19m-uS-Kzv" secondAttribute="top" constant="16" id="KUr-QJ-YHI"/>
+                                                <constraint firstItem="nRx-w5-2Rw" firstAttribute="leading" secondItem="19m-uS-Kzv" secondAttribute="leading" constant="13.5" id="RLj-Hh-hg3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
@@ -105,7 +112,7 @@
                         <barButtonItem key="leftBarButtonItem" image="setting" id="qm4-Uu-tvA"/>
                         <barButtonItem key="rightBarButtonItem" image="add" id="Mfa-4r-Ixc">
                             <connections>
-                                <segue destination="ZVn-Di-sJc" kind="show" id="mfz-O9-X7f"/>
+                                <segue destination="ZVn-Di-sJc" kind="show" id="JcQ-r5-Xzg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -169,7 +176,7 @@
             <objects>
                 <tableViewController id="ZVn-Di-sJc" customClass="EditAlarmTableViewController" customModule="SpareTimeAlarmApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YVJ-G9-u3q">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="0zA-yu-ZJj" userLabel="Time Picker View">
@@ -177,7 +184,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zno-h1-Mum" customClass="NTTimeIntervalPickerView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="8" width="387" height="179"/>
+                                    <rect key="frame" x="0.0" y="8" width="375" height="179"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
@@ -192,19 +199,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pxd-lj-OiY" id="6ur-nG-oGy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Repeat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfO-w2-ab8">
-                                                    <rect key="frame" x="22" y="16" width="68" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfO-w2-ab8">
+                                                    <rect key="frame" x="22" y="16" width="64" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today, Wednesday, Thursday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFg-33-5t2">
-                                                    <rect key="frame" x="22" y="46" width="258" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" text="Today, Wednesday, Thursday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFg-33-5t2">
+                                                    <rect key="frame" x="22" y="47" width="167.5" height="20"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mfO-w2-ab8" firstAttribute="leading" secondItem="6ur-nG-oGy" secondAttribute="leading" constant="22" id="0UQ-wu-TnT"/>
+                                                <constraint firstItem="vFg-33-5t2" firstAttribute="leading" secondItem="6ur-nG-oGy" secondAttribute="leading" constant="22" id="5wp-0r-Gw9"/>
+                                                <constraint firstItem="vFg-33-5t2" firstAttribute="top" secondItem="mfO-w2-ab8" secondAttribute="bottom" constant="10" id="kbD-zd-A1V"/>
+                                                <constraint firstAttribute="bottom" secondItem="vFg-33-5t2" secondAttribute="bottom" constant="9" id="myW-xS-Xsm"/>
+                                                <constraint firstItem="mfO-w2-ab8" firstAttribute="top" secondItem="6ur-nG-oGy" secondAttribute="top" constant="16" id="zWX-LI-xXW"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -214,19 +228,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bt8-yc-uob" id="agT-Fo-pqd">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ringtone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeH-Vj-WB2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ringtone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XeH-Vj-WB2">
                                                     <rect key="frame" x="22" y="16" width="81" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ring, Dong, Bong" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhB-jm-jK3">
-                                                    <rect key="frame" x="22" y="46" width="258" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" text="Ring, Dong, Bong" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhB-jm-jK3">
+                                                    <rect key="frame" x="22" y="46" width="101.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XeH-Vj-WB2" firstAttribute="top" secondItem="agT-Fo-pqd" secondAttribute="top" constant="16" id="6yu-4W-hNb"/>
+                                                <constraint firstItem="fhB-jm-jK3" firstAttribute="leading" secondItem="agT-Fo-pqd" secondAttribute="leading" constant="22" id="Eub-Nc-Ldt"/>
+                                                <constraint firstItem="fhB-jm-jK3" firstAttribute="top" secondItem="XeH-Vj-WB2" secondAttribute="bottom" constant="9" id="KdK-iw-95J"/>
+                                                <constraint firstItem="XeH-Vj-WB2" firstAttribute="leading" secondItem="agT-Fo-pqd" secondAttribute="leading" constant="22" id="QuU-2Q-wra"/>
+                                                <constraint firstAttribute="bottom" secondItem="fhB-jm-jK3" secondAttribute="bottom" constant="9" id="oQR-bV-T2P"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -236,19 +257,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LYX-I0-DcJ" id="gZ6-cc-Ud1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Salutation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3u-H8-uXS">
-                                                    <rect key="frame" x="22" y="16" width="320" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salutation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3u-H8-uXS">
+                                                    <rect key="frame" x="22" y="16" width="89.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wake up!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ3-hr-wFk">
-                                                    <rect key="frame" x="22" y="46" width="258" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" text="Wake up!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ3-hr-wFk">
+                                                    <rect key="frame" x="22" y="46" width="55.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="K3u-H8-uXS" firstAttribute="top" secondItem="gZ6-cc-Ud1" secondAttribute="top" constant="16" id="02M-qG-A11"/>
+                                                <constraint firstItem="PZ3-hr-wFk" firstAttribute="top" secondItem="K3u-H8-uXS" secondAttribute="bottom" constant="9" id="W29-Ir-XHc"/>
+                                                <constraint firstAttribute="bottom" secondItem="PZ3-hr-wFk" secondAttribute="bottom" constant="9" id="ae2-8S-QIs"/>
+                                                <constraint firstItem="PZ3-hr-wFk" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="dwJ-nt-NRE"/>
+                                                <constraint firstItem="K3u-H8-uXS" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="jHP-JF-g6I"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -258,17 +286,28 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GFY-j3-ey4" id="iLc-VE-YJD">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lc-Vc-zo6" userLabel="NTSwitch" customClass="NTSwitch" customModule="SpareTimeAlarmApp" customModuleProvider="target">
-                                                    <rect key="frame" x="317" y="23" width="50" height="30"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat ringtone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUg-uf-I29">
-                                                    <rect key="frame" x="22" y="29" width="146" height="21"/>
+                                                    <rect key="frame" x="22" y="29" width="287" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lc-Vc-zo6" userLabel="NTSwitch" customClass="NTSwitch" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="317" y="23" width="50" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="0Ky-fJ-NrX"/>
+                                                        <constraint firstAttribute="height" constant="30" id="y5t-xf-DHi"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4Lc-Vc-zo6" firstAttribute="leading" secondItem="vUg-uf-I29" secondAttribute="trailing" constant="8" id="7hD-9X-A0f"/>
+                                                <constraint firstAttribute="centerY" secondItem="vUg-uf-I29" secondAttribute="centerY" id="8jS-im-yxs"/>
+                                                <constraint firstItem="vUg-uf-I29" firstAttribute="leading" secondItem="iLc-VE-YJD" secondAttribute="leading" constant="22" id="Ai0-UL-2fQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="4Lc-Vc-zo6" secondAttribute="centerY" id="dhL-3X-56h"/>
+                                                <constraint firstAttribute="trailing" secondItem="4Lc-Vc-zo6" secondAttribute="trailing" constant="8" id="lBn-KY-4rn"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -280,6 +319,13 @@
                             <outlet property="delegate" destination="ZVn-Di-sJc" id="IFb-xe-dMq"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="nqv-xU-Ksw">
+                        <barButtonItem key="rightBarButtonItem" image="done" id="TGR-vf-N99">
+                            <connections>
+                                <action selector="doneBarButtonDidTouch:" destination="ZVn-Di-sJc" id="1Aw-pc-7O6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="alarmSettingTableView" destination="YVJ-G9-u3q" id="Wuw-tc-28L"/>
                         <outlet property="alarmTimePickerView" destination="Zno-h1-Mum" id="ZIO-R9-TzM"/>
@@ -288,23 +334,25 @@
                         <outlet property="ringtoneTypeStringLabel" destination="fhB-jm-jK3" id="Jfd-o5-VdI"/>
                         <outlet property="salutationTextLabel" destination="PZ3-hr-wFk" id="GAH-ZQ-2LC"/>
                         <segue destination="lIP-pt-uty" kind="show" identifier="showRepeatDates" id="snA-x0-zdg"/>
+                        <segue destination="LrT-tc-f1B" kind="unwind" identifier="doneEditingAlarmUnwindSegue" unwindAction="doneEditingAlarmRecord:" id="wKn-QH-NEc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PWl-Gc-YHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LrT-tc-f1B" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1292.5" y="257.5"/>
         </scene>
-        <!--Repeat Date Selection View Controller-->
+        <!--Repeat-->
         <scene sceneID="JEA-Jg-O5w">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SPs-uy-tqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="lIP-pt-uty" customClass="RepeatDateSelectionViewController" customModule="SpareTimeAlarmApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Repeat" id="lIP-pt-uty" customClass="RepeatDateSelectionViewController" customModule="SpareTimeAlarmApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="stu-Fa-fUs"/>
                         <viewControllerLayoutGuide type="bottom" id="ZPL-iJ-aBd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RoM-c1-dVH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="jB4-Pk-4Mg">
@@ -320,7 +368,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ljb-Z9-aaR" id="Zpd-3A-npL">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sunday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYy-vd-UEE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Day" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYy-vd-UEE">
                                                     <rect key="frame" x="16" y="14" width="146" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -346,6 +394,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1777.5" y="257.5"/>
@@ -360,6 +410,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -375,6 +429,7 @@
         <image name="add" width="21" height="21"/>
         <image name="background" width="375" height="667"/>
         <image name="button" width="320" height="64"/>
+        <image name="done" width="21" height="18"/>
         <image name="done small" width="17" height="15"/>
         <image name="setting" width="21" height="21"/>
     </resources>

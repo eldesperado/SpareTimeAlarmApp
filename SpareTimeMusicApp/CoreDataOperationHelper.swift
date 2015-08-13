@@ -83,12 +83,15 @@ struct RecordHelper {
         return string
     }
     
-    static func getAlarmTime(let alarmTime time: NSNumber) -> String {
-        let hour = time.integerValue / 60
-        let minute = time.integerValue - hour * 60
-        let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
-        let minuteString = minute < 10 ? "0\(minute)" : "\(minute)"
-        return "\(hourString):\(minuteString)"
+    static func getAlarmRecordIndexInAlarmArrays(alarmArray: [AlarmRecord], wantedObjectID: NSManagedObjectID) -> Int? {
+        var i = 0
+        for record in alarmArray {
+            if record.objectID == wantedObjectID {
+                return i
+            }
+            i++
+        }
+        return nil
     }
 }
 
@@ -143,6 +146,23 @@ extension CoreDataHelper {
     
     
     // MARK: INSERT: Insert AlarmRecord table's records in background
+    func createTempAlarmRecord() -> AlarmRecord {
+        var newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
+        var newRDates: RepeatDate = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.RepeatDate.rawValue, inManagedObjectContext: self.backgroundContext!) as! RepeatDate
+        let val = 0
+        newRDates.isMon = val
+        newRDates.isTue = val
+        newRDates.isWed = val
+        newRDates.isThu = val
+        newRDates.isFri = val
+        newRDates.isSat = val
+        newRDates.isSun = val
+        newRDates.ofRecord = newRecord
+        newRecord.repeatDates = newRDates
+
+        return newRecord
+    }
+    
     func insertAlarmRecord(alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String? = "", isRepeat: Bool, repeatDate: RepeatDate?) {
         
         var newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
@@ -175,7 +195,7 @@ extension CoreDataHelper {
     func findRecordInBackgroundManagedObjectContext(managedObjectId: NSManagedObjectID) -> NSManagedObject {
         return findRecord(managedObjectId, managedObjectContext: self.backgroundContext!)
     }
-    private func findRecord(managedObjectId: NSManagedObjectID, managedObjectContext: NSManagedObjectContext) -> NSManagedObject {
+    func findRecord(managedObjectId: NSManagedObjectID, managedObjectContext: NSManagedObjectContext) -> NSManagedObject {
         let managedObject = managedObjectContext.objectWithID(managedObjectId)
         return managedObject
     }
