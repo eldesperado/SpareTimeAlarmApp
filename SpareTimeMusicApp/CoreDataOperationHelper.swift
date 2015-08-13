@@ -54,10 +54,8 @@ struct RecordHelper {
             if currentDay == 6 {
                 string += ", Today"
             } else {
-                string += ", Thu"
+                string += ", Fri"
             }
-
-            string += ", Fri"
         }
         if repeatDates.isSat.boolValue {
             if currentDay == 7 {

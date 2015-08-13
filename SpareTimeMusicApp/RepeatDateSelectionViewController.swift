@@ -16,6 +16,17 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    let unwindSegueId = "doneRepeatDatesSelectionUnwindSegue"
+    override func viewWillDisappear(animated: Bool) {
+        // Detect whether back button is pressed or not, if pressed, perform unwind segue
+        if (find(self.navigationController!.viewControllers as! [UIViewController], self) == nil) {
+            // back button was pressed.  We know this is true because self is no longer
+            // in the navigation stack.
+            self.performSegueWithIdentifier(unwindSegueId, sender: self)
+        }
+        super.viewWillDisappear(animated)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,5 +78,10 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
                 break
             }
         }
+    }
+    
+    // MARK: Navigation Configuration
+    func configureNavigation() {
+
     }
 }

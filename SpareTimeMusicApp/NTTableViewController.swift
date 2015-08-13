@@ -19,10 +19,10 @@ extension UIViewController: NTTableViewController {
     func updateTableViewCell(indexOfCell: Int, section: Int, tableView: UITableView, newAlarmRecord: AlarmRecord, coreDataHelper: CoreDataHelper) {
         var record = coreDataHelper.findRecord(newAlarmRecord.objectID, managedObjectContext: coreDataHelper.managedObjectContext!) as! AlarmRecord
         // Update Record
-        record.alarmTime = newAlarmRecord.alarmTime
+        record.copyValueFrom(newAlarmRecord)
         tableView.beginUpdates()
         // Update TableViewCell
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: indexOfCell, inSection: section)], withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexOfCell, inSection: section)], withRowAnimation: UITableViewRowAnimation.Fade)
         tableView.endUpdates()
     }
 }

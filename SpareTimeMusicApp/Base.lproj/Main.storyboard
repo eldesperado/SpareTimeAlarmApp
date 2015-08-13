@@ -263,19 +263,20 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.50999999046325684" contentMode="left" horizontalHuggingPriority="251" text="Wake up!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZ3-hr-wFk">
-                                                    <rect key="frame" x="22" y="46" width="55.5" height="21"/>
-                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
+                                                <textField opaque="NO" clipsSubviews="YES" alpha="0.50999999046325695" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G6b-Qe-3w8">
+                                                    <rect key="frame" x="22" y="46" width="345" height="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
+                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="K3u-H8-uXS" firstAttribute="top" secondItem="gZ6-cc-Ud1" secondAttribute="top" constant="16" id="02M-qG-A11"/>
-                                                <constraint firstItem="PZ3-hr-wFk" firstAttribute="top" secondItem="K3u-H8-uXS" secondAttribute="bottom" constant="9" id="W29-Ir-XHc"/>
-                                                <constraint firstAttribute="bottom" secondItem="PZ3-hr-wFk" secondAttribute="bottom" constant="9" id="ae2-8S-QIs"/>
-                                                <constraint firstItem="PZ3-hr-wFk" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="dwJ-nt-NRE"/>
+                                                <constraint firstItem="G6b-Qe-3w8" firstAttribute="top" secondItem="K3u-H8-uXS" secondAttribute="bottom" constant="9" id="FhL-tP-d5K"/>
+                                                <constraint firstAttribute="bottom" secondItem="G6b-Qe-3w8" secondAttribute="bottom" id="H9i-ed-eiN"/>
+                                                <constraint firstAttribute="trailing" secondItem="G6b-Qe-3w8" secondAttribute="trailing" constant="8" id="OH9-ts-8BP"/>
                                                 <constraint firstItem="K3u-H8-uXS" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="jHP-JF-g6I"/>
+                                                <constraint firstItem="G6b-Qe-3w8" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="kkQ-6m-0wu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -332,7 +333,7 @@
                         <outlet property="repeatDatesLabel" destination="vFg-33-5t2" id="ZiL-fz-gPm"/>
                         <outlet property="repeatRingtoneSwitch" destination="4Lc-Vc-zo6" id="YjO-kn-N33"/>
                         <outlet property="ringtoneTypeStringLabel" destination="fhB-jm-jK3" id="Jfd-o5-VdI"/>
-                        <outlet property="salutationTextLabel" destination="PZ3-hr-wFk" id="GAH-ZQ-2LC"/>
+                        <outlet property="salutationTextField" destination="G6b-Qe-3w8" id="gAP-Qm-Mp6"/>
                         <segue destination="lIP-pt-uty" kind="show" identifier="showRepeatDates" id="snA-x0-zdg"/>
                         <segue destination="LrT-tc-f1B" kind="unwind" identifier="doneEditingAlarmUnwindSegue" unwindAction="doneEditingAlarmRecord:" id="wKn-QH-NEc"/>
                     </connections>
@@ -345,7 +346,6 @@
         <!--Repeat-->
         <scene sceneID="JEA-Jg-O5w">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SPs-uy-tqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Repeat" id="lIP-pt-uty" customClass="RepeatDateSelectionViewController" customModule="SpareTimeAlarmApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="stu-Fa-fUs"/>
@@ -396,7 +396,12 @@
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Ogw-6r-zJJ" kind="unwind" identifier="doneRepeatDatesSelectionUnwindSegue" unwindAction="doneRepeatDatesSelectionUnwindSegue:" id="Eqr-HR-Irh"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPs-uy-tqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ogw-6r-zJJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1777.5" y="257.5"/>
         </scene>

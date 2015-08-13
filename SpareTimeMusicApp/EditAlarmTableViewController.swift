@@ -14,7 +14,7 @@ class EditAlarmTableViewController: UITableViewController {
     @IBOutlet weak private var alarmSettingTableView: UITableView!
     @IBOutlet weak private var repeatDatesLabel: UILabel!
     @IBOutlet weak private var ringtoneTypeStringLabel: UILabel!
-    @IBOutlet weak private var salutationTextLabel: UILabel!
+    @IBOutlet weak var salutationTextField: UITextField!
     @IBOutlet weak private var repeatRingtoneSwitch: NTSwitch!
 
     var alarmRecord: AlarmRecord?
@@ -65,10 +65,12 @@ class EditAlarmTableViewController: UITableViewController {
     @IBAction func doneBarButtonDidTouch(sender: AnyObject) {
         if let record = self.alarmRecord {
             let backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as! AlarmRecord
+            // Update Alarm Record with new values
             backgroundObject.alarmTime = self.alarmTimePickerView.timeInterval
-            backgroundObject.salutationText = (self.salutationTextLabel.text != nil ? self.salutationTextLabel.text! : "")
+            backgroundObject.salutationText = self.salutationTextField.text
             backgroundObject.isRepeat = self.repeatRingtoneSwitch.isOn()
             backgroundObject.isActive = NSNumber(int: 1)
+            backgroundObject.repeatDates.copyValueFrom(record.repeatDates)
             // Update alarmRecord
             self.alarmRecord = backgroundObject
             // Save new alarm
@@ -107,13 +109,11 @@ class EditAlarmTableViewController: UITableViewController {
             // Set Alarm Time
             self.alarmTimePickerView.setTimeIntervalAnimate(NSTimeInterval(record.alarmTime))
             
-            // Get Repeat Dates as a String
-            let repeatDateString = RecordHelper.getRepeatDatesString(record.repeatDates)
             // Set RepeatDate Label
-            self.repeatDatesLabel.text = repeatDateString
+            updateRepeatDateLabel(record.repeatDates)
             
             // Set Salutation Label
-            self.salutationTextLabel.text = record.salutationText as String
+            self.salutationTextField.text = record.salutationText as String
             
             // Set Value for switch
             self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
@@ -121,7 +121,6 @@ class EditAlarmTableViewController: UITableViewController {
             // Set Default values
             self.repeatDatesLabel.text = "Select Repeat Dates"
             self.ringtoneTypeStringLabel.text = "Select Ringtone Type"
-            self.salutationTextLabel.text = ""
             self.repeatRingtoneSwitch.on = false
             // Set current time for time picker view
             let currentTime = DateTimeHelper.getCurrentTime()
@@ -130,6 +129,12 @@ class EditAlarmTableViewController: UITableViewController {
         }
     }
     
+    private func updateRepeatDateLabel(repeatDates: RepeatDate) {
+        // Get Repeat Dates as a String
+        let repeatDateString = RecordHelper.getRepeatDatesString(repeatDates)
+        // Set RepeatDate Label
+        self.repeatDatesLabel.text = repeatDateString
+    }
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -142,6 +147,11 @@ class EditAlarmTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func doneRepeatDatesSelectionUnwindSegue(segue:UIStoryboardSegue) {
+        // Update Repeat Date TableViewCell
+        let repeatDatesSelectionVC = segue.sourceViewController as! RepeatDateSelectionViewController
+        updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
+    }
     
     // MARK: Setup View
     private func setupView() {
