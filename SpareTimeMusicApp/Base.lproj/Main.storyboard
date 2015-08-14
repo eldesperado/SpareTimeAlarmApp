@@ -139,23 +139,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iib-Cy-Z03">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="iib-Cy-Z03">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="07:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMu-DF-eU1">
-                                <rect key="frame" x="24" y="188" width="326" height="163"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="07:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMu-DF-eU1">
+                                <rect key="frame" x="24.5" y="165" width="325.5" height="151.5"/>
                                 <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="130"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time to wake UP, Carl!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKe-vK-1tM">
-                                <rect key="frame" x="24" y="330" width="326" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time to wake UP, Carl!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GKe-vK-1tM">
+                                <rect key="frame" x="25.5" y="324.5" width="323" height="37.5"/>
                                 <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FPY-TD-wk4">
-                                <rect key="frame" x="27" y="583" width="320" height="64"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FPY-TD-wk4">
+                                <rect key="frame" x="27" y="573" width="320" height="64"/>
                                 <fontDescription key="fontDescription" name="RotondaC-Bold" family="RotondaC" pointSize="22"/>
                                 <state key="normal" title="Shut down" backgroundImage="button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -163,6 +163,19 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="iib-Cy-Z03" secondAttribute="trailing" id="1MG-60-LdY"/>
+                            <constraint firstItem="FPY-TD-wk4" firstAttribute="leading" secondItem="Wsb-VD-PHe" secondAttribute="leading" constant="27" id="7mv-xE-vcA"/>
+                            <constraint firstItem="FPY-TD-wk4" firstAttribute="top" secondItem="GKe-vK-1tM" secondAttribute="bottom" constant="211" id="Dfa-Vp-wYQ"/>
+                            <constraint firstItem="GKe-vK-1tM" firstAttribute="centerX" secondItem="xMu-DF-eU1" secondAttribute="centerX" id="EhP-iR-SlT"/>
+                            <constraint firstItem="iib-Cy-Z03" firstAttribute="top" secondItem="Wsb-VD-PHe" secondAttribute="top" id="GR1-1i-Hou"/>
+                            <constraint firstItem="GKe-vK-1tM" firstAttribute="top" secondItem="xMu-DF-eU1" secondAttribute="bottom" constant="8" id="H84-lo-VOy"/>
+                            <constraint firstItem="R4e-o6-BHl" firstAttribute="top" secondItem="iib-Cy-Z03" secondAttribute="bottom" id="KJf-0K-BRt"/>
+                            <constraint firstAttribute="trailing" secondItem="FPY-TD-wk4" secondAttribute="trailing" constant="28" id="MC0-bv-3Mp"/>
+                            <constraint firstItem="R4e-o6-BHl" firstAttribute="top" secondItem="FPY-TD-wk4" secondAttribute="bottom" constant="30" id="NA2-jJ-h1A"/>
+                            <constraint firstAttribute="centerX" secondItem="xMu-DF-eU1" secondAttribute="centerX" id="gyO-eb-esg"/>
+                            <constraint firstItem="iib-Cy-Z03" firstAttribute="leading" secondItem="Wsb-VD-PHe" secondAttribute="leading" id="rB5-Yf-iLi"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
@@ -338,7 +351,7 @@
                         <outlet property="repeatDatesLabel" destination="vFg-33-5t2" id="ZiL-fz-gPm"/>
                         <outlet property="repeatRingtoneSwitch" destination="4Lc-Vc-zo6" id="YjO-kn-N33"/>
                         <outlet property="ringtoneTypeStringLabel" destination="fhB-jm-jK3" id="Jfd-o5-VdI"/>
-                        <outlet property="salutationTextField" destination="G6b-Qe-3w8" id="gAP-Qm-Mp6"/>
+                        <outlet property="salutationTextField" destination="G6b-Qe-3w8" id="1YP-1I-z4Z"/>
                         <segue destination="lIP-pt-uty" kind="show" identifier="showRepeatDates" id="snA-x0-zdg"/>
                         <segue destination="LrT-tc-f1B" kind="unwind" identifier="doneEditingAlarmUnwindSegue" unwindAction="doneEditingAlarmRecord:" id="wKn-QH-NEc"/>
                     </connections>
@@ -438,7 +451,7 @@
     <resources>
         <image name="add" width="21" height="21"/>
         <image name="background" width="375" height="667"/>
-        <image name="button" width="320" height="64"/>
+        <image name="button" width="65" height="64"/>
         <image name="done" width="21" height="18"/>
         <image name="done small" width="17" height="15"/>
         <image name="setting" width="21" height="21"/>

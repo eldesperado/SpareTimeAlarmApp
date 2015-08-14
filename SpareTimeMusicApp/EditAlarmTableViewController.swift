@@ -14,7 +14,7 @@ class EditAlarmTableViewController: UITableViewController {
     @IBOutlet weak private var alarmSettingTableView: UITableView!
     @IBOutlet weak private var repeatDatesLabel: UILabel!
     @IBOutlet weak private var ringtoneTypeStringLabel: UILabel!
-    @IBOutlet weak var salutationTextField: UITextField!
+    @IBOutlet weak var salutationTextField: FancyTextField!
     @IBOutlet weak private var repeatRingtoneSwitch: NTSwitch!
 
     var alarmRecord: AlarmRecord?
@@ -37,6 +37,9 @@ class EditAlarmTableViewController: UITableViewController {
         self.alarmSettingTableView.tableFooterView = UIView(frame: CGRectZero)
         // Setup Views
         setup()
+        // Add Action for salutation Text field
+        self.salutationTextField.actionWhenTextFieldDidBeginEditing = {self.showBlurViewWhenEditTextField()}
+        self.salutationTextField.actionWhenTextFieldDidEndEditing = {self.hideBlurViewWhenEndEdittingTextField()}
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -157,6 +160,78 @@ class EditAlarmTableViewController: UITableViewController {
     private func setupView() {
         // Hide Back Button Title
         hideBackButtonTitle()
+    }
+
+    // MARK: Animation Closures
+    let upperBlurViewTag: Int = 998
+    let belowBlurViewTag: Int = 999
+    func showBlurViewWhenEditTextField() {
+        // Toggle navigation bar
+        toggleNavigationbar(true)
+        
+        let textFieldCellRect = self.alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: self.SALUTATION_TEXT_CELL, inSection: 0))
+        // Add Upper Blur View
+        let upperBlurView: UIView = UIView(frame: CGRect(origin: CGPointZero, size: CGSizeMake(self.alarmSettingTableView.frame.width, textFieldCellRect.origin.y)))
+        upperBlurView.backgroundColor = UIColor.untMarineColor()
+        upperBlurView.alpha = 0.9
+        upperBlurView.tag = self.upperBlurViewTag
+        upperBlurView.userInteractionEnabled = true
+        upperBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideBlurViewWhenEndEdittingTextField"))
+        self.view.addSubview(upperBlurView)
+        
+        // Add Below Blur View
+        let belowBlurViewHeight = self.alarmSettingTableView.frame.size.height - textFieldCellRect.height - textFieldCellRect.origin.y
+        let belowBlurViewY = textFieldCellRect.origin.y + textFieldCellRect.height
+        let belowBlurView: UIView = UIView(frame: CGRect(origin: CGPointMake(0, belowBlurViewY), size: CGSizeMake(self.alarmSettingTableView.frame.width, belowBlurViewHeight)))
+        belowBlurView.backgroundColor = UIColor.untMarineColor()
+        belowBlurView.alpha = 0.0
+        belowBlurView.tag = self.belowBlurViewTag
+        belowBlurView.userInteractionEnabled = true
+        belowBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideBlurViewWhenEndEdittingTextField"))
+        self.view.addSubview(belowBlurView)
+        // Animate
+        UIView.animateWithDuration(0.5, animations: {
+            upperBlurView.alpha = 0.9
+            belowBlurView.alpha = 0.9
+            }, completion: { (completed) in
+        
+        })
+    }
+    
+    func hideBlurViewWhenEndEdittingTextField() {
+        UIView.animateWithDuration(0.5, animations: {
+            if let upperBlurView: UIView = self.view.viewWithTag(self.upperBlurViewTag) {
+                upperBlurView.alpha = 0
+            }
+            if let belowBlurView: UIView = self.view.viewWithTag(self.belowBlurViewTag) {
+                belowBlurView.alpha = 0
+            }
+            }, completion: { [unowned self] (completed) in
+                if let upperBlurView: UIView = self.view.viewWithTag(self.upperBlurViewTag) {
+                    upperBlurView.removeFromSuperview()
+                }
+                if let belowBlurView: UIView = self.view.viewWithTag(self.belowBlurViewTag) {
+                    belowBlurView.removeFromSuperview()
+                }
+                // Dimiss keyboard
+                self.salutationTextField.resignFirstResponder()
+                // Toggle navigation bar
+                self.toggleNavigationbar(false)
+   
+        })
+    }
+    
+    // MARK: Navigationbar
+    @IBAction func toggleNavigationbar(status: Bool) {
+        navigationController?.setNavigationBarHidden(status, animated: true) //or animated: false
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return navigationController?.navigationBarHidden == true
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
     }
 
 }

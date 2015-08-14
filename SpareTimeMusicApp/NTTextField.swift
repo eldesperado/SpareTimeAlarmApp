@@ -19,6 +19,16 @@ typealias Status = Int
 
 enum StatusType: Status {
     case Active = 1, Inactive = 0
+    var boolValue: Bool {
+        get {
+            switch (self) {
+            case .Active:
+                return true
+            case .Inactive:
+                return false
+        }
+        }
+    }
 }
 
 typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UIColor)
@@ -26,7 +36,10 @@ typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UICol
 class NTTextField: UITextField, NTTextFieldProtocol {
 
     let placeholderLabel = UILabel()
-    var isEdit: StatusType = StatusType.Inactive
+    internal var isEdit: StatusType = StatusType.Inactive
+    
+    var actionWhenTextFieldDidBeginEditing: (() -> Void)?
+    var actionWhenTextFieldDidEndEditing: (() -> Void)?
     
     func animateViewsForTextEntry() {
         fatalError("\(__FUNCTION__) must be overridden")
@@ -72,10 +85,18 @@ class NTTextField: UITextField, NTTextFieldProtocol {
     func textFieldDidBeginEditing() {
         self.isEdit = StatusType.Active
         animateViewsForTextEntry()
+        // Perform action if has
+        if let action = self.actionWhenTextFieldDidBeginEditing {
+            action()
+        }
     }
     
     func textFieldDidEndEditing() {
         self.isEdit = StatusType.Inactive
         animateViewsForTextDisplay()
+        // Perform action if has
+        if let action = self.actionWhenTextFieldDidEndEditing {
+            action()
+        }
     }
 }
