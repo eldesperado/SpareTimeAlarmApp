@@ -20,7 +20,6 @@
             <string>RotondaC</string>
             <string>RotondaC</string>
             <string>RotondaC</string>
-            <string>RotondaC</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -257,25 +256,31 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LYX-I0-DcJ" id="gZ6-cc-Ud1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salutation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3u-H8-uXS">
-                                                    <rect key="frame" x="22" y="16" width="89.5" height="21"/>
-                                                    <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" alpha="0.50999999046325695" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G6b-Qe-3w8">
-                                                    <rect key="frame" x="22" y="46" width="345" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Salutation" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G6b-Qe-3w8" customClass="FancyTextField" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="22" y="16" width="345" height="60"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="inactiveFontSize">
+                                                            <real key="value" value="14"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="inactiveColor">
+                                                            <color key="value" white="1" alpha="0.51000000000000001" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="activeColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="activeFontSize">
+                                                            <real key="value" value="22"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="K3u-H8-uXS" firstAttribute="top" secondItem="gZ6-cc-Ud1" secondAttribute="top" constant="16" id="02M-qG-A11"/>
-                                                <constraint firstItem="G6b-Qe-3w8" firstAttribute="top" secondItem="K3u-H8-uXS" secondAttribute="bottom" constant="9" id="FhL-tP-d5K"/>
+                                                <constraint firstItem="G6b-Qe-3w8" firstAttribute="top" secondItem="gZ6-cc-Ud1" secondAttribute="top" constant="16" id="9Us-XZ-ivD"/>
                                                 <constraint firstAttribute="bottom" secondItem="G6b-Qe-3w8" secondAttribute="bottom" id="H9i-ed-eiN"/>
                                                 <constraint firstAttribute="trailing" secondItem="G6b-Qe-3w8" secondAttribute="trailing" constant="8" id="OH9-ts-8BP"/>
-                                                <constraint firstItem="K3u-H8-uXS" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="jHP-JF-g6I"/>
                                                 <constraint firstItem="G6b-Qe-3w8" firstAttribute="leading" secondItem="gZ6-cc-Ud1" secondAttribute="leading" constant="22" id="kkQ-6m-0wu"/>
                                             </constraints>
                                         </tableViewCellContentView>

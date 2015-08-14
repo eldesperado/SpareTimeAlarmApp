@@ -8,14 +8,66 @@
 
 import UIKit
 
-class NTTextField: UITextField {
+protocol NTTextFieldProtocol {
+    func drawViewsForRect(rect: CGRect)
+    func updateViewsForBoundsChange(bounds: CGRect)
+    func animateViewsForTextEntry()
+    func animateViewsForTextDisplay()
+}
 
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+class NTTextField: UITextField, NTTextFieldProtocol {
+
+    let placeholderLabel = UILabel()
+    var isEdit: Bool = false
+    
+    func animateViewsForTextEntry() {
+        fatalError("\(__FUNCTION__) must be overridden")
     }
-    */
-
+    
+    func animateViewsForTextDisplay() {
+        fatalError("\(__FUNCTION__) must be overridden")
+    }
+    
+    func drawViewsForRect(rect: CGRect) {
+        fatalError("\(__FUNCTION__) must be overridden")
+    }
+    
+    func updateViewsForBoundsChange(bounds: CGRect) {
+        fatalError("\(__FUNCTION__) must be overridden")
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        drawViewsForRect(frame)
+    }
+    
+    // MARK: Override
+    override func drawRect(rect: CGRect) {
+        drawViewsForRect(rect)
+    }
+    
+    override func drawPlaceholderInRect(rect: CGRect) {
+        // Don't draw any placeholders
+    }
+    
+    // MARK: - UITextField Observing
+    
+    override func willMoveToSuperview(newSuperview: UIView!) {
+        if newSuperview != nil {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidEndEditing", name:UITextFieldTextDidEndEditingNotification, object: self)
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidBeginEditing", name:UITextFieldTextDidBeginEditingNotification, object: self)
+        } else {
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+        }
+    }
+    
+    func textFieldDidBeginEditing() {
+        self.isEdit = true
+        animateViewsForTextEntry()
+    }
+    
+    func textFieldDidEndEditing() {
+        self.isEdit = false
+        animateViewsForTextDisplay()
+    }
 }
