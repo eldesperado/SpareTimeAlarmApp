@@ -15,10 +15,18 @@ protocol NTTextFieldProtocol {
     func animateViewsForTextDisplay()
 }
 
+typealias Status = Int
+
+enum StatusType: Status {
+    case Active = 1, Inactive = 0
+}
+
+typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UIColor)
+
 class NTTextField: UITextField, NTTextFieldProtocol {
 
     let placeholderLabel = UILabel()
-    var isEdit: Bool = false
+    var isEdit: StatusType = StatusType.Inactive
     
     func animateViewsForTextEntry() {
         fatalError("\(__FUNCTION__) must be overridden")
@@ -62,12 +70,12 @@ class NTTextField: UITextField, NTTextFieldProtocol {
     }
     
     func textFieldDidBeginEditing() {
-        self.isEdit = true
+        self.isEdit = StatusType.Active
         animateViewsForTextEntry()
     }
     
     func textFieldDidEndEditing() {
-        self.isEdit = false
+        self.isEdit = StatusType.Inactive
         animateViewsForTextDisplay()
     }
 }

@@ -8,54 +8,42 @@
 
 import UIKit
 
-typealias Status = Int
-
-enum StatusType: Status {
-    case Active = 1, Inactive = 0
-}
-
-typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UIColor)
-
 @IBDesignable class FancyTextField: NTTextField {
     
     // MARK: Public Properties
     override var placeholder: String? {
         didSet {
-            updatePlaceholder()
+            update()
         }
     }
     
     @IBInspectable var inactiveFontSize: CGFloat = 14 {
         didSet {
-            updateLabels()
-            updatePlaceholder()
+            update()
         }
     }
     
     @IBInspectable var activeFontSize: CGFloat = 22 {
         didSet {
-            updateLabels()
-            updatePlaceholder()
+            update()
         }
     }
     
     @IBInspectable var inactiveColor: UIColor = UIColor(white: 1.0, alpha: 0.51) {
         didSet {
-            updateLabels()
-            updatePlaceholder()
+            update()
         }
     }
     
     @IBInspectable var activeColor: UIColor = UIColor.whiteColor() {
         didSet {
-            updateLabels()
-            updatePlaceholder()
+            update()
         }
     }
     
     override var bounds: CGRect {
         didSet {
-            
+            update()
         }
     }
     
@@ -63,35 +51,37 @@ typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UICol
     
     private let placeholderInsets = CGPoint(x: 0, y: 0)
     private let textFieldInsets = CGPoint(x: 0, y: 12)
+    private var inactiveTextFieldStatus = (status: StatusType.Inactive, fontsize: CGFloat(0.0), color: UIColor.whiteColor())
+    private var activeTextFieldStatus = (StatusType.Active, fontsize: CGFloat(0.0), color: UIColor.whiteColor())
     
     // MARK: Private Layout Functions
-    private func updateLabels() {
-        switch (self.isEdit) {
-        case true:
-            self.font = self.font.fontWithSize(self.activeFontSize)
-            self.textColor = self.activeColor
-        case false:
-            self.font = self.font.fontWithSize(self.inactiveFontSize)
-            self.textColor = self.inactiveColor
-        default:
-            break
-        }
+    private func updateLabels(status: TextFieldStatus) {
+        self.font = self.font.fontWithSize(status.fontsize)
+        self.textColor = status.color
     }
     
-    private func updatePlaceholder() {
+    private func updatePlaceholder(status: TextFieldStatus) {
         self.placeholderLabel.text = placeholder
         
-        switch (self.isEdit) {
-        case true:
-            self.placeholderLabel.font = self.font.fontWithSize(self.inactiveFontSize)
-            self.placeholderLabel.textColor = self.inactiveColor
-        case false:
-            self.placeholderLabel.font = self.font.fontWithSize(self.activeFontSize)
-            self.placeholderLabel.textColor = self.activeColor
-        default:
-            break
-        }
+        self.placeholderLabel.font = self.font.fontWithSize(status.fontsize)
+        self.placeholderLabel.textColor = status.color
         self.placeholderLabel.sizeToFit()
+    }
+    
+    private func update() {
+        self.inactiveTextFieldStatus.color = self.inactiveColor
+        self.inactiveTextFieldStatus.fontsize = self.inactiveFontSize
+        self.activeTextFieldStatus.color = self.activeColor
+        self.activeTextFieldStatus.fontsize = self.activeFontSize
+        // Update Label & placeholder
+        switch (self.isEdit) {
+        case .Active:
+            updateLabels(activeTextFieldStatus)
+            updatePlaceholder(inactiveTextFieldStatus)
+        case .Inactive:
+            updateLabels(inactiveTextFieldStatus)
+            updatePlaceholder(activeTextFieldStatus)
+        }
     }
     
     // MARK: NTTextFieldProtocol
@@ -104,7 +94,8 @@ typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UICol
         self.placeholderLabel.textColor = self.activeColor
         addSubview(placeholderLabel)
         
-        updatePlaceholder()
+        // Update
+        update()
         
         // Set Label Text
         self.textColor = self.inactiveColor
@@ -115,8 +106,7 @@ typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UICol
         // Animate textField placeholder when UITextfield's text is empty
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [unowned self] in
             
-            self.updatePlaceholder()
-            self.updateLabels()
+            self.update()
             
             }), completion: { [unowned self] (completed) in
             })
@@ -126,8 +116,7 @@ typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UICol
         UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [unowned self] in
             // Animate textField placeholder when UITextfield's text is filled
 
-            self.updatePlaceholder()
-            self.updateLabels()
+            self.update()
             
             }), completion: { [unowned self] (completed) in
         })
