@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
+@IBDesignable class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var timeInterval: NSTimeInterval {
         get {
@@ -31,18 +31,19 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
         setPickerToTimeInterval(interval, animated: true)
     }
     
-    var textColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable var textColor: UIColor = UIColor.whiteColor() {
         didSet {
-            
+            updateLabels()
+            pickerView.reloadAllComponents()
         }
     }
     
     // Note that setting a font that makes the picker wider
     // than this view can cause layout problems
-    var font = UIFont.systemFontOfSize(24) {
+    @IBInspectable var textFont: UIFont = UIFont.systemFontOfSize(24) {
         didSet {
             updateLabels()
-            calculateNumberWidth()
+            calculateNumberSize()
             calculateTotalPickerWidth()
             pickerView.reloadAllComponents()
         }
@@ -69,7 +70,7 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
     
     private func setup() {
         setupLabels()
-        calculateNumberWidth()
+        calculateNumberSize()
         calculateTotalPickerWidth()
         setupPickerView()
     }
@@ -81,28 +82,23 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
     }
     
     private func updateLabels() {
-        colonLabel.font = font
+        colonLabel.font = textFont
         colonLabel.textColor = textColor
         colonLabel.sizeToFit()
     }
     
-    private var numberHeight: CGFloat {
-        get {
-            let label = UILabel()
-            label.font = font
-            return label.bounds.height
-        }
-    }
-    
-    private func calculateNumberWidth() {
+    private func calculateNumberSize() {
         let label = UILabel()
-        label.font = font
+        label.font = textFont
         numberWidth = 0
         for i in 0...59 {
             label.text = i < 10 ? "\0(i)" : "\(i)"
             label.sizeToFit()
             if label.frame.width > numberWidth {
                 numberWidth = label.frame.width
+            }
+            if label.frame.height > numberHeight {
+                numberHeight = label.frame.height
             }
         }
     }
@@ -123,8 +119,8 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
         // Reposition labels
         
         colonLabel.center.y = CGRectGetMidY(pickerView.frame)
-        let pickerMinX = CGRectGetMidX(pickerView.frame) - extraComponentSpacing + standardComponentSpacing * 2
-        colonLabel.frame.origin.x = pickerMinX
+        let pickerMinX = CGRectGetMidX(pickerView.frame)
+        colonLabel.frame.origin.x = pickerMinX - colonLabel.bounds.width / 2
     }
     
     func setupPickerView() {
@@ -173,10 +169,11 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
     
     private var totalPickerWidth: CGFloat = 0
     private var numberWidth: CGFloat = 20               // Width of UILabel displaying a two digit number with standard font
+    private var numberHeight: CGFloat = 0               // Height of UILabel displaying a two digit number with standard font
     
     private let standardComponentSpacing: CGFloat = 5   // A UIPickerView has a 5 point space between components
     private let extraComponentSpacing: CGFloat = 30     // Add an additional 10 points between the components
-    private let rowPadding: CGFloat = 20
+    private let labelSpacing: CGFloat = 5               // Spacing between picker numbers and labels
     
     
     // MARK: - Picker view data source
@@ -197,11 +194,11 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
     // MARK: - Picker view delegate
     
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return numberHeight + rowPadding * 2
+        return numberHeight * 1.5
     }
     
     func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return numberWidth + colonLabel.bounds.width + extraComponentSpacing
+        return numberWidth + labelSpacing * 2 + extraComponentSpacing
     }
     
     func pickerView(pickerView: UIPickerView,
@@ -211,29 +208,50 @@ class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDat
             
             // Check if view can be reused
             var newView = view
-            
-            if newView == nil {
-                // Create new view
-                let size = pickerView.rowSizeForComponent(component)
-                newView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            switch Components(rawValue: component)! {
+            case .Hour:
+                if newView == nil {
+                    // Create new view
+                    let size = pickerView.rowSizeForComponent(component)
+                    newView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    
+                    // Setup label and add as subview
+                    let label = UILabel()
+                    label.font = textFont
+                    label.textColor = self.textColor
+                    label.textAlignment = .Right
+                    label.adjustsFontSizeToFitWidth = false
+                    label.frame = CGRectMake(0, 0, numberWidth, size.height)
+                    newView.addSubview(label)
+                }
                 
-                // Setup label and add as subview
-                let label = UILabel()
-                label.font = font
-                label.textColor = self.textColor
-                label.textAlignment = .Right
-                label.adjustsFontSizeToFitWidth = false
-                label.frame.size = CGSize(width: numberWidth, height: size.height)
-                newView.addSubview(label)
+                let label = newView.subviews.first as! UILabel
+                label.text = row < 10 ? "0\(row)" : "\(row)"
                 
-                // Change separator line
-
+                return newView
+            case .Minute:
+                if newView == nil {
+                    // Create new view
+                    let size = pickerView.rowSizeForComponent(component)
+                    newView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    
+                    // Setup label and add as subview
+                    let label = UILabel()
+                    label.font = textFont
+                    label.textColor = self.textColor
+                    label.textAlignment = .Right
+                    label.adjustsFontSizeToFitWidth = false
+                    label.frame = CGRectMake(size.width / 2, CGFloat(0), numberWidth, size.height)
+                    newView.addSubview(label)
+                    
+                }
+                
+                let label = newView.subviews.first as! UILabel
+                label.text = row < 10 ? "0\(row)" : "\(row)"
+                
+                return newView
             }
             
-            let label = newView.subviews.first as! UILabel
-            label.text = row < 10 ? "0\(row)" : "\(row)"
-            
-            return newView
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

@@ -82,6 +82,7 @@ import UIKit
             updateLabels(inactiveTextFieldStatus)
             updatePlaceholder(activeTextFieldStatus)
         }
+        self.reloadInputViews()
     }
     
     // MARK: NTTextFieldProtocol
