@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D2134" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bnS-U5-PrB">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="RotondaC-Bold.otf">
@@ -50,17 +51,35 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Eq-hV-Q0f" customClass="ClockView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Eq-hV-Q0f" customClass="ClockView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
                                             <rect key="frame" x="29" y="0.0" width="316" height="316"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="6Eq-hV-Q0f" secondAttribute="height" multiplier="1:1" id="lZQ-Cc-wlZ"/>
+                                            </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time to wake UP - 06:39" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d40-zy-C28">
-                                            <rect key="frame" x="104" y="324" width="167" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time to wake UP - 06:39" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d40-zy-C28">
+                                            <rect key="frame" x="116.5" y="324" width="142.5" height="21"/>
                                             <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="6Eq-hV-Q0f" secondAttribute="trailing" constant="30" id="B2C-fA-UPP"/>
+                                        <constraint firstItem="d40-zy-C28" firstAttribute="top" secondItem="6Eq-hV-Q0f" secondAttribute="bottom" constant="8" id="Fne-zF-HPs"/>
+                                        <constraint firstAttribute="centerX" secondItem="6Eq-hV-Q0f" secondAttribute="centerX" id="Oow-vZ-0HZ"/>
+                                        <constraint firstItem="6Eq-hV-Q0f" firstAttribute="top" secondItem="U9H-0c-LTU" secondAttribute="top" id="WSk-TW-zpc"/>
+                                        <constraint firstAttribute="centerX" secondItem="d40-zy-C28" secondAttribute="centerX" id="alp-Tj-h6P"/>
+                                        <constraint firstItem="6Eq-hV-Q0f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U9H-0c-LTU" secondAttribute="leading" constant="29" id="cMn-bC-lgm"/>
+                                        <constraint firstItem="6Eq-hV-Q0f" firstAttribute="leading" secondItem="U9H-0c-LTU" secondAttribute="leading" constant="29" id="sbk-sa-7l6"/>
+                                        <constraint firstAttribute="bottom" secondItem="d40-zy-C28" secondAttribute="bottom" constant="15" id="yI0-UV-VTK"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Oow-vZ-0HZ"/>
+                                        </mask>
+                                    </variation>
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="alarmRecordCell" rowHeight="76" id="UEf-Ks-Y9b" customClass="AlarmRecordTableViewCell" customModule="SpareTimeAlarmApp" customModuleProvider="target">
@@ -208,13 +227,89 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="55r-5t-yIJ" id="Xdj-BO-YmD">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Theme color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doJ-I9-jjZ">
-                                                    <rect key="frame" x="22" y="28" width="287" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theme color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doJ-I9-jjZ">
+                                                    <rect key="frame" x="22" y="28" width="286" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTt-QB-2H6" userLabel="Orange View" customClass="CircularView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="318" y="19" width="39" height="39"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="39" id="2tE-n8-Tb3"/>
+                                                        <constraint firstAttribute="width" secondItem="aTt-QB-2H6" secondAttribute="height" multiplier="1:1" id="4Zb-yJ-tDo"/>
+                                                        <constraint firstAttribute="width" constant="38" id="ARL-Wc-pxY"/>
+                                                        <constraint firstAttribute="height" constant="38" id="Gt8-gS-TuV"/>
+                                                        <constraint firstAttribute="height" constant="39" id="ait-uN-0BP"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundLayerColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="innerColor">
+                                                            <color key="value" red="0.9882352941176471" green="0.45098039215686275" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="4Zb-yJ-tDo"/>
+                                                            <exclude reference="ARL-Wc-pxY"/>
+                                                            <exclude reference="Gt8-gS-TuV"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2P-Q0-KBd" userLabel="Blue View" customClass="CircularView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="259" y="18" width="39" height="39"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="39" id="7j5-Wz-yBa"/>
+                                                        <constraint firstAttribute="width" constant="39" id="Idf-xd-LF3"/>
+                                                        <constraint firstAttribute="width" secondItem="q2P-Q0-KBd" secondAttribute="height" multiplier="1:1" id="Jy9-Kf-mIA"/>
+                                                        <constraint firstAttribute="height" constant="38" id="dcd-fV-znu"/>
+                                                        <constraint firstAttribute="width" constant="38" id="tgo-NE-09h"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundLayerColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="innerColor">
+                                                            <color key="value" red="0.16862745100000001" green="0.3921568627" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Jy9-Kf-mIA"/>
+                                                            <exclude reference="dcd-fV-znu"/>
+                                                            <exclude reference="tgo-NE-09h"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="aTt-QB-2H6" secondAttribute="trailing" constant="18" id="63H-31-G4c"/>
+                                                <constraint firstAttribute="centerY" secondItem="aTt-QB-2H6" secondAttribute="centerY" id="AQM-E2-E1a"/>
+                                                <constraint firstItem="aTt-QB-2H6" firstAttribute="leading" secondItem="q2P-Q0-KBd" secondAttribute="trailing" constant="20" id="BGW-0G-tXd"/>
+                                                <constraint firstItem="doJ-I9-jjZ" firstAttribute="leading" secondItem="Xdj-BO-YmD" secondAttribute="leading" constant="22" id="DBo-4z-6x1"/>
+                                                <constraint firstItem="doJ-I9-jjZ" firstAttribute="top" secondItem="Xdj-BO-YmD" secondAttribute="top" constant="28" id="H0s-5A-yGT"/>
+                                                <constraint firstAttribute="trailing" secondItem="aTt-QB-2H6" secondAttribute="trailing" constant="18" id="Mgu-OM-ZKZ"/>
+                                                <constraint firstItem="aTt-QB-2H6" firstAttribute="leading" secondItem="doJ-I9-jjZ" secondAttribute="trailing" constant="10" id="bpA-r5-gHg"/>
+                                                <constraint firstAttribute="centerY" secondItem="q2P-Q0-KBd" secondAttribute="centerY" id="pnq-xY-9Kp"/>
+                                                <constraint firstItem="aTt-QB-2H6" firstAttribute="leading" secondItem="q2P-Q0-KBd" secondAttribute="trailing" constant="20" id="wQG-oT-cEH"/>
+                                                <constraint firstAttribute="bottom" secondItem="doJ-I9-jjZ" secondAttribute="bottom" constant="27" id="yKu-CX-Z6m"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Mgu-OM-ZKZ"/>
+                                                    <exclude reference="wQG-oT-cEH"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -223,17 +318,52 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PAx-M0-0eV" id="cIP-3Q-c9r">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Volume" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHS-bh-TdP">
-                                                    <rect key="frame" x="22" y="28" width="287" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHS-bh-TdP">
+                                                    <rect key="frame" x="22" y="28" width="69.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQr-7w-cPO" customClass="NTSlider" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="137" y="18" width="202" height="38"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="202" id="4Mn-bP-G0T"/>
+                                                        <constraint firstAttribute="height" constant="38" id="brz-4L-gGe"/>
+                                                        <constraint firstAttribute="width" constant="220" id="mjz-JK-rjv"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="trackTintColor">
+                                                            <color key="value" red="0.16862745100000001" green="0.3921568627" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="mjz-JK-rjv"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="IQr-7w-cPO" secondAttribute="bottom" constant="5" id="5T7-Wv-OfJ"/>
+                                                <constraint firstItem="BHS-bh-TdP" firstAttribute="leading" secondItem="cIP-3Q-c9r" secondAttribute="leading" constant="22" id="K8E-Js-0QV"/>
+                                                <constraint firstAttribute="bottom" secondItem="IQr-7w-cPO" secondAttribute="bottom" constant="20" id="aAQ-xH-5No"/>
+                                                <constraint firstItem="IQr-7w-cPO" firstAttribute="top" secondItem="cIP-3Q-c9r" secondAttribute="top" constant="18" id="aLr-P2-kbb"/>
+                                                <constraint firstAttribute="trailing" secondItem="IQr-7w-cPO" secondAttribute="trailing" constant="36" id="daQ-Pu-pda"/>
+                                                <constraint firstAttribute="bottom" secondItem="IQr-7w-cPO" secondAttribute="bottom" constant="8" id="jbZ-vb-BzO"/>
+                                                <constraint firstAttribute="bottom" secondItem="BHS-bh-TdP" secondAttribute="bottom" constant="27" id="p0n-Xu-45E"/>
+                                                <constraint firstItem="BHS-bh-TdP" firstAttribute="top" secondItem="cIP-3Q-c9r" secondAttribute="top" constant="28" id="vvY-D0-zUI"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="5T7-Wv-OfJ"/>
+                                                    <exclude reference="jbZ-vb-BzO"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="76" id="1rf-mF-n3P">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="76" id="1rf-mF-n3P">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1rf-mF-n3P" id="F4F-tb-5Rw">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -248,7 +378,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="76" id="pnJ-kD-uWw">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="76" id="pnJ-kD-uWw">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pnJ-kD-uWw" id="qYG-V3-2wI">
                                             <autoresizingMask key="autoresizingMask"/>

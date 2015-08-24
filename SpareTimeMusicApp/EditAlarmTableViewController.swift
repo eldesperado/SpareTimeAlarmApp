@@ -190,7 +190,7 @@ class EditAlarmTableViewController: UITableViewController {
         belowBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideBlurViewWhenEndEdittingTextField"))
         self.view.addSubview(belowBlurView)
         // Animate
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.35, animations: {
             upperBlurView.alpha = 0.9
             belowBlurView.alpha = 0.9
             }, completion: { (completed) in
@@ -199,7 +199,7 @@ class EditAlarmTableViewController: UITableViewController {
     }
     
     func hideBlurViewWhenEndEdittingTextField() {
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.3, animations: {
             if let upperBlurView: UIView = self.view.viewWithTag(self.upperBlurViewTag) {
                 upperBlurView.alpha = 0
             }
