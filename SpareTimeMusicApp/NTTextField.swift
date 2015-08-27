@@ -15,26 +15,26 @@ protocol NTTextFieldProtocol {
     func animateViewsForTextDisplay()
 }
 
-typealias Status = Int
-
-enum StatusType: Status {
-    case Active = 1, Inactive = 0
-    var boolValue: Bool {
-        get {
-            switch (self) {
-            case .Active:
-                return true
-            case .Inactive:
-                return false
-        }
-        }
-    }
-}
-
-typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UIColor)
-
 class NTTextField: UITextField, NTTextFieldProtocol {
 
+    internal typealias Status = Int
+    
+    internal enum StatusType: Status {
+        case Active = 1, Inactive = 0
+        var boolValue: Bool {
+            get {
+                switch (self) {
+                case .Active:
+                    return true
+                case .Inactive:
+                    return false
+                }
+            }
+        }
+    }
+    
+    internal typealias TextFieldStatus = (status: StatusType, fontsize: CGFloat, color: UIColor)
+    
     let placeholderLabel = UILabel()
     internal var isEdit: StatusType = StatusType.Inactive
     

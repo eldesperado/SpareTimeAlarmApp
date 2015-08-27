@@ -31,10 +31,6 @@ class EditAlarmTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set Background image for table view
-        self.alarmSettingTableView.backgroundView = UIImageView(image: UIImage(named: "background"))
-        // Hide footer
-        self.alarmSettingTableView.tableFooterView = UIView(frame: CGRectZero)
         // Setup Views
         setup()
         // Add Action for salutation Text field

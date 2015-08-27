@@ -19,11 +19,6 @@ class SettingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set Background image for table view
-        self.tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
-        // Hide footer
-        self.tableView.tableFooterView = UIView(frame: CGRectZero)
-
     }
 
     override func didReceiveMemoryWarning() {

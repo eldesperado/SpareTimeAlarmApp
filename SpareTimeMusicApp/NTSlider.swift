@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 import Foundation
 
-@IBDesignable class NTSlider: UIControl {
+@IBDesignable public class NTSlider: UIControl {
 
     // MARK: Public Attributes
     @IBInspectable var thumbTintColor: UIColor = UIColor.whiteColor() {
@@ -19,14 +19,14 @@ import Foundation
         }
     }
     
-    @IBInspectable var trackTintColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable public var trackTintColor: UIColor = UIColor.whiteColor() {
         didSet {
             self.aboveTrackLayer.backgroundColor = self.trackTintColor.CGColor
             self.belowTrackLayer.backgroundColor = self.trackTintColor.colorWithAlphaComponent(0.5).CGColor
         }
     }
     
-    @IBInspectable var textFont: UIFont = UIFont.systemFontOfSize(14) {
+    @IBInspectable public var textFont: UIFont = UIFont.systemFontOfSize(14) {
         didSet {
             self.trackValueLabel.font = textFont
             self.trackValueLabel.fontSize = textFont.pointSize
@@ -34,7 +34,7 @@ import Foundation
         }
     }
     
-    @IBInspectable var textColor: UIColor = UIColor.whiteColor() {
+    @IBInspectable public var textColor: UIColor = UIColor.whiteColor() {
         didSet {
             self.trackValueLabel.foregroundColor = textColor.CGColor
             self.reloadInputViews()
@@ -74,7 +74,7 @@ import Foundation
     
     // MARK: Initialization
     
-    required init(coder aDecoder: NSCoder) {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setup()
     }
@@ -117,7 +117,7 @@ import Foundation
         self.layer.addSublayer(self.thumbLayer)
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         self.belowTrackLayer.frame = CGRectMake(0, componentPadding, self.trackLayerWidth, self.trackLayerHeight)
         self.aboveTrackLayer.frame = CGRectMake(0, componentPadding, self.value * self.trackLayerWidth, self.trackLayerHeight)
@@ -126,7 +126,7 @@ import Foundation
         self.trackValueLabel.string = "\(Int(self.value * 100))"
     }
 
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+    override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
         self.previousTouchPoint = touch.locationInView(self)
         
         // Show Label
@@ -141,7 +141,7 @@ import Foundation
         return false
     }
     
-    override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+    override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
         var touchPoint = touch.locationInView(self)
         // Calculate Delta
         let deltaX: CGFloat = touchPoint.x - self.previousTouchPoint.x
@@ -194,7 +194,7 @@ import Foundation
         return true
     }
     
-    override func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
+    override public func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
         // Hide Label
         toggleTrackingLabel(isWantToShow: false)
         
@@ -202,14 +202,14 @@ import Foundation
         self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
     }
     
-    override func cancelTrackingWithEvent(event: UIEvent?) {
+    override public func cancelTrackingWithEvent(event: UIEvent?) {
         // Hide Label
         toggleTrackingLabel(isWantToShow: false)
         
         performBackToStablePositionAnimation()
     }
     
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if CGRectContainsPoint(self.thumbLayer.frame, point) {
             return true
         }

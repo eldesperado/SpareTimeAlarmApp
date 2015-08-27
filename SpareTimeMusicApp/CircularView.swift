@@ -14,6 +14,8 @@ import UIKit
     @IBInspectable var backgroundLayerColor: UIColor = UIColor.whiteColor()
     @IBInspectable var lineWidth: CGFloat = 1.0
     @IBInspectable var innerColor: UIColor = UIColor.blackColor()
+    var isPressed: Bool = false
+    
     // MARK: Private Attributes
     private var innerLayer: CAShapeLayer!
     private var backgroundLayer: CAShapeLayer!

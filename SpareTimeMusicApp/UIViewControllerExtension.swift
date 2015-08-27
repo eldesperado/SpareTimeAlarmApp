@@ -8,9 +8,8 @@
 
 import UIKit
 
-
 extension UIViewController {
-
+    
     func setupNavigation() {
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
