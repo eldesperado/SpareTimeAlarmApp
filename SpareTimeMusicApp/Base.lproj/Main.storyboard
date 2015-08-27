@@ -401,6 +401,10 @@
                             <outlet property="delegate" destination="Jdc-0W-VrA" id="ojV-c3-gpW"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="blueThemeSelectorCircularView" destination="q2P-Q0-KBd" id="hQP-8j-SjE"/>
+                        <outlet property="orangeThemeSelectorCircularView" destination="aTt-QB-2H6" id="lxJ-9m-3TW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxe-rY-x0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -26,15 +26,28 @@ class ThemeManager: NSObject {
     }
     typealias Theme = [ThemeAttribute: String]
     
+    enum ThemeType: String {
+        case Default = "defaultTheme"
+        case Orange = "orangeTheme"
+        
+        func getString() -> String {
+            return self.rawValue
+        }
+    }
     
     // Constants
     private let storedKeyInUserDefaults: String = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager"
-    private let defaultThemeName: String = "defaultTheme"
-    private let orangeThemeName: String = "orangeTheme"
     
     // MARK: Singleton
     static let sharedInstance = ThemeManager()
     
+    
+    // MARK: Public Methods
+    func saveTheme(theme: ThemeType) {
+        NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: self.storedKeyInUserDefaults)
+    }
+
+    // Initialization
     override init() {
         super.init()
         // Setup Theme
@@ -44,13 +57,11 @@ class ThemeManager: NSObject {
     // MARK: Setup
     private func setup() {
         let userDefault: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let themeName: String = (userDefault.objectForKey(self.storedKeyInUserDefaults) ?? defaultThemeName) as! String
-        if let stylesheetPath = NSBundle.mainBundle().pathForResource(themeName, ofType: "plist") {
-            if let stylesheetData = NSDictionary(contentsOfFile: stylesheetPath) {
-                self.stylesheet = loadTheme(stylesheetData)
-            }
+        let themeName: String = (userDefault.objectForKey(self.storedKeyInUserDefaults) ?? ThemeType.Default.getString()) as! String
+        // Load stored stylesheet
+        if let theme = getStylesheetFromFile(themeName) {
+            self.stylesheet = theme
         }
-        
     }
     
     // Load Theme
@@ -77,6 +88,19 @@ class ThemeManager: NSObject {
         case ThemeAttribute.MandatoryColor.getValue():
             return ThemeAttribute.MandatoryColor
         default:
+            return nil
+        }
+    }
+    
+    private func getStylesheetFromFile(fileName: String) -> Theme? {
+        if let stylesheetPath = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist") {
+            if let stylesheetData = NSDictionary(contentsOfFile: stylesheetPath) {
+                let stylesheet = loadTheme(stylesheetData)
+                return stylesheet
+            } else {
+                return nil
+            }
+        } else {
             return nil
         }
     }
