@@ -13,6 +13,7 @@ class ThemeManager: NSObject {
     
     // Public Attributes
     var stylesheet: Theme?
+    var currentThemeType: ThemeType?
     
     // Private Attributes
     internal enum ThemeAttribute: String {
@@ -45,6 +46,7 @@ class ThemeManager: NSObject {
     // MARK: Public Methods
     func saveTheme(theme: ThemeType) {
         NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: self.storedKeyInUserDefaults)
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
 
     // Initialization
@@ -58,6 +60,8 @@ class ThemeManager: NSObject {
     private func setup() {
         let userDefault: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         let themeName: String = (userDefault.objectForKey(self.storedKeyInUserDefaults) ?? ThemeType.Default.getString()) as! String
+        // Get the current theme type
+        self.currentThemeType = themeName == ThemeType.Default.getString() ? ThemeType.Default : ThemeType.Orange
         // Load stored stylesheet
         if let theme = getStylesheetFromFile(themeName) {
             self.stylesheet = theme

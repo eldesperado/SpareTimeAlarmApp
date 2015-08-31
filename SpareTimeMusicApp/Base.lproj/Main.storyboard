@@ -233,35 +233,6 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTt-QB-2H6" userLabel="Orange View" customClass="CircularView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
-                                                    <rect key="frame" x="318" y="19" width="39" height="39"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="39" id="2tE-n8-Tb3"/>
-                                                        <constraint firstAttribute="width" secondItem="aTt-QB-2H6" secondAttribute="height" multiplier="1:1" id="4Zb-yJ-tDo"/>
-                                                        <constraint firstAttribute="width" constant="38" id="ARL-Wc-pxY"/>
-                                                        <constraint firstAttribute="height" constant="38" id="Gt8-gS-TuV"/>
-                                                        <constraint firstAttribute="height" constant="39" id="ait-uN-0BP"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundLayerColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="innerColor">
-                                                            <color key="value" red="0.9882352941176471" green="0.45098039215686275" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
-                                                            <real key="value" value="3"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="4Zb-yJ-tDo"/>
-                                                            <exclude reference="ARL-Wc-pxY"/>
-                                                            <exclude reference="Gt8-gS-TuV"/>
-                                                        </mask>
-                                                    </variation>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2P-Q0-KBd" userLabel="Blue View" customClass="CircularView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
                                                     <rect key="frame" x="259" y="18" width="39" height="39"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -291,23 +262,39 @@
                                                         </mask>
                                                     </variation>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQQ-oR-Wp7" customClass="CircularView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                                                    <rect key="frame" x="318" y="19" width="39" height="39"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="39" id="bD2-9O-gQY"/>
+                                                        <constraint firstAttribute="width" constant="39" id="dt2-tU-Sna"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="backgroundLayerColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="innerColor">
+                                                            <color key="value" red="0.98823529409999999" green="0.45098039220000002" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="aTt-QB-2H6" secondAttribute="trailing" constant="18" id="63H-31-G4c"/>
-                                                <constraint firstAttribute="centerY" secondItem="aTt-QB-2H6" secondAttribute="centerY" id="AQM-E2-E1a"/>
-                                                <constraint firstItem="aTt-QB-2H6" firstAttribute="leading" secondItem="q2P-Q0-KBd" secondAttribute="trailing" constant="20" id="BGW-0G-tXd"/>
+                                                <constraint firstItem="GQQ-oR-Wp7" firstAttribute="leading" secondItem="q2P-Q0-KBd" secondAttribute="trailing" constant="20" id="0ac-jV-3rE"/>
                                                 <constraint firstItem="doJ-I9-jjZ" firstAttribute="leading" secondItem="Xdj-BO-YmD" secondAttribute="leading" constant="22" id="DBo-4z-6x1"/>
                                                 <constraint firstItem="doJ-I9-jjZ" firstAttribute="top" secondItem="Xdj-BO-YmD" secondAttribute="top" constant="28" id="H0s-5A-yGT"/>
-                                                <constraint firstAttribute="trailing" secondItem="aTt-QB-2H6" secondAttribute="trailing" constant="18" id="Mgu-OM-ZKZ"/>
-                                                <constraint firstItem="aTt-QB-2H6" firstAttribute="leading" secondItem="doJ-I9-jjZ" secondAttribute="trailing" constant="10" id="bpA-r5-gHg"/>
+                                                <constraint firstAttribute="trailing" secondItem="GQQ-oR-Wp7" secondAttribute="trailing" constant="18" id="LdP-e6-jJb"/>
+                                                <constraint firstAttribute="centerY" secondItem="GQQ-oR-Wp7" secondAttribute="centerY" id="cYp-T3-CvN"/>
                                                 <constraint firstAttribute="centerY" secondItem="q2P-Q0-KBd" secondAttribute="centerY" id="pnq-xY-9Kp"/>
-                                                <constraint firstItem="aTt-QB-2H6" firstAttribute="leading" secondItem="q2P-Q0-KBd" secondAttribute="trailing" constant="20" id="wQG-oT-cEH"/>
                                                 <constraint firstAttribute="bottom" secondItem="doJ-I9-jjZ" secondAttribute="bottom" constant="27" id="yKu-CX-Z6m"/>
+                                                <constraint firstItem="GQQ-oR-Wp7" firstAttribute="leading" secondItem="doJ-I9-jjZ" secondAttribute="trailing" constant="10" id="ytG-hb-Qdd"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="Mgu-OM-ZKZ"/>
-                                                    <exclude reference="wQG-oT-cEH"/>
+                                                    <exclude reference="ytG-hb-Qdd"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -403,7 +390,7 @@
                     </tableView>
                     <connections>
                         <outlet property="blueThemeSelectorCircularView" destination="q2P-Q0-KBd" id="hQP-8j-SjE"/>
-                        <outlet property="orangeThemeSelectorCircularView" destination="aTt-QB-2H6" id="lxJ-9m-3TW"/>
+                        <outlet property="orangeThemeSelectorCircularView" destination="GQQ-oR-Wp7" id="87k-Ad-2ZZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxe-rY-x0T" userLabel="First Responder" sceneMemberID="firstResponder"/>

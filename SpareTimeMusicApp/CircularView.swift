@@ -8,33 +8,70 @@
 
 import UIKit
 
+protocol CircularViewDelegate {
+    func circularViewDidTapped(#tappedView: CircularView)
+}
+
 @IBDesignable class CircularView: UIView {
 
     // MARK: Public Attributes
-    @IBInspectable var backgroundLayerColor: UIColor = UIColor.whiteColor()
-    @IBInspectable var lineWidth: CGFloat = 1.0
-    @IBInspectable var innerColor: UIColor = UIColor.blackColor()
-    var isPressed: Bool = false
+    @IBInspectable var backgroundLayerColor: UIColor = UIColor.whiteColor() {
+        didSet {
+            self.backgroundLayer.fillColor = backgroundLayerColor.CGColor
+        }
+    }
+    @IBInspectable var lineWidth: CGFloat = 1.0 {
+        didSet {
+            self.backgroundLayer.lineWidth = lineWidth
+        }
+    }
+    @IBInspectable var innerColor: UIColor = UIColor.blackColor() {
+        didSet {
+            self.innerLayer.fillColor = innerColor.CGColor
+        }
+    }
+
     var animationDidStartClosure = {(onAnimation: Bool) -> Void in }
     var animationDidStopClosure = {(onAnimation: Bool, finished: Bool) -> Void in }
+    var delegate: CircularViewDelegate?
     
     // MARK: Private Attributes
+    private var isOn: Bool = false
     private var innerLayer: CAShapeLayer!
     private var backgroundLayer: CAShapeLayer!
     private var initialInnerLayerPath: CGPath!
     private var initialBackgroundLayerPath: CGPath!
     
     // MARK: Public Methods
-    func setOn(isOn: Bool) {
-        self.isPressed = isOn
-        shapeTouched()
+    func setOn(#isOn: Bool, isAnimated: Bool) {
+        self.isOn = isOn
+        shapeTouched(isAnimated: isAnimated)
+    }
+    
+    func getIsOn() -> Bool {
+        return self.isOn
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+
+    }
+    
+    private func setup() {
         setBackgroundLayer()
         setBackgroundInnerLayer()
         setUserInteraction()
+        self.isOn = false
     }
     
     private func setBackgroundLayer() {
@@ -73,44 +110,56 @@ import UIKit
     }
     
     @IBAction func circularViewDidTapped() {
-        shapeTouched()
-    }
-    
-    private func shapeTouched() {
-        let scaleUpAnimationKey = "scaleUp"
-        let scaleDownAnimationKey = "scaleDown"
-        if !self.isPressed {
-            CATransaction.begin()
-
-            // Add ScaleUp Animation
-            var scaleUpAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialBackgroundLayerPath, timing: kCAMediaTimingFunctionEaseOut)
-            
-            self.innerLayer.addAnimation(scaleUpAnimation, forKey: scaleUpAnimationKey)
-            
-            CATransaction.commit()
-        } else {
-            CATransaction.begin()
-
-            // Add ScaleDown Animation
-            let scaleDownAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialInnerLayerPath, timing: kCAMediaTimingFunctionEaseOut)
-            self.innerLayer.addAnimation(scaleDownAnimation, forKey: scaleDownAnimationKey)
-            
-            CATransaction.commit()
+        if let delegate = self.delegate {
+            delegate.circularViewDidTapped(tappedView: self)
         }
         // Change state
-        self.isPressed = !self.isPressed
+        self.isOn = !self.isOn
+        shapeTouched(isAnimated: true)
     }
     
-    //CAAnimation delegate
+    private func shapeTouched(#isAnimated: Bool) {
+        let scaleUpAnimationKey = "scaleUp"
+        let scaleDownAnimationKey = "scaleDown"
+        if self.isOn {
+            if (isAnimated) {
+                CATransaction.begin()
+                
+                // Add ScaleDown Animation
+                let scaleDownAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialInnerLayerPath, timing: kCAMediaTimingFunctionEaseOut)
+                self.innerLayer.addAnimation(scaleDownAnimation, forKey: scaleDownAnimationKey)
+                
+                CATransaction.commit()
+            } else {
+                self.innerLayer.path = self.initialInnerLayerPath
+            }
+        } else {
+            if (isAnimated) {
+                CATransaction.begin()
+                
+                // Add ScaleUp Animation
+                var scaleUpAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialBackgroundLayerPath, timing: kCAMediaTimingFunctionEaseOut)
+                
+                self.innerLayer.addAnimation(scaleUpAnimation, forKey: scaleUpAnimationKey)
+                
+                CATransaction.commit()
+            } else {
+                self.innerLayer.path = self.initialBackgroundLayerPath
+            }
+            
+        }
+    }
     
-    
+    // CAAnimation delegate
     override func animationDidStart(anim: CAAnimation!){
-        animationDidStartClosure(isPressed)
+        // Do DidStartClosure
+        animationDidStartClosure(isOn)
     }
     
     
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool){
-        animationDidStopClosure(isPressed, flag)
+        // Do DidStopClosure
+        animationDidStopClosure(isOn, flag)
     }
     
     // MARK: Helpers
@@ -130,4 +179,6 @@ import UIKit
         
         return animation
     }
+    
+
 }
