@@ -50,6 +50,19 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
         // Set Delegate
         self.blueThemeSelectorCircularView.delegate = self
         self.orangeThemeSelectorCircularView.delegate = self
+        
+        // Update Theme
+        self.blueThemeSelectorCircularView.animationDidStopClosure = { (onAnimation: Bool, finished: Bool) in
+            if self.blueThemeSelectorCircularView.getIsOn() {
+                ThemeManager.sharedInstance.saveTheme(ThemeComponent.ThemeType.Default)
+            }
+        }
+        
+        self.orangeThemeSelectorCircularView.animationDidStopClosure = { (onAnimation: Bool, finished: Bool) in
+            if self.orangeThemeSelectorCircularView.getIsOn() {
+                ThemeManager.sharedInstance.saveTheme(ThemeComponent.ThemeType.Orange)
+            }
+        }
     }
     
     // CircularViews Delegate

@@ -94,6 +94,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    
     // MARK: Setup Views
     private func setupView() {
         // Setup Navigation
@@ -104,6 +105,23 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.recordsTableView.tableFooterView = UIView(frame: CGRectZero)
         // Display Clock
         updateClock()
+        // Add Theme Observer        
+        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
+            // Set theme
+            if let currentTheme = ThemeManager.sharedInstance.stylesheet {
+                if let backgroundImageName = currentTheme[ThemeComponent.ThemeAttribute.BackgroundImage] {
+                    let view = self.recordsTableView.backgroundView as! UIImageView
+                    view.image = UIImage(named: backgroundImageName)
+                    let animation: CATransition = CATransition()
+                    animation.duration = 0.6
+                    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    animation.type = kCATransitionFade
+                    
+                    view.layer.addAnimation(animation, forKey: nil)
+                }
+
+            }
+        }
     }
     
     func updateClock() {
@@ -144,5 +162,10 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.recordsTableView.insertRowsAtIndexPaths([NSIndexPath(forItem: recordIndex, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
             self.recordsTableView.endUpdates()
         }
+    }
+    
+    // MARK: Deinit
+    deinit {
+        ThemeObserver.unregister(self)
     }
 }

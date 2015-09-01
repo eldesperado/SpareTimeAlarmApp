@@ -8,33 +8,13 @@
 
 import UIKit
 
+
+
 class ThemeManager: NSObject {
-    // MARK: Attributes
-    
     // Public Attributes
-    var stylesheet: Theme?
-    var currentThemeType: ThemeType?
+    var stylesheet: ThemeComponent.Theme?
+    var currentThemeType: ThemeComponent.ThemeType?
     
-    // Private Attributes
-    internal enum ThemeAttribute: String {
-        case BackgroundImage = "BackgroundImage"
-        case SecondaryColor = "SecondaryColor"
-        case MandatoryColor = "MandatoryColor"
-        
-        func getValue() -> String {
-            return self.rawValue
-        }
-    }
-    typealias Theme = [ThemeAttribute: String]
-    
-    enum ThemeType: String {
-        case Default = "defaultTheme"
-        case Orange = "orangeTheme"
-        
-        func getString() -> String {
-            return self.rawValue
-        }
-    }
     
     // Constants
     private let storedKeyInUserDefaults: String = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager"
@@ -44,12 +24,21 @@ class ThemeManager: NSObject {
     
     
     // MARK: Public Methods
-    func saveTheme(theme: ThemeType) {
-        NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: self.storedKeyInUserDefaults)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func saveTheme(theme: ThemeComponent.ThemeType) {
+        if let newTheme = loadTheme(theme) {
+            // Update Stylesheet
+            self.stylesheet = newTheme
+            // Update current theme
+            self.currentThemeType = theme
+            // Save to NSUserDefaults
+            NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: self.storedKeyInUserDefaults)
+            NSUserDefaults.standardUserDefaults().synchronize()
+            // Post notification
+            postThemeUpdateNotification()
+        }
     }
 
-    // Initialization
+    // MARK: Initialization
     override init() {
         super.init()
         // Setup Theme
@@ -58,45 +47,48 @@ class ThemeManager: NSObject {
     
     // MARK: Setup
     private func setup() {
-        let userDefault: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let themeName: String = (userDefault.objectForKey(self.storedKeyInUserDefaults) ?? ThemeType.Default.getString()) as! String
+        // Get Current Theme stored in userDefaults
+        let themeName: String = (NSUserDefaults.standardUserDefaults().objectForKey(self.storedKeyInUserDefaults) ?? ThemeComponent.ThemeType.Default.getString()) as! String
         // Get the current theme type
-        self.currentThemeType = themeName == ThemeType.Default.getString() ? ThemeType.Default : ThemeType.Orange
+        if let currTheme = ThemeComponent.ThemeType(string: themeName) {
+            self.currentThemeType = currTheme
+        }
         // Load stored stylesheet
         if let theme = getStylesheetFromFile(themeName) {
             self.stylesheet = theme
         }
     }
     
+    
     // Load Theme
-    private func loadTheme(stylesheetDictionary: NSDictionary) -> Theme {
-        var theme: Theme = [ThemeAttribute.BackgroundImage : "",
-        ThemeAttribute.SecondaryColor : "",
-        ThemeAttribute.MandatoryColor : ""]
-        var dictKey: ThemeAttribute
+    private func loadTheme(theme: ThemeComponent.ThemeType) -> ThemeComponent.Theme? {
+        if let resultTheme: ThemeComponent.Theme = getStylesheetFromFile(theme.getString()) {
+            return resultTheme
+        } else {
+            return nil
+        }
+    }
+    
+    private func loadTheme(stylesheetDictionary: NSDictionary) -> ThemeComponent.Theme {
+        var theme: ThemeComponent.Theme = [ThemeComponent.ThemeAttribute.BackgroundImage : "",
+        ThemeComponent.ThemeAttribute.SecondaryColor : "",
+        ThemeComponent.ThemeAttribute.MandatoryColor : ""]
+        
+        var dictKey: ThemeComponent.ThemeAttribute
         for (key, value) in stylesheetDictionary {
-            if let k = getThemeAttribute(key as! String) {
+            if let k = ThemeComponent.ThemeAttribute(string: key as! String) {
                 theme.updateValue(value as! String, forKey: k)
             }
         }
         return theme
     }
     
-    // Helpers
-    private func getThemeAttribute(key: String) -> ThemeAttribute? {
-        switch (key) {
-        case ThemeAttribute.BackgroundImage.getValue():
-            return ThemeAttribute.BackgroundImage
-        case ThemeAttribute.SecondaryColor.getValue():
-            return ThemeAttribute.SecondaryColor
-        case ThemeAttribute.MandatoryColor.getValue():
-            return ThemeAttribute.MandatoryColor
-        default:
-            return nil
-        }
+    private func postThemeUpdateNotification() {
+        ThemeObserver.post(ThemeComponent.themeObserverUpdateNotificationKey, sender: self)
     }
     
-    private func getStylesheetFromFile(fileName: String) -> Theme? {
+    // Helpers
+    private func getStylesheetFromFile(fileName: String) -> ThemeComponent.Theme? {
         if let stylesheetPath = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist") {
             if let stylesheetData = NSDictionary(contentsOfFile: stylesheetPath) {
                 let stylesheet = loadTheme(stylesheetData)

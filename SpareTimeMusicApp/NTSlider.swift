@@ -10,6 +10,7 @@ import UIKit
 import QuartzCore
 import Foundation
 
+
 @IBDesignable public class NTSlider: UIControl {
 
     // MARK: Public Attributes
