@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class ThemeManager: NSObject {
     // Public Attributes
     var stylesheet: ThemeComponent.Theme?
@@ -37,7 +35,7 @@ class ThemeManager: NSObject {
             postThemeUpdateNotification()
         }
     }
-
+    
     // MARK: Initialization
     override init() {
         super.init()

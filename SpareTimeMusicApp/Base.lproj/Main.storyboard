@@ -228,7 +228,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theme color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doJ-I9-jjZ">
-                                                    <rect key="frame" x="22" y="28" width="286" height="21"/>
+                                                    <rect key="frame" x="22" y="28" width="113.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="22"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -391,6 +391,7 @@
                     <connections>
                         <outlet property="blueThemeSelectorCircularView" destination="q2P-Q0-KBd" id="hQP-8j-SjE"/>
                         <outlet property="orangeThemeSelectorCircularView" destination="GQQ-oR-Wp7" id="87k-Ad-2ZZ"/>
+                        <outlet property="volumeNTSlider" destination="IQr-7w-cPO" id="beC-bZ-BWM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxe-rY-x0T" userLabel="First Responder" sceneMemberID="firstResponder"/>

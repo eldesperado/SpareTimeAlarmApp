@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>MandatoryColor</key>
-	<string>FFD900</string>
+	<string>#FFD900</string>
 	<key>BackgroundImage</key>
 	<string>background_orange</string>
 	<key>SecondaryColor</key>
-	<string>FFFFFF</string>
+	<string>#FFFFFF</string>
 </dict>
 </plist>

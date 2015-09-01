@@ -59,6 +59,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     }
     
@@ -112,12 +113,8 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
                 if let backgroundImageName = currentTheme[ThemeComponent.ThemeAttribute.BackgroundImage] {
                     let view = self.recordsTableView.backgroundView as! UIImageView
                     view.image = UIImage(named: backgroundImageName)
-                    let animation: CATransition = CATransition()
-                    animation.duration = 0.6
-                    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    animation.type = kCATransitionFade
-                    
-                    view.layer.addAnimation(animation, forKey: nil)
+                    // Animate Change
+                    view.layer.animateThemeChangeAnimation()
                 }
 
             }

@@ -23,11 +23,3 @@ extension UIViewController {
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
     }
 }
-
-extension UILabel {
-    // Fixing AutoLayout bug (http://benguild.com/2014/07/15/fixing-autolayout-uIlabel-ios/)
-    public override func layoutSubviews() {
-        self.preferredMaxLayoutWidth = self.bounds.size.width
-        super.layoutSubviews()
-    }
-}

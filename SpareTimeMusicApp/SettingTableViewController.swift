@@ -12,6 +12,7 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
 
     @IBOutlet weak var blueThemeSelectorCircularView: CircularView!
     @IBOutlet weak var orangeThemeSelectorCircularView: CircularView!
+    @IBOutlet weak var volumeNTSlider: NTSlider!
     // Private constant
     private let THEME_CELL: Int = 0
     private let VOLUME_CELL: Int = 1
@@ -20,8 +21,8 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Setup CircularViews
-        setupThemeSelectorCircularView()
+        // Setup
+        setup()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -44,7 +45,34 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
+    
+    // MARK: Setup
+    private func setup() {
+        // Setup CircularViews
+        setupThemeSelectorCircularView()
+        // Setup Volume Slider
+        setupVolumeSlider()
+        // Add Theme Observer
+        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
+            // Set theme
+            if let currentTheme = ThemeManager.sharedInstance.stylesheet {
+                if let backgroundImageName = currentTheme[ThemeComponent.ThemeAttribute.BackgroundImage] {
+                    let view = self.tableView.backgroundView as! UIImageView
+                    view.image = UIImage(named: backgroundImageName)
+                    // Animate Change
+                    view.layer.animateThemeChangeAnimation()
+                }
+                
+            }
+        }
+    }
+    
 
+    // MARK: Setup Volume Slider
+    private func setupVolumeSlider() {
+        self.volumeNTSlider.subscribleToUpdateDependOnCurrentTheme()
+    }
+    
     // MARK: Setup CircularViews
     private func setupThemeSelectorCircularView() {
         // Set Delegate

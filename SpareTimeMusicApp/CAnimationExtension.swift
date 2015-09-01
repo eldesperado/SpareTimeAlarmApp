@@ -16,3 +16,16 @@ extension CATransform3D {
     }
 
 }
+
+
+extension CALayer {
+    func animateThemeChangeAnimation() {
+        let animation: CATransition = CATransition()
+        animation.duration = ThemeComponent.themeAnimationDuration
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.type = kCATransitionFade
+        
+        self.addAnimation(animation, forKey: nil)
+    }
+
+}

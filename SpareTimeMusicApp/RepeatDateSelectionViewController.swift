@@ -12,6 +12,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
 
     let numberOfDates: Int = 7
     var repeatDates: RepeatDate?
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

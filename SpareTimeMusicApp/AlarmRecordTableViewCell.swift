@@ -20,11 +20,18 @@ class AlarmRecordTableViewCell: UITableViewCell {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.repeatRingtoneSwitch.subscribleToUpdateDependOnCurrentTheme()
+    }
+    
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -62,6 +69,7 @@ class AlarmRecordTableViewCell: UITableViewCell {
         
         // Set Value for switch
         self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
+        
         // Update View
         setupCellViews()
     }
@@ -73,5 +81,9 @@ class AlarmRecordTableViewCell: UITableViewCell {
         let rightSeparator = UIView(frame: CGRectMake(self.contentView.frame.size.width - 1, rightSeperatorTopPadding, 1.0, self.contentView.frame.height * rightSeperatorPaddingConstant))
         rightSeparator.backgroundColor = separatorColour
         self.addSubview(rightSeparator)
+    }
+    
+    deinit {
+        ThemeObserver.unregister(self)
     }
 }

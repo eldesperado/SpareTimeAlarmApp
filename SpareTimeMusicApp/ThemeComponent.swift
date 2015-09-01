@@ -25,6 +25,7 @@ struct ThemeComponent {
     typealias Theme = [ThemeAttribute: String]
     
     static let themeObserverUpdateNotificationKey: String = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager.UpdateTheme"
+    static let themeAnimationDuration: Double = 0.6
 }
 
 
