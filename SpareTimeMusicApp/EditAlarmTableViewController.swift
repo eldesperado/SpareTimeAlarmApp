@@ -168,7 +168,13 @@ class EditAlarmTableViewController: UITableViewController {
         let textFieldCellRect = self.alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: self.SALUTATION_TEXT_CELL, inSection: 0))
         // Add Upper Blur View
         let upperBlurView: UIView = UIView(frame: CGRect(origin: CGPointZero, size: CGSizeMake(self.alarmSettingTableView.frame.width, textFieldCellRect.origin.y)))
-        upperBlurView.backgroundColor = UIColor.untMarineColor()
+        if let currentTheme = ThemeManager.sharedInstance.stylesheet {
+            if let backgroundColorString = currentTheme[ThemeComponent.ThemeAttribute.BackgroundColor] {
+                let backgroundColor = UIColor(rgba: backgroundColorString)
+                upperBlurView.backgroundColor = backgroundColor.colorWithAlphaComponent(0.9)
+
+            }
+        }
         upperBlurView.alpha = 0.9
         upperBlurView.tag = self.upperBlurViewTag
         upperBlurView.userInteractionEnabled = true
@@ -179,7 +185,7 @@ class EditAlarmTableViewController: UITableViewController {
         let belowBlurViewHeight = self.alarmSettingTableView.frame.size.height - textFieldCellRect.height - textFieldCellRect.origin.y
         let belowBlurViewY = textFieldCellRect.origin.y + textFieldCellRect.height
         let belowBlurView: UIView = UIView(frame: CGRect(origin: CGPointMake(0, belowBlurViewY), size: CGSizeMake(self.alarmSettingTableView.frame.width, belowBlurViewHeight)))
-        belowBlurView.backgroundColor = UIColor.untMarineColor()
+        belowBlurView.backgroundColor = upperBlurView.backgroundColor
         belowBlurView.alpha = 0.0
         belowBlurView.tag = self.belowBlurViewTag
         belowBlurView.userInteractionEnabled = true

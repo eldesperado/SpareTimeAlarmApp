@@ -69,7 +69,7 @@ class ThemeManager: NSObject {
     
     private func loadTheme(stylesheetDictionary: NSDictionary) -> ThemeComponent.Theme {
         var theme: ThemeComponent.Theme = [ThemeComponent.ThemeAttribute.BackgroundImage : "",
-        ThemeComponent.ThemeAttribute.SecondaryColor : "",
+        ThemeComponent.ThemeAttribute.BackgroundColor : "",
         ThemeComponent.ThemeAttribute.MandatoryColor : ""]
         
         var dictKey: ThemeComponent.ThemeAttribute

@@ -9,7 +9,7 @@
 import UIKit
 
 class NTTableView: UITableView {
-
+    // MARK: Initilization
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupThemeManagerNotification()

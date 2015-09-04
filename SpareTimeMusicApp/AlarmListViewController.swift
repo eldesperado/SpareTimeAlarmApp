@@ -30,6 +30,10 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         loadData()
         // Setup View
         setupView()
+        if self.alarmRecordArray.count > 0 {
+            // Animate Cell Loading
+            self.recordsTableView.reloadDataWithAnimation(UITableViewCellLoadingAnimations.AnimationCellDirection.LiftUpFromBottom, animationTime: 0.5, interval: 0.05)
+        }
     }
     
     func loadData() {

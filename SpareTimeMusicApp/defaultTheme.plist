@@ -6,7 +6,7 @@
 	<string>#2B64F3</string>
 	<key>BackgroundImage</key>
 	<string>background</string>
-	<key>SecondaryColor</key>
-	<string>#FFFFFF</string>
+	<key>BackgroundColor</key>
+	<string>#082749</string>
 </dict>
 </plist>

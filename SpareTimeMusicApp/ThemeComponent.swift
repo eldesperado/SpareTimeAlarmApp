@@ -15,7 +15,7 @@ struct ThemeComponent {
     
     enum ThemeAttribute: String {
         case BackgroundImage = "BackgroundImage"
-        case SecondaryColor = "SecondaryColor"
+        case BackgroundColor = "BackgroundColor"
         case MandatoryColor = "MandatoryColor"
         
         func getString() -> String {
@@ -34,8 +34,8 @@ extension ThemeComponent.ThemeAttribute {
         switch (string.lowercaseString) {
         case ThemeComponent.ThemeAttribute.BackgroundImage.getString().lowercaseString:
             self = .BackgroundImage
-        case ThemeComponent.ThemeAttribute.SecondaryColor.getString().lowercaseString:
-            self = .SecondaryColor
+        case ThemeComponent.ThemeAttribute.BackgroundColor.getString().lowercaseString:
+            self = .BackgroundColor
         case ThemeComponent.ThemeAttribute.MandatoryColor.getString().lowercaseString:
             self = .MandatoryColor
         default:
