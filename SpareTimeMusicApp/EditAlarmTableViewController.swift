@@ -149,6 +149,10 @@ class EditAlarmTableViewController: UITableViewController {
     @IBAction func doneRepeatDatesSelectionUnwindSegue(segue:UIStoryboardSegue) {
         // Update Repeat Date TableViewCell
         let repeatDatesSelectionVC = segue.sourceViewController as! RepeatDateSelectionViewController
+        // Update Repeat Dates
+        if let record = self.alarmRecord {
+            record.repeatDates.copyValueFrom(repeatDatesSelectionVC.repeatDates!)
+        }
         updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
     }
     

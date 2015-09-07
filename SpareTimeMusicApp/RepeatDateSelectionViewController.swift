@@ -24,7 +24,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
         if (find(self.navigationController!.viewControllers as! [UIViewController], self) == nil) {
             // back button was pressed.  We know this is true because self is no longer
             // in the navigation stack.
-            self.performSegueWithIdentifier(unwindSegueId, sender: self)
+            self.performSegueWithIdentifier(unwindSegueId, sender: self.repeatDates)
         }
         super.viewWillDisappear(animated)
     }
