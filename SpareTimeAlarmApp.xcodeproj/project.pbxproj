@@ -886,7 +886,7 @@
 				INFOPLIST_FILE = SpareTimeMusicAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = SpareTimeAlarmAppTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeMusicApp.app/SpareTimeMusicApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeAlarmApp.app/SpareTimeAlarmApp";
 			};
 			name = Debug;
 		};
@@ -902,7 +902,7 @@
 				INFOPLIST_FILE = SpareTimeMusicAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = SpareTimeAlarmAppTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeMusicApp.app/SpareTimeMusicApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeAlarmApp.app/SpareTimeAlarmApp";
 			};
 			name = Release;
 		};
