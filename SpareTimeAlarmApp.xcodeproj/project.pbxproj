@@ -1,0 +1,955 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		25098B901B8EC27D00C71C9E /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25098B8F1B8EC27D00C71C9E /* ThemeManager.swift */; };
+		25098B931B8EF01000C71C9E /* defaultTheme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25098B921B8EF01000C71C9E /* defaultTheme.plist */; };
+		25098B951B8EF0E000C71C9E /* orangeTheme.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25098B941B8EF0E000C71C9E /* orangeTheme.plist */; };
+		25098B981B8F0DBA00C71C9E /* NTTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25098B971B8F0DBA00C71C9E /* NTTableView.swift */; };
+		251B323A1B9587D40044DBDA /* ThemeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251B32391B9587D40044DBDA /* ThemeObserver.swift */; };
+		25816DDE1B958F66009274CA /* ThemeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25816DDD1B958F66009274CA /* ThemeComponent.swift */; };
+		25831A561B81E4650088404D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A551B81E4650088404D /* SettingTableViewController.swift */; };
+		25831A5B1B846CCC0088404D /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5A1B846CCC0088404D /* CircularView.swift */; };
+		25831A5E1B85D1F90088404D /* NTSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5D1B85D1F90088404D /* NTSlider.swift */; };
+		25831A601B8703390088404D /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5F1B8703390088404D /* SpringAnimation.swift */; };
+		25831A621B87037F0088404D /* CAnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A611B87037F0088404D /* CAnimationExtension.swift */; };
+		25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */; };
+		25AB47FA1B95B60F006462D1 /* NTSliderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */; };
+		25AB47FD1B999658006462D1 /* UITableView+LoadCellAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */; };
+		25AD76121B7C733C0087CED8 /* CoreDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */; };
+		25AD76191B7CABE10087CED8 /* NTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD76181B7CABE10087CED8 /* NTTextField.swift */; };
+		25AD761B1B7CACDE0087CED8 /* FancyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD761A1B7CACDE0087CED8 /* FancyTextField.swift */; };
+		25B559F01B733C7800F47D84 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B559EF1B733C7800F47D84 /* CoreDataStore.swift */; };
+		25B559F61B734B3300F47D84 /* CoreDataOperationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */; };
+		25B559FC1B735E4B00F47D84 /* RepeatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B559FB1B735E4B00F47D84 /* RepeatDate.swift */; };
+		25B55A061B737AD600F47D84 /* AlarmRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55A051B737AD600F47D84 /* AlarmRecord.swift */; };
+		25D31E181B818AB100E54821 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D31E171B818AB100E54821 /* Reveal.framework */; };
+		25D614851B7214A20042544D /* NTSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D614841B7214A10042544D /* NTSwitch.swift */; };
+		25D614871B721EAA0042544D /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D614861B721EAA0042544D /* SevenSwitch.swift */; };
+		25D614901B7227FC0042544D /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6148F1B7227FC0042544D /* CoreDataHelper.swift */; };
+		25DB96AF1B6F19290088B3FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DB96AE1B6F19290088B3FA /* AppDelegate.swift */; };
+		25DB96B41B6F19290088B3FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96B21B6F19290088B3FA /* Main.storyboard */; };
+		25DB96B61B6F19290088B3FA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96B51B6F19290088B3FA /* Images.xcassets */; };
+		25DB96B91B6F19290088B3FA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96B71B6F19290088B3FA /* LaunchScreen.xib */; };
+		25DB96C51B6F19290088B3FA /* SpareTimeMusicAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DB96C41B6F19290088B3FA /* SpareTimeMusicAppTests.swift */; };
+		25DB96D21B6F489B0088B3FA /* RotondaC-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96D01B6F489B0088B3FA /* RotondaC-Bold.otf */; };
+		25DB96D31B6F489B0088B3FA /* RotondaC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96D11B6F489B0088B3FA /* RotondaC.otf */; };
+		25DB96DA1B6F62770088B3FA /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25DB96D81B6F62770088B3FA /* CoreData.xcdatamodeld */; };
+		25EFCBD31B748F1200A0FE0C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBD21B748F1200A0FE0C /* UIViewControllerExtension.swift */; };
+		25EFCBD71B74937400A0FE0C /* NTTimeIntervalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */; };
+		25EFCBD91B74A97500A0FE0C /* EditAlarmTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */; };
+		25EFCBDD1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBDC1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift */; };
+		25EFCBDF1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBDE1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift */; };
+		25EFCBE11B78B8BC00A0FE0C /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBE01B78B8BC00A0FE0C /* UITableViewCellExtension.swift */; };
+		25EFCBE31B79A4AC00A0FE0C /* UIColor+AlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBE21B79A4AC00A0FE0C /* UIColor+AlarmApp.swift */; };
+		25EFCBE51B79DA5E00A0FE0C /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBE41B79DA5E00A0FE0C /* DateTimeHelper.swift */; };
+		25EFCBE71B7B4BD100A0FE0C /* NTTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBE61B7B4BD100A0FE0C /* NTTableViewController.swift */; };
+		25FD4C781B707C6700F7A435 /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD4C771B707C6700F7A435 /* AlarmListViewController.swift */; };
+		25FD4C7B1B707EF400F7A435 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD4C7A1B707EF400F7A435 /* ClockView.swift */; };
+		25FD4C871B70D16B00F7A435 /* AlarmRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD4C861B70D16B00F7A435 /* AlarmRecordTableViewCell.swift */; };
+		2ED2590580FE3C589FA41031 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D824140E1EEBF23C79CA3CC /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7923233B4D0178C4D68CB6BC /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D824140E1EEBF23C79CA3CC /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		25DB96BF1B6F19290088B3FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25DB96A11B6F19290088B3FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 25DB96A81B6F19290088B3FA;
+			remoteInfo = SpareTimeMusicApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D824140E1EEBF23C79CA3CC /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		25098B8F1B8EC27D00C71C9E /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		25098B921B8EF01000C71C9E /* defaultTheme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultTheme.plist; sourceTree = "<group>"; };
+		25098B941B8EF0E000C71C9E /* orangeTheme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = orangeTheme.plist; sourceTree = "<group>"; };
+		25098B971B8F0DBA00C71C9E /* NTTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTableView.swift; sourceTree = "<group>"; };
+		251B32391B9587D40044DBDA /* ThemeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeObserver.swift; sourceTree = "<group>"; };
+		25816DDD1B958F66009274CA /* ThemeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeComponent.swift; sourceTree = "<group>"; };
+		25831A551B81E4650088404D /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		25831A5A1B846CCC0088404D /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
+		25831A5D1B85D1F90088404D /* NTSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSlider.swift; sourceTree = "<group>"; };
+		25831A5F1B8703390088404D /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
+		25831A611B87037F0088404D /* CAnimationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAnimationExtension.swift; sourceTree = "<group>"; };
+		259850271B7204B800655EBC /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		2598502C1B7206E000655EBC /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "Pods/../build/Debug-iphoneos/Realm.framework"; sourceTree = "<group>"; };
+		2598502D1B7206E000655EBC /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "Pods/../build/Debug-iphoneos/RealmSwift.framework"; sourceTree = "<group>"; };
+		2598502E1B7206E000655EBC /* SevenSwitch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SevenSwitch.framework; path = "Pods/../build/Debug-iphoneos/SevenSwitch.framework"; sourceTree = "<group>"; };
+		2598502F1B7206E000655EBC /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = "Pods/../build/Debug-iphoneos/SwiftDate.framework"; sourceTree = "<group>"; };
+		259850341B72071B00655EBC /* SevenSwitch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SevenSwitch.framework; path = "Pods/../build/Debug-iphoneos/SevenSwitch.framework"; sourceTree = "<group>"; };
+		25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatClockStyleKit.swift; sourceTree = "<group>"; };
+		25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSliderExtension.swift; sourceTree = "<group>"; };
+		25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+LoadCellAnimation.swift"; sourceTree = "<group>"; };
+		25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataExtension.swift; sourceTree = "<group>"; };
+		25AD76181B7CABE10087CED8 /* NTTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTextField.swift; sourceTree = "<group>"; };
+		25AD761A1B7CACDE0087CED8 /* FancyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
+		25B559EF1B733C7800F47D84 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataOperationHelper.swift; sourceTree = "<group>"; };
+		25B559FB1B735E4B00F47D84 /* RepeatDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepeatDate.swift; path = ../RepeatDate.swift; sourceTree = "<group>"; };
+		25B55A051B737AD600F47D84 /* AlarmRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmRecord.swift; path = ../AlarmRecord.swift; sourceTree = "<group>"; };
+		25D31E171B818AB100E54821 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		25D614841B7214A10042544D /* NTSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSwitch.swift; sourceTree = "<group>"; };
+		25D614861B721EAA0042544D /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
+		25D6148F1B7227FC0042544D /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		25DB96A91B6F19290088B3FA /* SpareTimeAlarmApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpareTimeAlarmApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25DB96AD1B6F19290088B3FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25DB96AE1B6F19290088B3FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		25DB96B31B6F19290088B3FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		25DB96B51B6F19290088B3FA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		25DB96B81B6F19290088B3FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		25DB96BE1B6F19290088B3FA /* SpareTimeAlarmAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpareTimeAlarmAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		25DB96C31B6F19290088B3FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25DB96C41B6F19290088B3FA /* SpareTimeMusicAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpareTimeMusicAppTests.swift; sourceTree = "<group>"; };
+		25DB96D01B6F489B0088B3FA /* RotondaC-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RotondaC-Bold.otf"; sourceTree = "<group>"; };
+		25DB96D11B6F489B0088B3FA /* RotondaC.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RotondaC.otf; sourceTree = "<group>"; };
+		25DB96D91B6F62770088B3FA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		25EFCBD21B748F1200A0FE0C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTimeIntervalPickerView.swift; sourceTree = "<group>"; };
+		25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAlarmTableViewController.swift; sourceTree = "<group>"; };
+		25EFCBDC1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatDateSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		25EFCBDE1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatDateSelectionViewController.swift; sourceTree = "<group>"; };
+		25EFCBE01B78B8BC00A0FE0C /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
+		25EFCBE21B79A4AC00A0FE0C /* UIColor+AlarmApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+AlarmApp.swift"; sourceTree = "<group>"; };
+		25EFCBE41B79DA5E00A0FE0C /* DateTimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
+		25EFCBE61B7B4BD100A0FE0C /* NTTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTableViewController.swift; sourceTree = "<group>"; };
+		25FD4C771B707C6700F7A435 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
+		25FD4C7A1B707EF400F7A435 /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		25FD4C861B70D16B00F7A435 /* AlarmRecordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmRecordTableViewCell.swift; sourceTree = "<group>"; };
+		40CFBB68137E841AF7ABB723 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8DC558F0CC51FFF108192269 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		25DB96A61B6F19290088B3FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2ED2590580FE3C589FA41031 /* Pods.framework in Frameworks */,
+				25D31E181B818AB100E54821 /* Reveal.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25DB96BB1B6F19290088B3FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7923233B4D0178C4D68CB6BC /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14339BE303B578D4A5DB72DA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				259850341B72071B00655EBC /* SevenSwitch.framework */,
+				2598502C1B7206E000655EBC /* Realm.framework */,
+				2598502D1B7206E000655EBC /* RealmSwift.framework */,
+				2598502E1B7206E000655EBC /* SevenSwitch.framework */,
+				2598502F1B7206E000655EBC /* SwiftDate.framework */,
+				1D824140E1EEBF23C79CA3CC /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		25098B8D1B8EC24400C71C9E /* ThemeManager */ = {
+			isa = PBXGroup;
+			children = (
+				25098B8F1B8EC27D00C71C9E /* ThemeManager.swift */,
+				251B32391B9587D40044DBDA /* ThemeObserver.swift */,
+				25816DDD1B958F66009274CA /* ThemeComponent.swift */,
+			);
+			name = ThemeManager;
+			sourceTree = "<group>";
+		};
+		25098B911B8EEFF100C71C9E /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				25098B921B8EF01000C71C9E /* defaultTheme.plist */,
+				25098B941B8EF0E000C71C9E /* orangeTheme.plist */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+		25098B961B8F0D9000C71C9E /* NTTableView */ = {
+			isa = PBXGroup;
+			children = (
+				25098B971B8F0DBA00C71C9E /* NTTableView.swift */,
+			);
+			name = NTTableView;
+			sourceTree = "<group>";
+		};
+		25831A591B846CA50088404D /* CircularImageView */ = {
+			isa = PBXGroup;
+			children = (
+				25831A5A1B846CCC0088404D /* CircularView.swift */,
+			);
+			name = CircularImageView;
+			sourceTree = "<group>";
+		};
+		25831A5C1B85D1C40088404D /* NTSlider */ = {
+			isa = PBXGroup;
+			children = (
+				25831A5D1B85D1F90088404D /* NTSlider.swift */,
+				25831A5F1B8703390088404D /* SpringAnimation.swift */,
+			);
+			name = NTSlider;
+			sourceTree = "<group>";
+		};
+		25AD76131B7C91900087CED8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				25EFCBE21B79A4AC00A0FE0C /* UIColor+AlarmApp.swift */,
+				25EFCBD21B748F1200A0FE0C /* UIViewControllerExtension.swift */,
+				25EFCBE61B7B4BD100A0FE0C /* NTTableViewController.swift */,
+				25EFCBE01B78B8BC00A0FE0C /* UITableViewCellExtension.swift */,
+				25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */,
+				25831A611B87037F0088404D /* CAnimationExtension.swift */,
+				25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */,
+				25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		25AD76141B7C91990087CED8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				25D6148F1B7227FC0042544D /* CoreDataHelper.swift */,
+				25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */,
+				25EFCBE41B79DA5E00A0FE0C /* DateTimeHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		25AD76171B7CABA30087CED8 /* UITextField */ = {
+			isa = PBXGroup;
+			children = (
+				25AD76181B7CABE10087CED8 /* NTTextField.swift */,
+				25AD761A1B7CACDE0087CED8 /* FancyTextField.swift */,
+			);
+			name = UITextField;
+			sourceTree = "<group>";
+		};
+		25D31E161B818AA400E54821 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				25D31E171B818AB100E54821 /* Reveal.framework */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		25D6148E1B7226E90042544D /* Helpers+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				25098B8D1B8EC24400C71C9E /* ThemeManager */,
+				25AD76131B7C91900087CED8 /* Extensions */,
+				25AD76141B7C91990087CED8 /* Helpers */,
+			);
+			name = "Helpers+Extensions";
+			sourceTree = "<group>";
+		};
+		25DB96A01B6F19290088B3FA = {
+			isa = PBXGroup;
+			children = (
+				25DB96AB1B6F19290088B3FA /* SpareTimeMusicApp */,
+				25DB96C11B6F19290088B3FA /* SpareTimeMusicAppTests */,
+				25DB96AA1B6F19290088B3FA /* Products */,
+				6D71F228765D6C4C2F7839F8 /* Pods */,
+				14339BE303B578D4A5DB72DA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		25DB96AA1B6F19290088B3FA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				25DB96A91B6F19290088B3FA /* SpareTimeAlarmApp.app */,
+				25DB96BE1B6F19290088B3FA /* SpareTimeAlarmAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		25DB96AB1B6F19290088B3FA /* SpareTimeMusicApp */ = {
+			isa = PBXGroup;
+			children = (
+				25D31E161B818AA400E54821 /* Framework */,
+				25DB96AE1B6F19290088B3FA /* AppDelegate.swift */,
+				25D6148E1B7226E90042544D /* Helpers+Extensions */,
+				25DB96D71B6F625C0088B3FA /* CoreData */,
+				25DB96D61B6F624A0088B3FA /* Controllers */,
+				25DB96D51B6F62400088B3FA /* Views */,
+				25DB96CE1B6F48760088B3FA /* Resources */,
+				25DB96AC1B6F19290088B3FA /* Supporting Files */,
+			);
+			path = SpareTimeMusicApp;
+			sourceTree = "<group>";
+		};
+		25DB96AC1B6F19290088B3FA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				25DB96AD1B6F19290088B3FA /* Info.plist */,
+				259850271B7204B800655EBC /* Bridging.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		25DB96C11B6F19290088B3FA /* SpareTimeMusicAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				25DB96C41B6F19290088B3FA /* SpareTimeMusicAppTests.swift */,
+				25DB96C21B6F19290088B3FA /* Supporting Files */,
+			);
+			path = SpareTimeMusicAppTests;
+			sourceTree = "<group>";
+		};
+		25DB96C21B6F19290088B3FA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				25DB96C31B6F19290088B3FA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		25DB96CE1B6F48760088B3FA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				25098B911B8EEFF100C71C9E /* Configurations */,
+				25DB96D41B6F62340088B3FA /* Images */,
+				25DB96CF1B6F48830088B3FA /* Fonts */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		25DB96CF1B6F48830088B3FA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				25DB96D01B6F489B0088B3FA /* RotondaC-Bold.otf */,
+				25DB96D11B6F489B0088B3FA /* RotondaC.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		25DB96D41B6F62340088B3FA /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				25DB96B51B6F19290088B3FA /* Images.xcassets */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		25DB96D51B6F62400088B3FA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				25FD4C851B70D14200F7A435 /* TableViewCells */,
+				25FD4C791B707EDC00F7A435 /* CustomViews */,
+				25DB96B21B6F19290088B3FA /* Main.storyboard */,
+				25DB96B71B6F19290088B3FA /* LaunchScreen.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		25DB96D61B6F624A0088B3FA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				25FD4C771B707C6700F7A435 /* AlarmListViewController.swift */,
+				25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */,
+				25EFCBDE1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift */,
+				25831A551B81E4650088404D /* SettingTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		25DB96D71B6F625C0088B3FA /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				25B55A051B737AD600F47D84 /* AlarmRecord.swift */,
+				25B559FB1B735E4B00F47D84 /* RepeatDate.swift */,
+				25DB96D81B6F62770088B3FA /* CoreData.xcdatamodeld */,
+				25B559EF1B733C7800F47D84 /* CoreDataStore.swift */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		25DDC33B1B71BA7E00683750 /* SwipeCell */ = {
+			isa = PBXGroup;
+			children = (
+				25FD4C861B70D16B00F7A435 /* AlarmRecordTableViewCell.swift */,
+			);
+			name = SwipeCell;
+			sourceTree = "<group>";
+		};
+		25DDC33E1B71F03600683750 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				25098B961B8F0D9000C71C9E /* NTTableView */,
+				25831A5C1B85D1C40088404D /* NTSlider */,
+				25831A591B846CA50088404D /* CircularImageView */,
+				25AD76171B7CABA30087CED8 /* UITextField */,
+				25EFCBD51B74933500A0FE0C /* UISwitch */,
+				25EFCBD41B74932A00A0FE0C /* UIPickerView */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		25EFCBD41B74932A00A0FE0C /* UIPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */,
+			);
+			name = UIPickerView;
+			sourceTree = "<group>";
+		};
+		25EFCBD51B74933500A0FE0C /* UISwitch */ = {
+			isa = PBXGroup;
+			children = (
+				25D614861B721EAA0042544D /* SevenSwitch.swift */,
+				25D614841B7214A10042544D /* NTSwitch.swift */,
+			);
+			name = UISwitch;
+			sourceTree = "<group>";
+		};
+		25FD4C791B707EDC00F7A435 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				25DDC33E1B71F03600683750 /* Components */,
+				25FD4C841B70D13000F7A435 /* StyleKits */,
+				25FD4C7A1B707EF400F7A435 /* ClockView.swift */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
+		25FD4C841B70D13000F7A435 /* StyleKits */ = {
+			isa = PBXGroup;
+			children = (
+				25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */,
+			);
+			name = StyleKits;
+			sourceTree = "<group>";
+		};
+		25FD4C851B70D14200F7A435 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				25DDC33B1B71BA7E00683750 /* SwipeCell */,
+				25EFCBDC1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
+		6D71F228765D6C4C2F7839F8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8DC558F0CC51FFF108192269 /* Pods.debug.xcconfig */,
+				40CFBB68137E841AF7ABB723 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		25DB96A81B6F19290088B3FA /* SpareTimeAlarmApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25DB96C81B6F19290088B3FA /* Build configuration list for PBXNativeTarget "SpareTimeAlarmApp" */;
+			buildPhases = (
+				44E4108C44A41CE85FBADAF4 /* Check Pods Manifest.lock */,
+				25DB96A51B6F19290088B3FA /* Sources */,
+				25DB96A61B6F19290088B3FA /* Frameworks */,
+				25DB96A71B6F19290088B3FA /* Resources */,
+				D15A8A38A24C6F5C5C092638 /* Embed Pods Frameworks */,
+				57C3B33D8DFDA27D8AF96E70 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpareTimeAlarmApp;
+			productName = SpareTimeMusicApp;
+			productReference = 25DB96A91B6F19290088B3FA /* SpareTimeAlarmApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		25DB96BD1B6F19290088B3FA /* SpareTimeAlarmAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25DB96CB1B6F19290088B3FA /* Build configuration list for PBXNativeTarget "SpareTimeAlarmAppTests" */;
+			buildPhases = (
+				EB596EB87EDB84C39FE7B991 /* Check Pods Manifest.lock */,
+				25DB96BA1B6F19290088B3FA /* Sources */,
+				25DB96BB1B6F19290088B3FA /* Frameworks */,
+				25DB96BC1B6F19290088B3FA /* Resources */,
+				95DCBF9C31F9E8D49C731AC4 /* Embed Pods Frameworks */,
+				0A4435F2E570A9D76661FE8B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				25DB96C01B6F19290088B3FA /* PBXTargetDependency */,
+			);
+			name = SpareTimeAlarmAppTests;
+			productName = SpareTimeMusicAppTests;
+			productReference = 25DB96BE1B6F19290088B3FA /* SpareTimeAlarmAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		25DB96A11B6F19290088B3FA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Pham Nguyen Nhat Trung";
+				TargetAttributes = {
+					25DB96A81B6F19290088B3FA = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = BRKG74MFU2;
+					};
+					25DB96BD1B6F19290088B3FA = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 25DB96A81B6F19290088B3FA;
+					};
+				};
+			};
+			buildConfigurationList = 25DB96A41B6F19290088B3FA /* Build configuration list for PBXProject "SpareTimeAlarmApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 25DB96A01B6F19290088B3FA;
+			productRefGroup = 25DB96AA1B6F19290088B3FA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				25DB96A81B6F19290088B3FA /* SpareTimeAlarmApp */,
+				25DB96BD1B6F19290088B3FA /* SpareTimeAlarmAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		25DB96A71B6F19290088B3FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25DB96D21B6F489B0088B3FA /* RotondaC-Bold.otf in Resources */,
+				25DB96B41B6F19290088B3FA /* Main.storyboard in Resources */,
+				25098B931B8EF01000C71C9E /* defaultTheme.plist in Resources */,
+				25DB96B91B6F19290088B3FA /* LaunchScreen.xib in Resources */,
+				25098B951B8EF0E000C71C9E /* orangeTheme.plist in Resources */,
+				25DB96D31B6F489B0088B3FA /* RotondaC.otf in Resources */,
+				25DB96B61B6F19290088B3FA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25DB96BC1B6F19290088B3FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A4435F2E570A9D76661FE8B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44E4108C44A41CE85FBADAF4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		57C3B33D8DFDA27D8AF96E70 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95DCBF9C31F9E8D49C731AC4 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D15A8A38A24C6F5C5C092638 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB596EB87EDB84C39FE7B991 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		25DB96A51B6F19290088B3FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25FD4C781B707C6700F7A435 /* AlarmListViewController.swift in Sources */,
+				25FD4C7B1B707EF400F7A435 /* ClockView.swift in Sources */,
+				25816DDE1B958F66009274CA /* ThemeComponent.swift in Sources */,
+				25831A5E1B85D1F90088404D /* NTSlider.swift in Sources */,
+				251B323A1B9587D40044DBDA /* ThemeObserver.swift in Sources */,
+				25EFCBD31B748F1200A0FE0C /* UIViewControllerExtension.swift in Sources */,
+				25EFCBE31B79A4AC00A0FE0C /* UIColor+AlarmApp.swift in Sources */,
+				25FD4C871B70D16B00F7A435 /* AlarmRecordTableViewCell.swift in Sources */,
+				25D614901B7227FC0042544D /* CoreDataHelper.swift in Sources */,
+				25AD761B1B7CACDE0087CED8 /* FancyTextField.swift in Sources */,
+				25B55A061B737AD600F47D84 /* AlarmRecord.swift in Sources */,
+				25B559F01B733C7800F47D84 /* CoreDataStore.swift in Sources */,
+				25AB47FA1B95B60F006462D1 /* NTSliderExtension.swift in Sources */,
+				25EFCBD71B74937400A0FE0C /* NTTimeIntervalPickerView.swift in Sources */,
+				25831A5B1B846CCC0088404D /* CircularView.swift in Sources */,
+				25EFCBDF1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift in Sources */,
+				25831A621B87037F0088404D /* CAnimationExtension.swift in Sources */,
+				25AB47FD1B999658006462D1 /* UITableView+LoadCellAnimation.swift in Sources */,
+				25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */,
+				25EFCBE51B79DA5E00A0FE0C /* DateTimeHelper.swift in Sources */,
+				25DB96AF1B6F19290088B3FA /* AppDelegate.swift in Sources */,
+				25B559FC1B735E4B00F47D84 /* RepeatDate.swift in Sources */,
+				25831A561B81E4650088404D /* SettingTableViewController.swift in Sources */,
+				25AD76121B7C733C0087CED8 /* CoreDataExtension.swift in Sources */,
+				25EFCBE71B7B4BD100A0FE0C /* NTTableViewController.swift in Sources */,
+				25098B981B8F0DBA00C71C9E /* NTTableView.swift in Sources */,
+				25B559F61B734B3300F47D84 /* CoreDataOperationHelper.swift in Sources */,
+				25831A601B8703390088404D /* SpringAnimation.swift in Sources */,
+				25EFCBE11B78B8BC00A0FE0C /* UITableViewCellExtension.swift in Sources */,
+				25D614871B721EAA0042544D /* SevenSwitch.swift in Sources */,
+				25EFCBD91B74A97500A0FE0C /* EditAlarmTableViewController.swift in Sources */,
+				25098B901B8EC27D00C71C9E /* ThemeManager.swift in Sources */,
+				25DB96DA1B6F62770088B3FA /* CoreData.xcdatamodeld in Sources */,
+				25D614851B7214A20042544D /* NTSwitch.swift in Sources */,
+				25EFCBDD1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift in Sources */,
+				25AD76191B7CABE10087CED8 /* NTTextField.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		25DB96BA1B6F19290088B3FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25DB96C51B6F19290088B3FA /* SpareTimeMusicAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		25DB96C01B6F19290088B3FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 25DB96A81B6F19290088B3FA /* SpareTimeAlarmApp */;
+			targetProxy = 25DB96BF1B6F19290088B3FA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		25DB96B21B6F19290088B3FA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25DB96B31B6F19290088B3FA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		25DB96B71B6F19290088B3FA /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25DB96B81B6F19290088B3FA /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		25DB96C61B6F19290088B3FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		25DB96C71B6F19290088B3FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		25DB96C91B6F19290088B3FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DC558F0CC51FFF108192269 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/SpareTimeMusicApp",
+				);
+				INFOPLIST_FILE = SpareTimeMusicApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
+				PRODUCT_NAME = SpareTimeAlarmApp;
+				SWIFT_OBJC_BRIDGING_HEADER = SpareTimeMusicApp/Bridging.h;
+			};
+			name = Debug;
+		};
+		25DB96CA1B6F19290088B3FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40CFBB68137E841AF7ABB723 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/SpareTimeMusicApp",
+				);
+				INFOPLIST_FILE = SpareTimeMusicApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"IQKeyboardManager\"",
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
+				PRODUCT_NAME = SpareTimeAlarmApp;
+				SWIFT_OBJC_BRIDGING_HEADER = SpareTimeMusicApp/Bridging.h;
+			};
+			name = Release;
+		};
+		25DB96CC1B6F19290088B3FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DC558F0CC51FFF108192269 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SpareTimeMusicAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = SpareTimeAlarmAppTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeMusicApp.app/SpareTimeMusicApp";
+			};
+			name = Debug;
+		};
+		25DB96CD1B6F19290088B3FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40CFBB68137E841AF7ABB723 /* Pods.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SpareTimeMusicAppTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = SpareTimeAlarmAppTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeMusicApp.app/SpareTimeMusicApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		25DB96A41B6F19290088B3FA /* Build configuration list for PBXProject "SpareTimeAlarmApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25DB96C61B6F19290088B3FA /* Debug */,
+				25DB96C71B6F19290088B3FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		25DB96C81B6F19290088B3FA /* Build configuration list for PBXNativeTarget "SpareTimeAlarmApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25DB96C91B6F19290088B3FA /* Debug */,
+				25DB96CA1B6F19290088B3FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		25DB96CB1B6F19290088B3FA /* Build configuration list for PBXNativeTarget "SpareTimeAlarmAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25DB96CC1B6F19290088B3FA /* Debug */,
+				25DB96CD1B6F19290088B3FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		25DB96D81B6F62770088B3FA /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				25DB96D91B6F62770088B3FA /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 25DB96D91B6F62770088B3FA /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 25DB96A11B6F19290088B3FA /* Project object */;
+}
