@@ -36,6 +36,22 @@ class ThemeManager: NSObject {
         }
     }
     
+    func getThemeComponent(component: ThemeComponent.ThemeAttribute) -> AnyObject? {
+        if let currentTheme = ThemeManager.sharedInstance.stylesheet,
+            attributeValue = currentTheme[component] {
+                switch (component) {
+                case .BackgroundColor:
+                    return UIColor(rgba: attributeValue)
+                case .BackgroundImage:
+                    return UIImage(named: attributeValue)
+                case .MandatoryColor:
+                    return UIColor(rgba: attributeValue)
+                }
+        } else {
+            return nil
+        }
+    }
+    
     // MARK: Initialization
     override init() {
         super.init()

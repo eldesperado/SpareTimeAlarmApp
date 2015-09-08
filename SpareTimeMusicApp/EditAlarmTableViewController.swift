@@ -62,8 +62,7 @@ class EditAlarmTableViewController: UITableViewController {
     
     let unwindSegueId = "doneEditingAlarmUnwindSegue"
     @IBAction func doneBarButtonDidTouch(sender: AnyObject) {
-        if let record = self.alarmRecord {
-            let backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as! AlarmRecord
+        if let record = self.alarmRecord, backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord {
             // Update Alarm Record with new values
             backgroundObject.alarmTime = self.alarmTimePickerView.timeInterval
             backgroundObject.salutationText = self.salutationTextField.text
@@ -138,9 +137,10 @@ class EditAlarmTableViewController: UITableViewController {
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == self.pushIdentifer {
-            if let record: AlarmRecord = sender as? AlarmRecord {
-                let backgroundRecord = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as! AlarmRecord
-                let repeatDateSelectionVC = segue.destinationViewController as! RepeatDateSelectionViewController
+            if let record: AlarmRecord = sender as? AlarmRecord,
+            let backgroundRecord = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord,
+            let repeatDateSelectionVC = segue.destinationViewController as? RepeatDateSelectionViewController
+            {
                 repeatDateSelectionVC.repeatDates = backgroundRecord.repeatDates
             }
         }
@@ -148,12 +148,11 @@ class EditAlarmTableViewController: UITableViewController {
     
     @IBAction func doneRepeatDatesSelectionUnwindSegue(segue:UIStoryboardSegue) {
         // Update Repeat Date TableViewCell
-        let repeatDatesSelectionVC = segue.sourceViewController as! RepeatDateSelectionViewController
         // Update Repeat Dates
-        if let record = self.alarmRecord {
+        if let repeatDatesSelectionVC = segue.sourceViewController as? RepeatDateSelectionViewController, record = self.alarmRecord where repeatDatesSelectionVC.repeatDates != nil {
             record.repeatDates.copyValueFrom(repeatDatesSelectionVC.repeatDates!)
+            updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
         }
-        updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
     }
     
     // MARK: Setup View

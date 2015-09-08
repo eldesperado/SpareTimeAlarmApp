@@ -30,8 +30,8 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         loadData()
         // Setup View
         setupView()
+        // Animate Cell Loading
         if self.alarmRecordArray.count > 0 {
-            // Animate Cell Loading
             self.recordsTableView.reloadDataWithAnimation(UITableViewCellLoadingAnimations.AnimationCellDirection.LiftUpFromBottom, animationTime: 0.5, interval: 0.05)
         }
     }
@@ -55,7 +55,13 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let textCellIdentifier = "alarmRecordCell"
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: AlarmRecordTableViewCell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! AlarmRecordTableViewCell
+        let cell: AlarmRecordTableViewCell
+        if let dequeCell: AlarmRecordTableViewCell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as?AlarmRecordTableViewCell {
+            cell = dequeCell
+        } else {
+            cell = AlarmRecordTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: textCellIdentifier)
+        }
+        
         let record: AlarmRecord = alarmRecordArray[indexPath.row]
         // Configure Cell
         cell.configureCell(alarmRecord: record, coreDataHelper: self.cdh)
@@ -93,9 +99,9 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == self.pushIdentifer {
-            let record: AlarmRecord = sender as! AlarmRecord
-            let editVC = segue.destinationViewController as! EditAlarmTableViewController
-            editVC.alarmRecord = record
+            if let record: AlarmRecord = sender as? AlarmRecord, editVC = segue.destinationViewController as? EditAlarmTableViewController {
+                editVC.alarmRecord = record
+            }
         }
     }
     
@@ -110,19 +116,6 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.recordsTableView.tableFooterView = UIView(frame: CGRectZero)
         // Display Clock
         updateClock()
-        // Add Theme Observer        
-        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
-            // Set theme
-            if let currentTheme = ThemeManager.sharedInstance.stylesheet {
-                if let backgroundImageName = currentTheme[ThemeComponent.ThemeAttribute.BackgroundImage] {
-                    let view = self.recordsTableView.backgroundView as! UIImageView
-                    view.image = UIImage(named: backgroundImageName)
-                    // Animate Change
-                    view.layer.animateThemeChangeAnimation()
-                }
-
-            }
-        }
     }
     
     func updateClock() {
@@ -132,17 +125,18 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
 
     // MARK: Actions
     @IBAction func doneEditingAlarmRecord(segue:UIStoryboardSegue) {
-        let editAlarmRecordVC = segue.sourceViewController as! EditAlarmTableViewController
-        // Get created or edited alarm record from EditAlarmRecordVC
-        self.workingRecord = editAlarmRecordVC.alarmRecord
-        if let record = self.workingRecord {
-            // Find which cell containing this record
-            if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
-                // Update Alarm Array
-                updateTableViewCell(record, recordIndex: recordIndex)
-            } else {
-                // Add new Cell
-                insertTableViewCell(record)
+        if let editAlarmRecordVC = segue.sourceViewController as? EditAlarmTableViewController {
+            // Get created or edited alarm record from EditAlarmRecordVC
+            self.workingRecord = editAlarmRecordVC.alarmRecord
+            if let record = self.workingRecord {
+                // Find which cell containing this record
+                if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
+                    // Update Alarm Array
+                    updateTableViewCell(record, recordIndex: recordIndex)
+                } else {
+                    // Add new Cell
+                    insertTableViewCell(record)
+                }
             }
         }
     }

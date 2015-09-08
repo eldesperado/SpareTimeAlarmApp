@@ -25,10 +25,8 @@ class ClockView: UIView {
     private func observeTheme() {
         ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { [unowned self] notification in
             // Set theme
-            if let currentTheme = ThemeManager.sharedInstance.stylesheet {
-                if let mandatoryColorString = currentTheme[ThemeComponent.ThemeAttribute.MandatoryColor] {
-                    self.lightHandColor = UIColor(rgba: mandatoryColorString)
-                }
+            if let themeColor = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+                self.lightHandColor  = themeColor
             }
         }
 

@@ -22,13 +22,10 @@ extension NTSlider {
     
     private func updateDependOnTheme() {
         // Set theme
-        if let currentTheme = ThemeManager.sharedInstance.stylesheet {
-            if let mandatoryColorString = currentTheme[ThemeComponent.ThemeAttribute.MandatoryColor] {
-                let mandatoryColor = UIColor(rgba: mandatoryColorString)
-                self.trackTintColor = mandatoryColor
-                // Animate Change
-                self.layer.animateThemeChangeAnimation()
-            }
+        if let themeColor = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+            self.trackTintColor  = themeColor
+            // Animate Change
+            self.layer.animateThemeChangeAnimation()
         }
     }
 }
@@ -47,13 +44,10 @@ extension NTSwitch {
     
     private func updateDependOnTheme() {
         // Set theme
-        if let currentTheme = ThemeManager.sharedInstance.stylesheet {
-            if let mandatoryColorString = currentTheme[ThemeComponent.ThemeAttribute.MandatoryColor] {
-                let mandatoryColor = UIColor(rgba: mandatoryColorString)
-                self.onTintColor = mandatoryColor
-                // Animate Change
-                self.layer.animateThemeChangeAnimation()
-            }
+        if let themeColor = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+            self.onTintColor  = themeColor
+            // Animate Change
+            self.layer.animateThemeChangeAnimation()
         }
     }
 }

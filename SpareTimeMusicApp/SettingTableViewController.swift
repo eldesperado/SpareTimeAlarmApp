@@ -53,20 +53,7 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
         // Setup Volume Slider
         setupVolumeSlider()
         // Add Theme Observer
-        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
-            // Set theme
-            if let currentTheme = ThemeManager.sharedInstance.stylesheet {
-                if let backgroundImageName = currentTheme[ThemeComponent.ThemeAttribute.BackgroundImage] {
-                    let view = self.tableView.backgroundView as! UIImageView
-                    view.image = UIImage(named: backgroundImageName)
-                    // Animate Change
-                    view.layer.animateThemeChangeAnimation()
-                }
-                
-            }
-        }
     }
-    
 
     // MARK: Setup Volume Slider
     private func setupVolumeSlider() {

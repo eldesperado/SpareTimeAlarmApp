@@ -13,9 +13,11 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     let numberOfDates: Int = 7
     var repeatDates: RepeatDate?
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
     }
     
     let unwindSegueId = "doneRepeatDatesSelectionUnwindSegue"
@@ -81,8 +83,33 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
         }
     }
     
+    // MARK: Setup Views
+    private func setupView() {
+        if let component = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
+            self.backgroundImageView.image = component
+        }
+        
+        setupThemeManagerNotification()
+    }
+    
+    private func setupThemeManagerNotification() {
+        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
+            // Set theme
+            if let component = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
+                self.backgroundImageView.image = component
+                // Animate Change
+                self.backgroundImageView.layer.animateThemeChangeAnimation()
+            }
+        }
+    }
+    
     // MARK: Navigation Configuration
     func configureNavigation() {
 
+    }
+    
+    // MARK: Deinit
+    deinit {
+        ThemeObserver.unregister(self)
     }
 }

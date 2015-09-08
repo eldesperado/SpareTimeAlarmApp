@@ -41,9 +41,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ORN-t9-DFr">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="adV-7c-7EC" customClass="NTTableView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -138,12 +135,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="adV-7c-7EC" secondAttribute="trailing" id="3Eb-3V-GR9"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ORN-t9-DFr" secondAttribute="bottom" id="4Zu-Va-eUq"/>
-                            <constraint firstAttribute="trailing" secondItem="ORN-t9-DFr" secondAttribute="trailing" id="5ry-aG-sT4"/>
                             <constraint firstItem="adV-7c-7EC" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="MAd-V6-ZgL"/>
-                            <constraint firstItem="ORN-t9-DFr" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="Wns-7N-lAP"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="adV-7c-7EC" secondAttribute="bottom" id="Z7P-Aa-wa7"/>
-                            <constraint firstItem="ORN-t9-DFr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="gFw-sw-Ze8"/>
                             <constraint firstItem="adV-7c-7EC" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="x2X-tr-7XW"/>
                         </constraints>
                     </view>
@@ -439,6 +432,13 @@
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Zno-h1-Mum" secondAttribute="bottom" constant="18" id="9YX-bQ-V3Z"/>
+                                <constraint firstItem="Zno-h1-Mum" firstAttribute="top" secondItem="0zA-yu-ZJj" secondAttribute="top" id="Dlg-hd-B6m"/>
+                                <constraint firstItem="Zno-h1-Mum" firstAttribute="leading" secondItem="0zA-yu-ZJj" secondAttribute="leading" id="RdO-SI-iGk"/>
+                                <constraint firstAttribute="centerX" secondItem="Zno-h1-Mum" secondAttribute="centerX" id="agi-dd-A6u"/>
+                                <constraint firstAttribute="trailing" secondItem="Zno-h1-Mum" secondAttribute="trailing" id="bII-C1-1QP"/>
+                            </constraints>
                         </view>
                         <sections>
                             <tableViewSection id="AKt-Dv-Vre">
@@ -611,10 +611,10 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="jB4-Pk-4Mg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jB4-Pk-4Mg">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-sc-oJ4" customClass="NTTableView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WM9-sc-oJ4">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -671,6 +671,8 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="backgroundImageView" destination="jB4-Pk-4Mg" id="5oi-Sv-oFi"/>
+                        <outlet property="tableView" destination="WM9-sc-oJ4" id="KhS-so-Quf"/>
                         <segue destination="Ogw-6r-zJJ" kind="unwind" identifier="doneRepeatDatesSelectionUnwindSegue" unwindAction="doneRepeatDatesSelectionUnwindSegue:" id="Eqr-HR-Irh"/>
                     </connections>
                 </viewController>
