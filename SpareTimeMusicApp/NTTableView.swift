@@ -12,28 +12,31 @@ class NTTableView: UITableView {
     // MARK: Initilization
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupThemeManagerNotification()
+        observeTheme()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupThemeManagerNotification()
+        observeTheme()
     }
     
-    private func setupThemeManagerNotification() {
-        if let themeImage = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIImage ,
-            view = self.backgroundView as? UIImageView {
-                view.image = themeImage
-                // Animate Change
-                view.layer.animateThemeChangeAnimation()
+    private func observeTheme() {
+        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { [unowned self] notification in
+            // Set theme
+            if let themeImage = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage ,
+                view = self.backgroundView as? UIImageView {
+                    view.image = themeImage
+                    // Animate Change
+                    view.layer.animateThemeChangeAnimation()
+            }
         }
     }
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         // Set theme
-        if let currentTheme = ThemeManager.sharedInstance.stylesheet, backgroundImageName = currentTheme[ThemeComponent.ThemeAttribute.BackgroundImage] {
-            self.backgroundView = UIImageView(image: UIImage(named: backgroundImageName))
+        if let themeImage = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
+            self.backgroundView = UIImageView(image: themeImage)
         }
         // Hide footer
         self.tableFooterView = UIView(frame: CGRectZero)

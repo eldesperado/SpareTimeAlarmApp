@@ -89,10 +89,10 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
             self.backgroundImageView.image = component
         }
         
-        setupThemeManagerNotification()
+        observeTheme()
     }
     
-    private func setupThemeManagerNotification() {
+    private func observeTheme() {
         ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
             // Set theme
             if let component = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
