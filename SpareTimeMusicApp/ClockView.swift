@@ -14,12 +14,12 @@ class ClockView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        observeTheme()
+        self.observeTheme()
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        observeTheme()
+        self.observeTheme()
     }
     
     private func observeTheme() {

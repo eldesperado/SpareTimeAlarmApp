@@ -45,36 +45,53 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="U9H-0c-LTU">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
+                                    <rect key="frame" x="0.0" y="64" width="375" height="312"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time to wake UP - 06:39" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d40-zy-C28">
+                                            <rect key="frame" x="116.5" y="281" width="142.5" height="21"/>
+                                            <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Eq-hV-Q0f" customClass="ClockView" customModule="SpareTimeAlarmApp" customModuleProvider="target">
-                                            <rect key="frame" x="29" y="0.0" width="316" height="316"/>
+                                            <rect key="frame" x="29" y="-40" width="316" height="316"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="6Eq-hV-Q0f" secondAttribute="height" multiplier="1:1" id="lZQ-Cc-wlZ"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time to wake UP - 06:39" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d40-zy-C28">
-                                            <rect key="frame" x="116.5" y="324" width="142.5" height="21"/>
-                                            <fontDescription key="fontDescription" name="RotondaC" family="RotondaC" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="6Eq-hV-Q0f" firstAttribute="top" secondItem="U9H-0c-LTU" secondAttribute="top" constant="-40" id="AQ3-Lc-dWz"/>
                                         <constraint firstAttribute="trailing" secondItem="6Eq-hV-Q0f" secondAttribute="trailing" constant="30" id="B2C-fA-UPP"/>
                                         <constraint firstItem="d40-zy-C28" firstAttribute="top" secondItem="6Eq-hV-Q0f" secondAttribute="bottom" constant="8" id="Fne-zF-HPs"/>
                                         <constraint firstAttribute="centerX" secondItem="6Eq-hV-Q0f" secondAttribute="centerX" id="Oow-vZ-0HZ"/>
                                         <constraint firstItem="6Eq-hV-Q0f" firstAttribute="top" secondItem="U9H-0c-LTU" secondAttribute="top" id="WSk-TW-zpc"/>
+                                        <constraint firstAttribute="bottom" secondItem="d40-zy-C28" secondAttribute="bottom" constant="10" id="XJ5-kr-IIT"/>
+                                        <constraint firstItem="d40-zy-C28" firstAttribute="top" secondItem="6Eq-hV-Q0f" secondAttribute="bottom" constant="10" id="ZdT-wA-Urw"/>
                                         <constraint firstAttribute="centerX" secondItem="d40-zy-C28" secondAttribute="centerX" id="alp-Tj-h6P"/>
+                                        <constraint firstItem="6Eq-hV-Q0f" firstAttribute="top" secondItem="U9H-0c-LTU" secondAttribute="top" constant="-35" id="aqo-Uo-D6h"/>
+                                        <constraint firstItem="d40-zy-C28" firstAttribute="top" secondItem="6Eq-hV-Q0f" secondAttribute="bottom" constant="25" id="b7z-GX-eVY"/>
                                         <constraint firstItem="6Eq-hV-Q0f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U9H-0c-LTU" secondAttribute="leading" constant="29" id="cMn-bC-lgm"/>
+                                        <constraint firstItem="d40-zy-C28" firstAttribute="top" secondItem="6Eq-hV-Q0f" secondAttribute="bottom" constant="5" id="mRy-if-QFw"/>
+                                        <constraint firstAttribute="bottom" secondItem="d40-zy-C28" secondAttribute="bottom" constant="10" id="oOp-Ie-L4F"/>
                                         <constraint firstItem="6Eq-hV-Q0f" firstAttribute="leading" secondItem="U9H-0c-LTU" secondAttribute="leading" constant="29" id="sbk-sa-7l6"/>
+                                        <constraint firstAttribute="bottom" secondItem="d40-zy-C28" secondAttribute="bottom" constant="10" id="v0b-Wg-Vzu"/>
                                         <constraint firstAttribute="bottom" secondItem="d40-zy-C28" secondAttribute="bottom" constant="15" id="yI0-UV-VTK"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="Oow-vZ-0HZ"/>
+                                            <exclude reference="WSk-TW-zpc"/>
+                                            <exclude reference="aqo-Uo-D6h"/>
+                                            <exclude reference="cMn-bC-lgm"/>
+                                            <exclude reference="Fne-zF-HPs"/>
+                                            <exclude reference="ZdT-wA-Urw"/>
+                                            <exclude reference="b7z-GX-eVY"/>
+                                            <exclude reference="oOp-Ie-L4F"/>
+                                            <exclude reference="v0b-Wg-Vzu"/>
+                                            <exclude reference="yI0-UV-VTK"/>
                                         </mask>
                                     </variation>
                                 </view>

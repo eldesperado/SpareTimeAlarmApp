@@ -13,12 +13,12 @@ class NTSwitch: SevenSwitch {
     
     override init() {
         super.init()
-        setup()
+        self.setup()
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        self.setup()
     }
     
     func setup() {

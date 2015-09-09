@@ -45,7 +45,7 @@ protocol CircularViewDelegate {
     // MARK: Public Methods
     func setOn(#isOn: Bool, isAnimated: Bool) {
         self.isOn = isOn
-        shapeTouched(isAnimated: isAnimated)
+        self.shapeTouched(isAnimated: isAnimated)
     }
     
     func getIsOn() -> Bool {
@@ -54,12 +54,12 @@ protocol CircularViewDelegate {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        self.setup()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        self.setup()
     }
     
     override func layoutSubviews() {
@@ -68,9 +68,9 @@ protocol CircularViewDelegate {
     }
     
     private func setup() {
-        setBackgroundLayer()
-        setBackgroundInnerLayer()
-        setUserInteraction()
+        self.setBackgroundLayer()
+        self.setBackgroundInnerLayer()
+        self.setUserInteraction()
         self.isOn = false
     }
     
@@ -115,7 +115,7 @@ protocol CircularViewDelegate {
         }
         // Change state
         self.isOn = !self.isOn
-        shapeTouched(isAnimated: true)
+        self.shapeTouched(isAnimated: true)
     }
     
     private func shapeTouched(#isAnimated: Bool) {
@@ -153,13 +153,13 @@ protocol CircularViewDelegate {
     // CAAnimation delegate
     override func animationDidStart(anim: CAAnimation!){
         // Do DidStartClosure
-        animationDidStartClosure(isOn)
+        self.animationDidStartClosure(isOn)
     }
     
     
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool){
         // Do DidStopClosure
-        animationDidStopClosure(isOn, flag)
+        self.animationDidStopClosure(isOn, flag)
     }
     
     // MARK: Helpers

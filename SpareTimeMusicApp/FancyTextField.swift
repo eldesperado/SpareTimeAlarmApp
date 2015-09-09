@@ -13,37 +13,37 @@ import UIKit
     // MARK: Public Properties
     override var placeholder: String? {
         didSet {
-            update()
+            self.update()
         }
     }
     
     @IBInspectable var inactiveFontSize: CGFloat = 14 {
         didSet {
-            update()
+            self.update()
         }
     }
     
     @IBInspectable var activeFontSize: CGFloat = 22 {
         didSet {
-            update()
+            self.update()
         }
     }
     
     @IBInspectable var inactiveColor: UIColor = UIColor(white: 1.0, alpha: 0.51) {
         didSet {
-            update()
+            self.update()
         }
     }
     
     @IBInspectable var activeColor: UIColor = UIColor.whiteColor() {
         didSet {
-            update()
+            self.update()
         }
     }
     
     override var bounds: CGRect {
         didSet {
-            update()
+            self.update()
         }
     }
     
@@ -76,11 +76,11 @@ import UIKit
         // Update Label & placeholder
         switch (self.isEdit) {
         case .Active:
-            updateLabels(activeTextFieldStatus)
-            updatePlaceholder(inactiveTextFieldStatus)
+            self.updateLabels(activeTextFieldStatus)
+            self.updatePlaceholder(inactiveTextFieldStatus)
         case .Inactive:
-            updateLabels(inactiveTextFieldStatus)
-            updatePlaceholder(activeTextFieldStatus)
+            self.updateLabels(inactiveTextFieldStatus)
+            self.updatePlaceholder(activeTextFieldStatus)
         }
         self.reloadInputViews()
     }
@@ -93,10 +93,10 @@ import UIKit
         self.placeholderLabel.frame = frame
         self.placeholderLabel.font = self.font.fontWithSize(self.activeFontSize)
         self.placeholderLabel.textColor = self.activeColor
-        addSubview(placeholderLabel)
+        self.addSubview(placeholderLabel)
         
         // Update
-        update()
+        self.update()
         
         // Set Label Text
         self.textColor = self.inactiveColor

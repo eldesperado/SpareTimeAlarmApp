@@ -32,7 +32,7 @@ class EditAlarmTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup Views
-        setup()
+        self.setup()
         // Add Action for salutation Text field
         self.salutationTextField.actionWhenTextFieldDidBeginEditing = {self.showBlurViewWhenEditTextField()}
         self.salutationTextField.actionWhenTextFieldDidEndEditing = {self.hideBlurViewWhenEndEdittingTextField()}
@@ -100,7 +100,7 @@ class EditAlarmTableViewController: UITableViewController {
     // Setup
     private func setup() {
         // Setup View
-        setupView()
+        self.setupView()
         
         // Setup Cells
         if let record = self.alarmRecord {
@@ -108,7 +108,7 @@ class EditAlarmTableViewController: UITableViewController {
             self.alarmTimePickerView.setTimeIntervalAnimate(NSTimeInterval(record.alarmTime))
             
             // Set RepeatDate Label
-            updateRepeatDateLabel(record.repeatDates)
+            self.updateRepeatDateLabel(record.repeatDates)
             
             // Set Salutation Label
             self.salutationTextField.text = record.salutationText as String
@@ -151,14 +151,14 @@ class EditAlarmTableViewController: UITableViewController {
         // Update Repeat Dates
         if let repeatDatesSelectionVC = segue.sourceViewController as? RepeatDateSelectionViewController, record = self.alarmRecord where repeatDatesSelectionVC.repeatDates != nil {
             record.repeatDates.copyValueFrom(repeatDatesSelectionVC.repeatDates!)
-            updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
+            self.updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
         }
     }
     
     // MARK: Setup View
     private func setupView() {
         // Hide Back Button Title
-        hideBackButtonTitle()
+        self.hideBackButtonTitle()
     }
 
     // MARK: Animation Closures
@@ -166,7 +166,7 @@ class EditAlarmTableViewController: UITableViewController {
     let belowBlurViewTag: Int = 999
     func showBlurViewWhenEditTextField() {
         // Toggle navigation bar
-        toggleNavigationbar(true)
+        self.toggleNavigationbar(true)
         
         let textFieldCellRect = self.alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: self.SALUTATION_TEXT_CELL, inSection: 0))
         // Add Upper Blur View

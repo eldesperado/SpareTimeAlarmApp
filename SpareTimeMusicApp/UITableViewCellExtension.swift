@@ -44,8 +44,6 @@ extension UITableViewCell: NTTableViewCellLayout {
     
     override public func awakeFromNib() {
         super.awakeFromNib()
-        // Setup Cell's view
-        setupCellViews()
     }
     public override func drawRect(rect: CGRect) {
         super.drawRect(rect)

@@ -17,23 +17,23 @@ import UIKit
             return NSTimeInterval(hours + minutes)
         }
         set {
-            setPickerToTimeInterval(newValue, animated: false)
+            self.setPickerToTimeInterval(newValue, animated: false)
         }
     }
     
     var timeIntervalAsHousrMinutes:(hours: Int, minutes: Int) {
         get {
-            return minutesToHoursMinutes(Int(timeInterval))
+            return self.minutesToHoursMinutes(Int(timeInterval))
         }
     }
     
     func setTimeIntervalAnimate(interval: NSTimeInterval) {
-        setPickerToTimeInterval(interval, animated: true)
+        self.setPickerToTimeInterval(interval, animated: true)
     }
     
     @IBInspectable var textColor: UIColor = UIColor.whiteColor() {
         didSet {
-            updateLabels()
+            self.updateLabels()
             pickerView.reloadAllComponents()
         }
     }
@@ -42,9 +42,9 @@ import UIKit
     // than this view can cause layout problems
     @IBInspectable var textFont: UIFont = UIFont.systemFontOfSize(24) {
         didSet {
-            updateLabels()
-            calculateNumberSize()
-            calculateTotalPickerWidth()
+            self.updateLabels()
+            self.calculateNumberSize()
+            self.calculateTotalPickerWidth()
             pickerView.reloadAllComponents()
         }
     }
@@ -59,26 +59,26 @@ import UIKit
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         // Setup
-        setup()
+        self.setup()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         // Setup
-        setup()
+        self.setup()
     }
     
     private func setup() {
-        setupLabels()
-        calculateNumberSize()
-        calculateTotalPickerWidth()
-        setupPickerView()
+        self.setupLabels()
+        self.calculateNumberSize()
+        self.calculateTotalPickerWidth()
+        self.setupPickerView()
     }
     
     private func setupLabels() {
         colonLabel.text = ":"
-        addSubview(colonLabel)
-        updateLabels()
+        self.addSubview(colonLabel)
+        self.updateLabels()
     }
     
     private func updateLabels() {
@@ -127,7 +127,7 @@ import UIKit
         pickerView.dataSource = self
         pickerView.delegate = self
         pickerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        addSubview(pickerView)
+        self.addSubview(pickerView)
         
         // Size picker view to fit self
         let top = NSLayoutConstraint(item: pickerView,
@@ -162,7 +162,7 @@ import UIKit
             multiplier: 1,
             constant: 0)
         
-        addConstraints([top, bottom, leading, trailing])
+        self.addConstraints([top, bottom, leading, trailing])
     }
     
     // MARK: - Layout
@@ -249,13 +249,22 @@ import UIKit
                 let label = newView.subviews.first as! UILabel
                 label.text = row < 10 ? "0\(row)" : "\(row)"
                 
+                // Hide Separator Lines (http://stackoverflow.com/questions/20612279/ios7-uipickerview-how-to-hide-the-selection-indicator)
+                if let upperSeparatorView = pickerView.subviews[1] as? UIView {
+                    upperSeparatorView.hidden = true
+                }
+                
+                if let belowSeparatorView = pickerView.subviews[2] as? UIView {
+                    belowSeparatorView.hidden = true
+                }
+                
                 return newView
             }
             
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sendActionsForControlEvents(.ValueChanged)
+        self.sendActionsForControlEvents(.ValueChanged)
     }
     
     // MARK: - Helpers

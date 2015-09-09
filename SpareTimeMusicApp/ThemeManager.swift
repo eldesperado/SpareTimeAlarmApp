@@ -32,7 +32,7 @@ class ThemeManager: NSObject {
             NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: self.storedKeyInUserDefaults)
             NSUserDefaults.standardUserDefaults().synchronize()
             // Post notification
-            postThemeUpdateNotification()
+            self.postThemeUpdateNotification()
         }
     }
     
@@ -56,7 +56,7 @@ class ThemeManager: NSObject {
     override init() {
         super.init()
         // Setup Theme
-        setup()
+        self.setup()
     }
     
     // MARK: Setup

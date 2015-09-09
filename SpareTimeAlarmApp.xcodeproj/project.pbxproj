@@ -19,6 +19,7 @@
 		25831A601B8703390088404D /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5F1B8703390088404D /* SpringAnimation.swift */; };
 		25831A621B87037F0088404D /* CAnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A611B87037F0088404D /* CAnimationExtension.swift */; };
 		25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */; };
+		25A8BDBC1B9FE4E700DC986D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BDBB1B9FE4E700DC986D /* String+Extension.swift */; };
 		25AB47FA1B95B60F006462D1 /* NTSliderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */; };
 		25AB47FD1B999658006462D1 /* UITableView+LoadCellAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */; };
 		25AD76121B7C733C0087CED8 /* CoreDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */; };
@@ -86,6 +87,7 @@
 		2598502F1B7206E000655EBC /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = "Pods/../build/Debug-iphoneos/SwiftDate.framework"; sourceTree = "<group>"; };
 		259850341B72071B00655EBC /* SevenSwitch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SevenSwitch.framework; path = "Pods/../build/Debug-iphoneos/SevenSwitch.framework"; sourceTree = "<group>"; };
 		25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatClockStyleKit.swift; sourceTree = "<group>"; };
+		25A8BDBB1B9FE4E700DC986D /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSliderExtension.swift; sourceTree = "<group>"; };
 		25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+LoadCellAnimation.swift"; sourceTree = "<group>"; };
 		25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataExtension.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				25831A611B87037F0088404D /* CAnimationExtension.swift */,
 				25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */,
 				25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */,
+				25A8BDBB1B9FE4E700DC986D /* String+Extension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -250,7 +253,6 @@
 		25D6148E1B7226E90042544D /* Helpers+Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				25098B8D1B8EC24400C71C9E /* ThemeManager */,
 				25AD76131B7C91900087CED8 /* Extensions */,
 				25AD76141B7C91990087CED8 /* Helpers */,
 			);
@@ -282,6 +284,7 @@
 			children = (
 				25D31E161B818AA400E54821 /* Framework */,
 				25DB96AE1B6F19290088B3FA /* AppDelegate.swift */,
+				25098B8D1B8EC24400C71C9E /* ThemeManager */,
 				25D6148E1B7226E90042544D /* Helpers+Extensions */,
 				25DB96D71B6F625C0088B3FA /* CoreData */,
 				25DB96D61B6F624A0088B3FA /* Controllers */,
@@ -690,6 +693,7 @@
 				25098B901B8EC27D00C71C9E /* ThemeManager.swift in Sources */,
 				25DB96DA1B6F62770088B3FA /* CoreData.xcdatamodeld in Sources */,
 				25D614851B7214A20042544D /* NTSwitch.swift in Sources */,
+				25A8BDBC1B9FE4E700DC986D /* String+Extension.swift in Sources */,
 				25EFCBDD1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift in Sources */,
 				25AD76191B7CABE10087CED8 /* NTTextField.swift in Sources */,
 			);

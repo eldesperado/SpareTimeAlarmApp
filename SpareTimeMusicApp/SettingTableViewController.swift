@@ -22,13 +22,13 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup
-        setup()
+        self.setup()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         // Set state for theme selector cicular views
-        setStateForThemeSelectorCircularViews()
+        self.setStateForThemeSelectorCircularViews()
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,9 +49,9 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     // MARK: Setup
     private func setup() {
         // Setup CircularViews
-        setupThemeSelectorCircularView()
+        self.setupThemeSelectorCircularView()
         // Setup Volume Slider
-        setupVolumeSlider()
+        self.setupVolumeSlider()
         // Add Theme Observer
     }
 

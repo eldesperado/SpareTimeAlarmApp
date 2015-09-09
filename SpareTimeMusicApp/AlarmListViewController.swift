@@ -27,9 +27,9 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         // Load Data
-        loadData()
+        self.loadData()
         // Setup View
-        setupView()
+        self.setupView()
         // Animate Cell Loading
         if self.alarmRecordArray.count > 0 {
             self.recordsTableView.reloadDataWithAnimation(UITableViewCellLoadingAnimations.AnimationCellDirection.LiftUpFromBottom, animationTime: 0.5, interval: 0.05)
@@ -109,18 +109,27 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: Setup Views
     private func setupView() {
         // Setup Navigation
-        setupNavigation()
+        self.setupNavigation()
         // Hide back button title
-        hideBackButtonTitle()
+        self.hideBackButtonTitle()
         // Hide footer
         self.recordsTableView.tableFooterView = UIView(frame: CGRectZero)
         // Display Clock
-        updateClock()
+        self.updateClock()
+        // Update TimeToWakeUpLabel
+        self.updateTimeToWakeUpLabel()
     }
     
     func updateClock() {
         self.clockView.setNeedsDisplay()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateClock"), userInfo: nil, repeats: false)
+    }
+    
+    private func updateTimeToWakeUpLabel() {
+        if let firstAlarmRecord = self.alarmRecordArray.first {
+            let firstAlarmTimeString = DateTimeHelper.getAlarmTime(alarmTime: firstAlarmRecord.alarmTime)
+            self.timeToWakeUpLabel.text =  "Time to wake UP - \(firstAlarmTimeString)"
+        }
     }
 
     // MARK: Actions
@@ -132,25 +141,28 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
                 // Find which cell containing this record
                 if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
                     // Update Alarm Array
-                    updateTableViewCell(record, recordIndex: recordIndex)
+                    self.updateTableViewCell(record, recordIndex: recordIndex)
                 } else {
                     // Add new Cell
-                    insertTableViewCell(record)
+                    self.insertTableViewCell(record)
                 }
+                
+                // Reupdate TimeToWakeUpLabel
+                self.updateTimeToWakeUpLabel()
             }
         }
     }
 
     private func updateTableViewCell(record: AlarmRecord, recordIndex: Int) {
         // Update Alarm Array
-        loadData()
+        self.loadData()
         // Update Cell
         self.updateTableViewCell(recordIndex, section: 0, tableView: self.recordsTableView, newAlarmRecord: record, coreDataHelper: self.cdh)
     }
     
-    func insertTableViewCell(record: AlarmRecord) {
+    private func insertTableViewCell(record: AlarmRecord) {
         // Update before add new cell
-        loadData()
+        self.loadData()
         // Find which cell containing this record
         if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
             self.recordsTableView.beginUpdates()

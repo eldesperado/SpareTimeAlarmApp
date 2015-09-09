@@ -12,12 +12,12 @@ class NTTableView: UITableView {
     // MARK: Initilization
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        observeTheme()
+        self.observeTheme()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        observeTheme()
+        self.observeTheme()
     }
     
     private func observeTheme() {

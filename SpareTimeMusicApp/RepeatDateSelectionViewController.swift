@@ -17,7 +17,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        self.setupView()
     }
     
     let unwindSegueId = "doneRepeatDatesSelectionUnwindSegue"
@@ -89,7 +89,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
             self.backgroundImageView.image = component
         }
         
-        observeTheme()
+        self.observeTheme()
     }
     
     private func observeTheme() {

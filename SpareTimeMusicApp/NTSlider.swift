@@ -88,7 +88,7 @@ import Foundation
     // Setup
     func setup() {
         // Calculate Label size
-        calculateNumberSize()
+        self.calculateNumberSize()
         // Track Label
         self.trackValueLabel.frame = CGRectMake(0, 0, self.numberWidth, self.numberHeight)
         self.trackValueLabel.alignmentMode = kCAAlignmentCenter
@@ -131,7 +131,7 @@ import Foundation
         self.previousTouchPoint = touch.locationInView(self)
         
         // Show Label
-        toggleTrackingLabel(isWantToShow: true)
+        self.toggleTrackingLabel(isWantToShow: true)
         
         if CGRectContainsPoint(self.thumbLayer.frame, self.previousTouchPoint) {
             self.thumbLayer.transform = self.thumbLayer.presentationLayer().transform
@@ -162,11 +162,11 @@ import Foundation
         let labelTransform: CATransform3D = CATransform3DMakeTranslation(deltaX, 0, 0)
         
         
-        if !isMaxTilted(direction: currentDirection, angle: tiltAngle) {
+        if !self.isMaxTilted(direction: currentDirection, angle: tiltAngle) {
             var rotateTransform: CATransform3D = CATransform3DRotate(self.thumbLayer.transform, deltaX * CGFloat(-M_PI / 180), 0, 0, 1)
             let calculateTiltAngle: CGFloat = atan2(rotateTransform.m12, rotateTransform.m11)
             
-            if isMaxTilted(direction: currentDirection, angle: calculateTiltAngle) {
+            if self.isMaxTilted(direction: currentDirection, angle: calculateTiltAngle) {
                 rotateTransform = CATransform3DRotate(CATransform3DIdentity, maxTiltAngle, 0, 0, 1)
             }
             
@@ -197,17 +197,17 @@ import Foundation
     
     override public func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
         // Hide Label
-        toggleTrackingLabel(isWantToShow: false)
+        self.toggleTrackingLabel(isWantToShow: false)
         
-        performBackToStablePositionAnimation()
+        self.performBackToStablePositionAnimation()
         self.sendActionsForControlEvents(UIControlEvents.ValueChanged)
     }
     
     override public func cancelTrackingWithEvent(event: UIEvent?) {
         // Hide Label
-        toggleTrackingLabel(isWantToShow: false)
+        self.toggleTrackingLabel(isWantToShow: false)
         
-        performBackToStablePositionAnimation()
+        self.performBackToStablePositionAnimation()
     }
     
     override public func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

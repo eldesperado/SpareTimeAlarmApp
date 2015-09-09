@@ -72,13 +72,25 @@ struct RecordHelper {
             }
         }
 
+        // Check whether this string is empty or not. If empty, return "No Repeat" string
         if string.isEmpty {
             return "No Repeat"
         }
+        // Check whether this string begins with " ," characters. If does, remove
         if string.hasPrefix(", ") {
             string.removeRange(string.startIndex...advance(string.startIndex, 1))
         }
+        // Check whether this string contains all dates, that means there are 7 Date strings. If does, return "Everyday"
+        if self.countStringsSeparateByColon(string) == 7 {
+            return "Everyday"
+        }
         return string
+    }
+    
+    private static func countStringsSeparateByColon(string: String) -> Int {
+        var number: Int = 0
+        let strings = split(string, isSeparator: { $0 == ","})
+        return strings.count
     }
     
     static func getAlarmRecordIndexInAlarmArrays(alarmArray: [AlarmRecord], wantedObjectID: NSManagedObjectID) -> Int? {

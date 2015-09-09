@@ -84,7 +84,7 @@ class NTTextField: UITextField, NTTextFieldProtocol {
     
     func textFieldDidBeginEditing() {
         self.isEdit = StatusType.Active
-        animateViewsForTextEntry()
+        self.animateViewsForTextEntry()
         // Perform action if has
         if let action = self.actionWhenTextFieldDidBeginEditing {
             action()
@@ -93,7 +93,7 @@ class NTTextField: UITextField, NTTextFieldProtocol {
     
     func textFieldDidEndEditing() {
         self.isEdit = StatusType.Inactive
-        animateViewsForTextDisplay()
+        self.animateViewsForTextDisplay()
         // Perform action if has
         if let action = self.actionWhenTextFieldDidEndEditing {
             action()
