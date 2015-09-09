@@ -136,12 +136,13 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         // If there are some alarm records, then
         if !self.alarmRecordArray.isEmpty {
             // Get all Alarm Time
-            let alarmTimeArray: [NSNumber] = self.alarmRecordArray.map{ (record: AlarmRecord) in
+            let alarmTimeArray = self.alarmRecordArray.map{ (record: AlarmRecord) in
                 record.alarmTime
-            }
+                }
             // Find the closest alarm time from the current time
             let currentTimesInMinutes = DateTimeHelper.getCurrentTimeInMinutes()
-            let closestAlarmTime = DataHelper.findTheClosestValue(currentTimesInMinutes, numbers: alarmTimeArray)
+            let closestAlarmTime = DataHelper.findTheClosestValue(currentTimesInMinutes, numbers: alarmTimeArray, options: ClosestValueOptions.OnlyEqualOrGreater)
+            
             let closestAlarmTimeAsString = DateTimeHelper.getAlarmTime(alarmTime: closestAlarmTime)
             
             self.timeToWakeUpLabel.text =  "Time to wake UP - \(closestAlarmTimeAsString)"
@@ -162,7 +163,8 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
                     // Add new Cell
                     self.insertTableViewCell(record)
                 }
-                
+                // Update TimeToWakeUpLabel
+                self.updateTimeToWakeUpLabel()
             }
         }
     }
