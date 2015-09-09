@@ -20,6 +20,7 @@
 		25831A621B87037F0088404D /* CAnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A611B87037F0088404D /* CAnimationExtension.swift */; };
 		25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */; };
 		25A8BDBC1B9FE4E700DC986D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BDBB1B9FE4E700DC986D /* String+Extension.swift */; };
+		25A8BDBE1BA0222E00DC986D /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BDBD1BA0222E00DC986D /* DataHelper.swift */; };
 		25AB47FA1B95B60F006462D1 /* NTSliderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */; };
 		25AB47FD1B999658006462D1 /* UITableView+LoadCellAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */; };
 		25AD76121B7C733C0087CED8 /* CoreDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */; };
@@ -88,6 +89,7 @@
 		259850341B72071B00655EBC /* SevenSwitch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SevenSwitch.framework; path = "Pods/../build/Debug-iphoneos/SevenSwitch.framework"; sourceTree = "<group>"; };
 		25A8BDB21B9D828B00DC986D /* FlatClockStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatClockStyleKit.swift; sourceTree = "<group>"; };
 		25A8BDBB1B9FE4E700DC986D /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		25A8BDBD1BA0222E00DC986D /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSliderExtension.swift; sourceTree = "<group>"; };
 		25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+LoadCellAnimation.swift"; sourceTree = "<group>"; };
 		25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataExtension.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				25D6148F1B7227FC0042544D /* CoreDataHelper.swift */,
 				25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */,
 				25EFCBE41B79DA5E00A0FE0C /* DateTimeHelper.swift */,
+				25A8BDBD1BA0222E00DC986D /* DataHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */,
 				25EFCBE51B79DA5E00A0FE0C /* DateTimeHelper.swift in Sources */,
 				25DB96AF1B6F19290088B3FA /* AppDelegate.swift in Sources */,
+				25A8BDBE1BA0222E00DC986D /* DataHelper.swift in Sources */,
 				25B559FC1B735E4B00F47D84 /* RepeatDate.swift in Sources */,
 				25831A561B81E4650088404D /* SettingTableViewController.swift in Sources */,
 				25AD76121B7C733C0087CED8 /* CoreDataExtension.swift in Sources */,

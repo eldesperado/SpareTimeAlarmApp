@@ -121,14 +121,30 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func updateClock() {
+        // Redraw clock
         self.clockView.setNeedsDisplay()
+        // In every 60 seconds, we update TimeToWakeUp Label
+        if DateTimeHelper.getCurrentTimeInSeconds().integerValue % 60 == 0 {
+            // Reupdate TimeToWakeUpLabel
+            self.updateTimeToWakeUpLabel()
+        }
+
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateClock"), userInfo: nil, repeats: false)
     }
     
     private func updateTimeToWakeUpLabel() {
-        if let firstAlarmRecord = self.alarmRecordArray.first {
-            let firstAlarmTimeString = DateTimeHelper.getAlarmTime(alarmTime: firstAlarmRecord.alarmTime)
-            self.timeToWakeUpLabel.text =  "Time to wake UP - \(firstAlarmTimeString)"
+        // If there are some alarm records, then
+        if !self.alarmRecordArray.isEmpty {
+            // Get all Alarm Time
+            let alarmTimeArray: [NSNumber] = self.alarmRecordArray.map{ (record: AlarmRecord) in
+                record.alarmTime
+            }
+            // Find the closest alarm time from the current time
+            let currentTimesInMinutes = DateTimeHelper.getCurrentTimeInMinutes()
+            let closestAlarmTime = DataHelper.findTheClosestValue(currentTimesInMinutes, numbers: alarmTimeArray)
+            let closestAlarmTimeAsString = DateTimeHelper.getAlarmTime(alarmTime: closestAlarmTime)
+            
+            self.timeToWakeUpLabel.text =  "Time to wake UP - \(closestAlarmTimeAsString)"
         }
     }
 
@@ -147,8 +163,6 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
                     self.insertTableViewCell(record)
                 }
                 
-                // Reupdate TimeToWakeUpLabel
-                self.updateTimeToWakeUpLabel()
             }
         }
     }

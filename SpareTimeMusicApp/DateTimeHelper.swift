@@ -9,6 +9,16 @@
 import UIKit
 
 struct DateTimeHelper {
+    static func getRemainingTimeFromCurrentTime(destinatedTime: NSNumber) -> NSNumber {
+        let currentTime = self.getCurrentTime()
+        let currentTimeInMinutes: Int = getMinutesForHoursMinutes(currentTime.hours, minutes: currentTime.minutes)
+        if currentTimeInMinutes > destinatedTime.integerValue {
+            return 1440 - currentTimeInMinutes + destinatedTime.integerValue
+        } else {
+            return currentTimeInMinutes - destinatedTime.integerValue
+        }
+    }
+    
     static func getCurrentTime() -> (hours: Int, minutes: Int, seconds: Int) {
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -16,8 +26,22 @@ struct DateTimeHelper {
         return (components.hour, components.minute, components.second)
     }
     
+    static func getCurrentTimeInMinutes() -> NSNumber {
+        let currentTime = self.getCurrentTime()
+        return getMinutesForHoursMinutes(currentTime.hours, minutes: currentTime.minutes)
+    }
+    
+    static func getCurrentTimeInSeconds() -> NSNumber {
+        let currentTime = self.getCurrentTime()
+        return getMinutesForHoursMinutesSeconds(currentTime.hours, minutes: currentTime.minutes, seconds: currentTime.seconds)
+    }
+    
     static func getMinutesForHoursMinutes(hours: Int, minutes: Int) -> Int {
         return hours * 60 + minutes
+    }
+    
+    static func getMinutesForHoursMinutesSeconds(hours: Int, minutes: Int, seconds: Int) -> Int {
+        return hours * 360 + minutes * 60 + seconds
     }
     
     static func getCurrentDate() -> (month: Int, day: Int, dayOfWeek: Int, dayOfWeekAsString: String) {
