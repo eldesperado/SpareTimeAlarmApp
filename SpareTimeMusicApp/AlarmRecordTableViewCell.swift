@@ -32,7 +32,6 @@ class AlarmRecordTableViewCell: UITableViewCell {
         self.repeatRingtoneSwitch.subscribleToUpdateDependOnCurrentTheme()
     }
     
-
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -70,9 +69,6 @@ class AlarmRecordTableViewCell: UITableViewCell {
         
         // Set Value for switch
         self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
-        
-        // Update View
-        setupCellViews()
     }
     
     override func setupCellViews() {

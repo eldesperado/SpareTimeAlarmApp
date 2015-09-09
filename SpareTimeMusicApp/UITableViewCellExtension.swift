@@ -40,11 +40,18 @@ extension UITableViewCell: NTTableViewCellLayout {
         }
     }
     
+    // MARK: Override Methods
+    
     override public func awakeFromNib() {
         super.awakeFromNib()
         // Setup Cell's view
         setupCellViews()
     }
+    public override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
+        self.setupCellViews()
+    }
+    
     
     // MARK: Setup Default TableViewCells
     func setupCellViews() {
@@ -53,4 +60,5 @@ extension UITableViewCell: NTTableViewCellLayout {
         self.topSeparator.layoutIfNeeded()
         self.addSubview(self.topSeparator)
     }
+    
 }
