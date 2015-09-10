@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import Foundation
 
 enum EntityTableName: String {
     case AlarmRecord = "AlarmRecord"
@@ -103,6 +104,40 @@ struct RecordHelper {
         }
         return nil
     }
+    
+    // Convert RepeatDates NSManagedObject to an array containing all activated dates
+    static func getRepeatDates(alarmRecord: AlarmRecord) -> [Int]? {
+        let repeatDates = alarmRecord.repeatDates
+        var dates = NSMutableArray()
+        
+        if (repeatDates.isSun.boolValue) {
+            dates.addObject(NumberToDate.Sunday.date)
+        }
+        if (repeatDates.isMon.boolValue) {
+            dates.addObject(NumberToDate.Monday.date)
+        }
+        if (repeatDates.isTue.boolValue) {
+            dates.addObject(NumberToDate.Tuesday.date)
+        }
+        if (repeatDates.isWed.boolValue) {
+            dates.addObject(NumberToDate.Wednesday.date)
+        }
+        if (repeatDates.isThu.boolValue) {
+            dates.addObject(NumberToDate.Thursday.date)
+        }
+        if (repeatDates.isFri.boolValue) {
+            dates.addObject(NumberToDate.Friday.date)
+        }
+        if (repeatDates.isSat.boolValue) {
+            dates.addObject(NumberToDate.Saturday.date)
+        }
+        
+        if let array = dates as NSArray as? [Int] {
+            return array
+        } else {
+            return nil
+        }
+    }
 }
 
 extension CoreDataHelper {
@@ -170,6 +205,9 @@ extension CoreDataHelper {
         newRDates.ofRecord = newRecord
         newRecord.repeatDates = newRDates
 
+        // Set TimeStamp as UID
+        self.setTimeStamp(newRecord)
+        
         return newRecord
     }
     
@@ -197,6 +235,9 @@ extension CoreDataHelper {
             newRecord.repeatDates = newRDates
         }
         
+        // Set TimeStamp as UID
+        self.setTimeStamp(newRecord)
+        
         // Save in background thread
         self.saveContext()
     }
@@ -205,6 +246,7 @@ extension CoreDataHelper {
     func findRecordInBackgroundManagedObjectContext(managedObjectId: NSManagedObjectID) -> NSManagedObject {
         return findRecord(managedObjectId, managedObjectContext: self.backgroundContext!)
     }
+    
     func findRecord(managedObjectId: NSManagedObjectID, managedObjectContext: NSManagedObjectContext) -> NSManagedObject {
         let managedObject = managedObjectContext.objectWithID(managedObjectId)
         return managedObject
@@ -217,5 +259,12 @@ extension CoreDataHelper {
         self.backgroundContext!.deleteObject(managedObject)
         // Save in background thread
         self.saveContext()
+    }
+    
+    // MARK: Helpers
+    private func setTimeStamp(record: AlarmRecord) {
+        let now = NSDate()
+        let time = Int32(now.timeIntervalSince1970 * 1000)
+//        record.timeStamp = "\(time)"
     }
 }

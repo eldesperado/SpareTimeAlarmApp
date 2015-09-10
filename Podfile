@@ -1,6 +1,14 @@
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
 use_frameworks!
-link_with 'SpareTimeAlarmApp', 'SpareTimeAlarmAppTests'
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '8.0'
+
+link_with ['SpareTimeAlarmApp']
+
+target "SpareTimeAlarmApp", :exclusive => true do
 
 pod 'IQKeyboardManager'
+pod 'Timepiece'
+
+end

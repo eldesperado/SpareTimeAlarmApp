@@ -7,6 +7,69 @@
 //
 
 import UIKit
+import Timepiece
+import Foundation
+
+protocol NumberToDateProtocol {
+    var simpleDescription: String { get }
+}
+
+enum NumberToDate: Int, NumberToDateProtocol, RawRepresentable {
+    case Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+    var simpleDescription: String {
+        get {
+            return self.getDescription()
+        }
+    }
+    
+    var date: Int {
+        get {
+            return self.rawValue
+        }
+    }
+    
+    init?(dateNumber: Int) {
+        self.init(rawValue: dateNumber)
+    }
+    
+    private func getDescription() -> String {
+        switch self {
+        case .Monday:
+            return "Monday"
+        case .Tuesday:
+            return "Tuesday"
+        case .Wednesday:
+            return "Wednesday"
+        case .Thursday:
+            return "Thursday"
+        case .Friday:
+            return "Friday"
+        case .Saturday:
+            return "Saturday"
+        case .Sunday:
+            return "Sunday"
+        }
+    }
+    
+    func getIsRepeat(repeatDate: RepeatDate) -> Bool {
+        switch self {
+        case .Monday:
+            return repeatDate.isMon.boolValue
+        case .Tuesday:
+            return repeatDate.isTue.boolValue
+        case .Wednesday:
+            return repeatDate.isWed.boolValue
+        case .Thursday:
+            return repeatDate.isThu.boolValue
+        case .Friday:
+            return repeatDate.isFri.boolValue
+        case .Saturday:
+            return repeatDate.isSat.boolValue
+        case .Sunday:
+            return repeatDate.isSun.boolValue
+        }
+    }
+}
 
 struct DateTimeHelper {
     static func getRemainingTimeFromCurrentTime(destinatedTime: NSNumber) -> NSNumber {
@@ -60,5 +123,9 @@ struct DateTimeHelper {
         let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
         let minuteString = minute < 10 ? "0\(minute)" : "\(minute)"
         return "\(hourString):\(minuteString)"
+    }
+    
+    static func resetSecondToZero(date: NSDate) {
+        date.change(second: 0)
     }
 }

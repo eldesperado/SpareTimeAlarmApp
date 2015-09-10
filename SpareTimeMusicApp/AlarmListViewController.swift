@@ -34,6 +34,10 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         if self.alarmRecordArray.count > 0 {
             self.recordsTableView.reloadDataWithAnimation(UITableViewCellLoadingAnimations.AnimationCellDirection.LiftUpFromBottom, animationTime: 0.5, interval: 0.05)
         }
+        if let first = self.alarmRecordArray.first {
+            NTNotificationManager.scheduleNewNotification(first)
+        }
+        
     }
     
     func loadData() {

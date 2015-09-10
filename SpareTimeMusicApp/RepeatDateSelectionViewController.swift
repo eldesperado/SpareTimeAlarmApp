@@ -50,7 +50,8 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: RepeatDateSelectionTableViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! RepeatDateSelectionTableViewCell
         // If RepeatDate has info, edit repeat dates
-        cell.configureCell(indexPath.row, repeatDate: self.repeatDates)
+        let dateNumber = indexPath.row + 1
+        cell.configureCell(dateNumber, repeatDate: self.repeatDates)
         
         return cell
     }
@@ -62,20 +63,21 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
         let cell: RepeatDateSelectionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RepeatDateSelectionTableViewCell
         cell.checkIconImageView.hidden = !cell.checkIconImageView.hidden
         if let date = self.repeatDates {
-            switch (indexPath.row) {
-            case NumberToDate.Monday.rawValue:
+            let dateNumber = indexPath.row + 1
+            switch (dateNumber) {
+            case NumberToDate.Monday.date:
                 date.isMon = !date.isMon.boolValue
-            case NumberToDate.Tuesday.rawValue:
+            case NumberToDate.Tuesday.date:
                 date.isTue = !date.isTue.boolValue
-            case NumberToDate.Wednesday.rawValue:
+            case NumberToDate.Wednesday.date:
                 date.isWed = !date.isWed.boolValue
-            case NumberToDate.Thursday.rawValue:
+            case NumberToDate.Thursday.date:
                 date.isThu = !date.isThu.boolValue
-            case NumberToDate.Friday.rawValue:
+            case NumberToDate.Friday.date:
                 date.isFri = !date.isFri.boolValue
-            case NumberToDate.Saturday.rawValue:
+            case NumberToDate.Saturday.date:
                 date.isSat = !date.isSat.boolValue
-            case NumberToDate.Sunday.rawValue:
+            case NumberToDate.Sunday.date:
                 date.isSun = !date.isSun.boolValue
             default:
                 break
