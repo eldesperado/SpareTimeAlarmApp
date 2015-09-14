@@ -14,7 +14,7 @@
 		251B323A1B9587D40044DBDA /* ThemeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251B32391B9587D40044DBDA /* ThemeObserver.swift */; };
 		25432C7F1BA18BEE00C64291 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25432C7D1BA18BEE00C64291 /* CoreData.xcdatamodeld */; };
 		25432C851BA18C9500C64291 /* RepeatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C841BA18C9500C64291 /* RepeatDate.swift */; };
-		25432C871BA18C9600C64291 /* AlarmRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C861BA18C9600C64291 /* AlarmRecord.swift */; };
+		25432C8C1BA18FB500C64291 /* AlarmRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C8B1BA18FB500C64291 /* AlarmRecord.swift */; };
 		25816DDE1B958F66009274CA /* ThemeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25816DDD1B958F66009274CA /* ThemeComponent.swift */; };
 		25831A561B81E4650088404D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A551B81E4650088404D /* SettingTableViewController.swift */; };
 		25831A5B1B846CCC0088404D /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5A1B846CCC0088404D /* CircularView.swift */; };
@@ -78,7 +78,8 @@
 		251B32391B9587D40044DBDA /* ThemeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeObserver.swift; sourceTree = "<group>"; };
 		25432C7E1BA18BEE00C64291 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		25432C841BA18C9500C64291 /* RepeatDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepeatDate.swift; path = ../RepeatDate.swift; sourceTree = "<group>"; };
-		25432C861BA18C9600C64291 /* AlarmRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmRecord.swift; path = ../AlarmRecord.swift; sourceTree = "<group>"; };
+		25432C881BA18D8B00C64291 /* CoreDatav2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDatav2.xcdatamodel; sourceTree = "<group>"; };
+		25432C8B1BA18FB500C64291 /* AlarmRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmRecord.swift; path = ../AlarmRecord.swift; sourceTree = "<group>"; };
 		25816DDD1B958F66009274CA /* ThemeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeComponent.swift; sourceTree = "<group>"; };
 		25831A551B81E4650088404D /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		25831A5A1B846CCC0088404D /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
@@ -383,7 +384,7 @@
 		25DB96D71B6F625C0088B3FA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				25432C861BA18C9600C64291 /* AlarmRecord.swift */,
+				25432C8B1BA18FB500C64291 /* AlarmRecord.swift */,
 				25432C841BA18C9500C64291 /* RepeatDate.swift */,
 				25432C7D1BA18BEE00C64291 /* CoreData.xcdatamodeld */,
 				25B559EF1B733C7800F47D84 /* CoreDataStore.swift */,
@@ -686,7 +687,7 @@
 				25EFCBD71B74937400A0FE0C /* NTTimeIntervalPickerView.swift in Sources */,
 				25831A5B1B846CCC0088404D /* CircularView.swift in Sources */,
 				25EFCBDF1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift in Sources */,
-				25432C871BA18C9600C64291 /* AlarmRecord.swift in Sources */,
+				25432C8C1BA18FB500C64291 /* AlarmRecord.swift in Sources */,
 				25831A621B87037F0088404D /* CAnimationExtension.swift in Sources */,
 				25AB47FD1B999658006462D1 /* UITableView+LoadCellAnimation.swift in Sources */,
 				25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */,
@@ -956,9 +957,10 @@
 		25432C7D1BA18BEE00C64291 /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				25432C881BA18D8B00C64291 /* CoreDatav2.xcdatamodel */,
 				25432C7E1BA18BEE00C64291 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = 25432C7E1BA18BEE00C64291 /* CoreData.xcdatamodel */;
+			currentVersion = 25432C881BA18D8B00C64291 /* CoreDatav2.xcdatamodel */;
 			name = CoreData.xcdatamodeld;
 			path = ../CoreData.xcdatamodeld;
 			sourceTree = "<group>";

@@ -240,6 +240,31 @@ extension CoreDataHelper {
         
         // Save in background thread
         self.saveContext()
+        
+        // Create a notification
+        self.notificationManager.scheduleNewNotification(newRecord)
+    }
+    
+    func updateAlarmRecord(record: AlarmRecord, alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String? = "", isRepeat: Bool, isActive: Bool? = true, repeatDate: RepeatDate?) {
+        
+        // Update Alarm Record with new values
+        record.alarmTime = alarmTime
+        record.ringtoneType = ringtoneType
+        if let text = salutationText {
+            record.salutationText = text
+        }
+        
+        record.isRepeat = isRepeat
+        if let active = isActive {
+            record.isActive = active
+        }
+        
+        record.repeatDates.copyValueFrom(record.repeatDates)
+        // Save new alarm
+        self.saveContext()
+        // Create a notification
+        self.notificationManager.scheduleNewNotification(record)
+
     }
     
     // MARK: Find object
@@ -254,6 +279,11 @@ extension CoreDataHelper {
     
     // MARK: DELETE: Delete AlarmRecord and RepeatDate in cascade
     func deleteAlarmRecord(alarmRecord record: AlarmRecord) {
+        let recordTimeStamp: String = record.timeStamp
+        
+        // Cancel location notifications
+        self.notificationManager.cancelLocalNotifications(record)
+        
         // Find this object in background managed object context
         let managedObject = findRecord(record.objectID, managedObjectContext: self.backgroundContext!)
         self.backgroundContext!.deleteObject(managedObject)
@@ -264,7 +294,8 @@ extension CoreDataHelper {
     // MARK: Helpers
     private func setTimeStamp(record: AlarmRecord) {
         let now = NSDate()
-        let time = Int32(now.timeIntervalSince1970 * 1000)
-//        record.timeStamp = "\(time)"
+        let time = Int(now.timeIntervalSince1970 * 1000)
+        record.timeStamp = "\(time)"
     }
+    
 }

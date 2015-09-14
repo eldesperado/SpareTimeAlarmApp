@@ -56,23 +56,15 @@ class EditAlarmTableViewController: UITableViewController {
         }
     }
     
-    // MARK: Actions
-    @IBAction func alarmTimePickerValueChanged(sender: AnyObject) {
-    }
-    
+    // MARK: Actions    
     let unwindSegueId = "doneEditingAlarmUnwindSegue"
     @IBAction func doneBarButtonDidTouch(sender: AnyObject) {
         if let record = self.alarmRecord, backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord {
             // Update Alarm Record with new values
-            backgroundObject.alarmTime = self.alarmTimePickerView.timeInterval
-            backgroundObject.salutationText = self.salutationTextField.text
-            backgroundObject.isRepeat = self.repeatRingtoneSwitch.isOn()
-            backgroundObject.isActive = NSNumber(int: 1)
-            backgroundObject.repeatDates.copyValueFrom(record.repeatDates)
+            self.cdh.updateAlarmRecord(backgroundObject, alarmTime: self.alarmTimePickerView.timeInterval, ringtoneType: 0, salutationText: self.salutationTextField.text, isRepeat: self.repeatRingtoneSwitch.isOn(), isActive: true, repeatDate: record.repeatDates)
             // Update alarmRecord
             self.alarmRecord = backgroundObject
-            // Save new alarm
-            self.cdh.saveContext()
+
             // Perform Unwind Segue
             self.performSegueWithIdentifier(self.unwindSegueId, sender: self)
         }

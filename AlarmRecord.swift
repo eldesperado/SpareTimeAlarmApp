@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(AlarmRecord)
 class AlarmRecord: NSManagedObject {
 
     @NSManaged var alarmTime: NSNumber
@@ -16,6 +17,7 @@ class AlarmRecord: NSManagedObject {
     @NSManaged var isRepeat: NSNumber
     @NSManaged var ringtoneType: NSNumber
     @NSManaged var salutationText: String
+    @NSManaged var timeStamp: String
     @NSManaged var repeatDates: RepeatDate
 
 }

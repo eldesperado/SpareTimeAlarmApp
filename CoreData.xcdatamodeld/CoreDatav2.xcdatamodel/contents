@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="CoreData" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D2134" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D2134" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AlarmRecord" representedClassName="AlarmRecord" syncable="YES">
         <attribute name="alarmTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isRepeat" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="ringtoneType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="salutationText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeStamp" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="repeatDates" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="RepeatDate" inverseName="ofRecord" inverseEntity="RepeatDate" syncable="YES"/>
     </entity>
     <entity name="RepeatDate" representedClassName="RepeatDate" syncable="YES">
@@ -19,7 +20,7 @@
         <relationship name="ofRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AlarmRecord" inverseName="repeatDates" inverseEntity="AlarmRecord" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AlarmRecord" positionX="-225" positionY="24" width="128" height="133"/>
+        <element name="AlarmRecord" positionX="-225" positionY="24" width="128" height="150"/>
         <element name="RepeatDate" positionX="-54" positionY="18" width="128" height="163"/>
     </elements>
 </model>

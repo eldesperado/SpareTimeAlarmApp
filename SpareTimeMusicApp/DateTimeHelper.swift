@@ -125,6 +125,12 @@ struct DateTimeHelper {
         return "\(hourString):\(minuteString)"
     }
     
+    static func getAlarmTimeComponents(let alarmTime time: NSNumber) -> (hour: Int, minutes: Int) {
+        let hour = time.integerValue / 60
+        let minute = time.integerValue - hour * 60
+        return (hour, minute)
+    }
+    
     static func resetSecondToZero(date: NSDate) {
         date.change(second: 0)
     }

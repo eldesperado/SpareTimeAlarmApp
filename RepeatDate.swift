@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(RepeatDate)
 class RepeatDate: NSManagedObject {
 
     @NSManaged var isFri: NSNumber

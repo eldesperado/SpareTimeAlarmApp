@@ -23,10 +23,12 @@ protocol CoreDataOperation {
 
 class CoreDataHelper: NSObject, CoreDataOperation {
     let store: CoreDataStore!
+    let notificationManager: NTNotificationManager
     
     override init() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.store = appDelegate.cdstore
+        self.notificationManager = appDelegate.notificationManager
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "contextDidSaveContext:", name: NSManagedObjectContextDidSaveNotification, object: nil)
     }
