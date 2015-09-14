@@ -130,8 +130,4 @@ struct DateTimeHelper {
         let minute = time.integerValue - hour * 60
         return (hour, minute)
     }
-    
-    static func resetSecondToZero(date: NSDate) {
-        date.change(second: 0)
-    }
 }

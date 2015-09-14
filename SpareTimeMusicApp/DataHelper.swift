@@ -20,6 +20,10 @@ struct DataHelper {
         var minimumDifference: Int = Int.max
         var newDiff: Int = Int.max
         var closestNumber: NSNumber = NSNumber()
+        if let first = numbers.first {
+            closestNumber = first
+        }
+        
         for number in numbers {
             switch options {
             case .OnlyEqualOrGreater:
