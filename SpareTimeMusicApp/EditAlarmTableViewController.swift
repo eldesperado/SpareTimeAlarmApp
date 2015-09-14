@@ -61,7 +61,7 @@ class EditAlarmTableViewController: UITableViewController {
     @IBAction func doneBarButtonDidTouch(sender: AnyObject) {
         if let record = self.alarmRecord, backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord {
             // Update Alarm Record with new values
-            self.cdh.updateAlarmRecord(backgroundObject, alarmTime: self.alarmTimePickerView.timeInterval, ringtoneType: 0, salutationText: self.salutationTextField.text, isRepeat: self.repeatRingtoneSwitch.isOn(), isActive: true, repeatDate: record.repeatDates)
+            self.cdh.updateAlarmRecord(backgroundObject, alarmTime: self.alarmTimePickerView.timeInterval, salutationText: self.salutationTextField.text, isRepeat: self.repeatRingtoneSwitch.isOn(), repeatDate: record.repeatDates)
             // Update alarmRecord
             self.alarmRecord = backgroundObject
 

@@ -157,7 +157,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.workingRecord = editAlarmRecordVC.alarmRecord
             if let record = self.workingRecord {
                 // Find which cell containing this record
-                if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
+                if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, timeStamp: record.timeStamp) {
                     // Update Alarm Array
                     self.updateTableViewCell(record, recordIndex: recordIndex)
                 } else {
@@ -181,7 +181,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         // Update before add new cell
         self.loadData()
         // Find which cell containing this record
-        if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, wantedObjectID: record.objectID) {
+        if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, timeStamp: record.timeStamp) {
             self.recordsTableView.beginUpdates()
             self.recordsTableView.insertRowsAtIndexPaths([NSIndexPath(forItem: recordIndex, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
             self.recordsTableView.endUpdates()

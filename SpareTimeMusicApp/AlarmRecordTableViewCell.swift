@@ -44,10 +44,8 @@ class AlarmRecordTableViewCell: UITableViewCell {
                 // Update isRepeat shows that whether the ringtone is repeated or not
                 // Find ManagedObject in background managed object context
                 if let record = cdh.findRecordInBackgroundManagedObjectContext(alarmRecord.objectID) as? AlarmRecord {
-                    // Update boolean value
-                    record.isRepeat = self.repeatRingtoneSwitch.isOn()
-                    // Save context
-                    self.coreDataHelper!.saveContext()
+                    // Update value of isRepeat
+                    cdh.updateAlarmRecord(record, isRepeat: self.repeatRingtoneSwitch.isOn())
                 }
             }
         }

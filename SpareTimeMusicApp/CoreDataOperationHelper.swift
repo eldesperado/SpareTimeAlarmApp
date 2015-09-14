@@ -94,10 +94,10 @@ struct RecordHelper {
         return strings.count
     }
     
-    static func getAlarmRecordIndexInAlarmArrays(alarmArray: [AlarmRecord], wantedObjectID: NSManagedObjectID) -> Int? {
+    static func getAlarmRecordIndexInAlarmArrays(alarmArray: [AlarmRecord], timeStamp: String) -> Int? {
         var i = 0
         for record in alarmArray {
-            if record.objectID == wantedObjectID {
+            if record.timeStamp == timeStamp {
                 return i
             }
             i++
@@ -245,21 +245,32 @@ extension CoreDataHelper {
         self.notificationManager.scheduleNewNotification(newRecord)
     }
     
-    func updateAlarmRecord(record: AlarmRecord, alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String? = "", isRepeat: Bool, isActive: Bool? = true, repeatDate: RepeatDate?) {
+    func updateAlarmRecord(record: AlarmRecord, alarmTime: NSNumber? = nil, ringtoneType: NSNumber? = nil, salutationText: String? = "", isRepeat: Bool? = nil, isActive: Bool? = true, repeatDate: RepeatDate? = nil) {
         
         // Update Alarm Record with new values
-        record.alarmTime = alarmTime
-        record.ringtoneType = ringtoneType
+        if let alTime = alarmTime {
+            record.alarmTime = alTime
+        }
+        if let rType = ringtoneType {
+            record.ringtoneType = rType
+        }
+        
         if let text = salutationText {
             record.salutationText = text
         }
         
-        record.isRepeat = isRepeat
+        if let repeat = isRepeat {
+            record.isRepeat = repeat
+        }
+        
         if let active = isActive {
             record.isActive = active
         }
         
-        record.repeatDates.copyValueFrom(record.repeatDates)
+        if let rDates = repeatDate {
+            record.repeatDates.copyValueFrom(rDates)
+        }
+        
         // Save new alarm
         self.saveContext()
         // Create a notification

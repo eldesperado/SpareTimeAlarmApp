@@ -203,9 +203,7 @@ struct NTNotificationManager: NTNotificationManagerProtocol {
         localNotification.fireDate = alarmDate
         localNotification.soundName = UILocalNotificationDefaultSoundName
         
-        if record.isRepeat.boolValue {
-            localNotification.repeatInterval = NSCalendarUnit.CalendarUnitWeekOfYear
-        }
+        localNotification.repeatInterval = NSCalendarUnit.CalendarUnitWeekOfYear
         
         localNotification.category = Notifications.Categories.Reminder.rawValue
         
