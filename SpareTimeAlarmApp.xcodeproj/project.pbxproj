@@ -43,6 +43,7 @@
 		25DB96D21B6F489B0088B3FA /* RotondaC-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96D01B6F489B0088B3FA /* RotondaC-Bold.otf */; };
 		25DB96D31B6F489B0088B3FA /* RotondaC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 25DB96D11B6F489B0088B3FA /* RotondaC.otf */; };
 		25DFFFD41BA13C030019B373 /* NTNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DFFFD31BA13C030019B373 /* NTNotificationManager.swift */; };
+		25E17B1A1BA6E3320033EB73 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E17B191BA6E3320033EB73 /* AppSetting.swift */; };
 		25EFCBD31B748F1200A0FE0C /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBD21B748F1200A0FE0C /* UIViewControllerExtension.swift */; };
 		25EFCBD71B74937400A0FE0C /* NTTimeIntervalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */; };
 		25EFCBD91B74A97500A0FE0C /* EditAlarmTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */; };
@@ -119,6 +120,7 @@
 		25DB96D01B6F489B0088B3FA /* RotondaC-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RotondaC-Bold.otf"; sourceTree = "<group>"; };
 		25DB96D11B6F489B0088B3FA /* RotondaC.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RotondaC.otf; sourceTree = "<group>"; };
 		25DFFFD31BA13C030019B373 /* NTNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTNotificationManager.swift; sourceTree = "<group>"; };
+		25E17B191BA6E3320033EB73 /* AppSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
 		25EFCBD21B748F1200A0FE0C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTimeIntervalPickerView.swift; sourceTree = "<group>"; };
 		25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAlarmTableViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		25DB96AB1B6F19290088B3FA /* SpareTimeMusicApp */ = {
 			isa = PBXGroup;
 			children = (
+				25E17B181BA6E2E60033EB73 /* Model */,
 				25D31E161B818AA400E54821 /* Framework */,
 				25DB96AE1B6F19290088B3FA /* AppDelegate.swift */,
 				25098B8D1B8EC24400C71C9E /* ThemeManager */,
@@ -411,6 +414,14 @@
 				25EFCBD41B74932A00A0FE0C /* UIPickerView */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		25E17B181BA6E2E60033EB73 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				25E17B191BA6E3320033EB73 /* AppSetting.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		25EFCBD41B74932A00A0FE0C /* UIPickerView */ = {
@@ -680,6 +691,7 @@
 				25EFCBE31B79A4AC00A0FE0C /* UIColor+AlarmApp.swift in Sources */,
 				25FD4C871B70D16B00F7A435 /* AlarmRecordTableViewCell.swift in Sources */,
 				25D614901B7227FC0042544D /* CoreDataHelper.swift in Sources */,
+				25E17B1A1BA6E3320033EB73 /* AppSetting.swift in Sources */,
 				25AD761B1B7CACDE0087CED8 /* FancyTextField.swift in Sources */,
 				25B559F01B733C7800F47D84 /* CoreDataStore.swift in Sources */,
 				25DFFFD41BA13C030019B373 /* NTNotificationManager.swift in Sources */,

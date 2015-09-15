@@ -15,7 +15,6 @@ enum ClosestValueOptions {
 }
 
 struct DataHelper {
-    
     static func findTheClosestValue(givenValue: NSNumber, numbers: [NSNumber], options: ClosestValueOptions) -> NSNumber {
         var minimumDifference: Int = Int.max
         var newDiff: Int = Int.max
