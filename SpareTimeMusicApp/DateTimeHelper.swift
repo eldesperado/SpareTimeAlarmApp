@@ -7,14 +7,10 @@
 //
 
 import UIKit
-import Timepiece
 import Foundation
 
-protocol NumberToDateProtocol {
-    var simpleDescription: String { get }
-}
 
-enum NumberToDate: Int, NumberToDateProtocol, RawRepresentable {
+enum NumberToDate: Int, RawRepresentable {
     case Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
     var simpleDescription: String {
         get {
@@ -85,7 +81,7 @@ struct DateTimeHelper {
     static func getCurrentTime() -> (hours: Int, minutes: Int, seconds: Int) {
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute | .CalendarUnitSecond, fromDate: date)
+        let components = calendar.components([.Hour, .Minute, .Second], fromDate: date)
         return (components.hour, components.minute, components.second)
     }
     
@@ -110,8 +106,8 @@ struct DateTimeHelper {
     static func getCurrentDate() -> (month: Int, day: Int, dayOfWeek: Int, dayOfWeekAsString: String) {
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitWeekday, fromDate: date)
-        var dateFormatter = NSDateFormatter()
+        let components = calendar.components([.Month, .Day, .Weekday], fromDate: date)
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "EEE"
         let weekdayString = dateFormatter.stringFromDate(date)
         return (components.hour, components.day, components.weekday, weekdayString)

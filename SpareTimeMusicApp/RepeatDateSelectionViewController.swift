@@ -23,7 +23,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     let unwindSegueId = "doneRepeatDatesSelectionUnwindSegue"
     override func viewWillDisappear(animated: Bool) {
         // Detect whether back button is pressed or not, if pressed, perform unwind segue
-        if (find(self.navigationController!.viewControllers as! [UIViewController], self) == nil) {
+        if ((self.navigationController!.viewControllers ).indexOf(self) == nil) {
             // back button was pressed.  We know this is true because self is no longer
             // in the navigation stack.
             self.performSegueWithIdentifier(unwindSegueId, sender: self.repeatDates)
@@ -87,7 +87,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     
     // MARK: Setup Views
     private func setupView() {
-        if let component = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
+        if let component = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
             self.backgroundImageView.image = component
         }
         
@@ -95,9 +95,9 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     }
     
     private func observeTheme() {
-        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
+        ThemeObserver.onMainThread(self) { notification in
             // Set theme
-            if let component = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
+            if let component = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
                 self.backgroundImageView.image = component
                 // Animate Change
                 self.backgroundImageView.layer.animateThemeChangeAnimation()

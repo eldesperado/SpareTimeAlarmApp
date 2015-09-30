@@ -11,9 +11,10 @@ import UIKit
 class ThemeObserver {
     
     // MARK: Structs
-    struct Static {
+    private struct Static {
         static let instance = ThemeObserver()
         static let queue = dispatch_queue_create("com.xmsofresh.SpareTimeAppAlarm.ThemeManager.ThemeObserver", DISPATCH_QUEUE_SERIAL)
+        static let themeObserverUpdateNotificationKey: String = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager.UpdateTheme"
     }
     
     struct Observer {
@@ -27,11 +28,11 @@ class ThemeObserver {
     var cache = [UInt: [Observer]]()
     
     // MARK: Publish method
-    class func post(name: String, sender: AnyObject?) {
+    class func post(name: String = Static.themeObserverUpdateNotificationKey, sender: AnyObject?) {
         NSNotificationCenter.defaultCenter().postNotificationName(name, object: sender)
     }
     // MARK: Subscribe method
-    class func on(target: AnyObject, name: String, sender: AnyObject?, queue: NSOperationQueue?, handler: HandlerClosure) -> NSObjectProtocol {
+    class func on(target: AnyObject, name: String = Static.themeObserverUpdateNotificationKey, sender: AnyObject?, queue: NSOperationQueue?, handler: HandlerClosure) -> NSObjectProtocol {
         let id = ObjectIdentifier(target).uintValue
         let observer = NSNotificationCenter.defaultCenter().addObserverForName(name, object: sender, queue: queue, usingBlock: handler)
         let namedObserver = Observer(observer: observer, name: name)
@@ -47,19 +48,19 @@ class ThemeObserver {
         return observer
     }
     
-    class func onMainThread(target: AnyObject, name: String, handler: HandlerClosure) -> NSObjectProtocol {
+    class func onMainThread(target: AnyObject, name: String = Static.themeObserverUpdateNotificationKey, handler: HandlerClosure) -> NSObjectProtocol {
         return ThemeObserver.on(target, name: name, sender: nil, queue: NSOperationQueue.mainQueue(), handler: handler)
     }
     
-    class func onMainThread(target: AnyObject, name: String, sender: AnyObject?, handler: HandlerClosure) -> NSObjectProtocol {
+    class func onMainThread(target: AnyObject, name: String = Static.themeObserverUpdateNotificationKey, sender: AnyObject?, handler: HandlerClosure) -> NSObjectProtocol {
         return ThemeObserver.on(target, name: name, sender: sender, queue: NSOperationQueue.mainQueue(), handler: handler)
     }
     
-    class func onBackgroundThread(target: AnyObject, name: String, handler: HandlerClosure) -> NSObjectProtocol {
+    class func onBackgroundThread(target: AnyObject, name: String = Static.themeObserverUpdateNotificationKey, handler: HandlerClosure) -> NSObjectProtocol {
         return ThemeObserver.on(target, name: name, sender: nil, queue: NSOperationQueue(), handler: handler)
     }
     
-    class func onBackgroundThread(target: AnyObject, name: String, sender: AnyObject?, handler: HandlerClosure) -> NSObjectProtocol {
+    class func onBackgroundThread(target: AnyObject, name: String = Static.themeObserverUpdateNotificationKey, sender: AnyObject?, handler: HandlerClosure) -> NSObjectProtocol {
         return ThemeObserver.on(target, name: name, sender: sender, queue: NSOperationQueue(), handler: handler)
     }
     // MARK: Unsubscribe method

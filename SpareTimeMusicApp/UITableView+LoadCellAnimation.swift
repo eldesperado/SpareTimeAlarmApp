@@ -35,14 +35,14 @@ extension UITableView {
     }
 
     func visibleRowsBeginAnimation(direction: UITableViewCellLoadingAnimations.AnimationCellDirection, animationTime:NSTimeInterval, interval:NSTimeInterval) {
-        var visibleArray : NSArray = self.indexPathsForVisibleRows()! as NSArray
+        let visibleArray : NSArray = self.indexPathsForVisibleRows! as NSArray
         let count =  visibleArray.count
         
         switch (direction) {
         case .DropDownFromTop:
             for i in 0...(count-1){
-                var path : NSIndexPath = visibleArray.objectAtIndex(count - 1 - i) as! NSIndexPath
-                var cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
+                let path : NSIndexPath = visibleArray.objectAtIndex(count - 1 - i) as! NSIndexPath
+                let cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
                 cell.hidden = true
                 let originPoint : CGPoint = cell.center
                 cell.center = CGPointMake(originPoint.x, originPoint.y - 1000)
@@ -64,8 +64,8 @@ extension UITableView {
             }
         case .LiftUpFromBottom:
             for i in 0...(count-1){
-                var path : NSIndexPath = visibleArray.objectAtIndex(i) as! NSIndexPath
-                var cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
+                let path : NSIndexPath = visibleArray.objectAtIndex(i) as! NSIndexPath
+                let cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
                 cell.hidden = true
                 let originPoint : CGPoint = cell.center
                 cell.center = CGPointMake(originPoint.x, originPoint.y + 1000)
@@ -86,8 +86,8 @@ extension UITableView {
             }
         case .FromLeftToRight:
             for i in 0...(count-1){
-                var path : NSIndexPath = visibleArray.objectAtIndex(i) as! NSIndexPath
-                var cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
+                let path : NSIndexPath = visibleArray.objectAtIndex(i) as! NSIndexPath
+                let cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
                 cell.hidden = true
                 let originPoint : CGPoint = cell.center
                 cell.center = CGPointMake(-cell.frame.size.width,  originPoint.y)
@@ -108,8 +108,8 @@ extension UITableView {
             }
         case .FromRightToLeft:
             for i in 0...(count-1){
-                var path : NSIndexPath = visibleArray.objectAtIndex(i) as! NSIndexPath
-                var cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
+                let path : NSIndexPath = visibleArray.objectAtIndex(i) as! NSIndexPath
+                let cell : UITableViewCell = self.cellForRowAtIndexPath(path)!
                 cell.hidden = true
                 let originPoint : CGPoint = cell.center
                 cell.center = CGPointMake(cell.frame.size.width * 3.0,  originPoint.y)
@@ -129,8 +129,6 @@ extension UITableView {
                 })
                 
             }
-        default:
-            return
         }
     }
     

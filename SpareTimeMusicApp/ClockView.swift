@@ -17,15 +17,15 @@ class ClockView: UIView {
         self.observeTheme()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.observeTheme()
     }
     
     private func observeTheme() {
-        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { [unowned self] notification in
+        ThemeObserver.onMainThread(self) { [unowned self] notification in
             // Set theme
-            if let themeColor = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+            if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
                 self.lightHandColor  = themeColor
             }
         }
@@ -35,7 +35,6 @@ class ClockView: UIView {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        let currentDate = DateTimeHelper.getCurrentDate()
         let currentTime = DateTimeHelper.getCurrentTime()
         
         if let lightHColor = self.lightHandColor {

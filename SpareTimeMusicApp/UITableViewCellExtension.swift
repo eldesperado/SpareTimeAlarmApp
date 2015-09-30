@@ -8,13 +8,7 @@
 
 import UIKit
 
-private protocol NTTableViewCellLayout {
-    var topSeparator: UIView { get }
-    var separatorColour: UIColor { get }
-    func setupCellViews ()
-}
-
-extension UITableViewCell: NTTableViewCellLayout {
+extension UITableViewCell {
     // MARK: Private Attributes
     private var topSeparator: UIView {
         get {

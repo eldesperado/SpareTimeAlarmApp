@@ -18,10 +18,10 @@ public class FlatClockStyleKit : NSObject {
     //// Cache
 
     private struct Cache {
-        static var color2: UIColor = UIColor(red: 0.219, green: 0.373, blue: 0.457, alpha: 1.000)
-        static var lightWhite: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.600)
-        static var orange: UIColor = UIColor(red: 1.000, green: 0.627, blue: 0.000, alpha: 1.000)
-        static var darkGray: UIColor = UIColor(red: 0.263, green: 0.263, blue: 0.263, alpha: 1.000)
+        private static var color2: UIColor = UIColor(red: 0.219, green: 0.373, blue: 0.457, alpha: 1.000)
+        private static var lightWhite: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.600)
+        private static var orange: UIColor = UIColor(red: 1.000, green: 0.627, blue: 0.000, alpha: 1.000)
+        private static var darkGray: UIColor = UIColor(red: 0.263, green: 0.263, blue: 0.263, alpha: 1.000)
     }
 
     //// Colors
@@ -33,7 +33,7 @@ public class FlatClockStyleKit : NSObject {
 
     //// Drawing Methods
 
-    public class func drawClock(#frame: CGRect, numbersColor: UIColor? = Cache.darkGray, darkHandsColor: UIColor? = Cache.darkGray, lightHandColor: UIColor? = Cache.orange, rimColor: UIColor? = Cache.lightWhite, tickColor: UIColor? = UIColor.grayColor(), faceColor: UIColor? = UIColor.whiteColor(), hours: CGFloat, minutes: CGFloat, seconds: CGFloat) {
+    public class func drawClock(frame frame: CGRect, numbersColor: UIColor? = Cache.darkGray, darkHandsColor: UIColor? = Cache.darkGray, lightHandColor: UIColor? = Cache.orange, rimColor: UIColor? = Cache.lightWhite, tickColor: UIColor? = UIColor.grayColor(), faceColor: UIColor? = UIColor.whiteColor(), hours: CGFloat, minutes: CGFloat, seconds: CGFloat) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -47,13 +47,13 @@ public class FlatClockStyleKit : NSObject {
         let bezierScale: CGFloat = frame.height / defaultHeight
 
         //// OuterFace Drawing
-        var outerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.05747 + 0.5), frame.minY + floor(frame.height * 0.04981 + 0.5), floor(frame.width * 0.95019 + 0.5) - floor(frame.width * 0.05747 + 0.5), floor(frame.height * 0.94253 + 0.5) - floor(frame.height * 0.04981 + 0.5)))
+        let outerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.05747 + 0.5), frame.minY + floor(frame.height * 0.04981 + 0.5), floor(frame.width * 0.95019 + 0.5) - floor(frame.width * 0.05747 + 0.5), floor(frame.height * 0.94253 + 0.5) - floor(frame.height * 0.04981 + 0.5)))
         rimColor!.setFill()
         outerFacePath.fill()
 
 
         //// InnerFace Drawing
-        var innerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.08046 + 0.5), frame.minY + floor(frame.height * 0.07280 + 0.5), floor(frame.width * 0.92720 + 0.5) - floor(frame.width * 0.08046 + 0.5), floor(frame.height * 0.91954 + 0.5) - floor(frame.height * 0.07280 + 0.5)))
+        let innerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.08046 + 0.5), frame.minY + floor(frame.height * 0.07280 + 0.5), floor(frame.width * 0.92720 + 0.5) - floor(frame.width * 0.08046 + 0.5), floor(frame.height * 0.91954 + 0.5) - floor(frame.height * 0.07280 + 0.5)))
         faceColor!.setFill()
         innerFacePath.fill()
 
@@ -64,7 +64,7 @@ public class FlatClockStyleKit : NSObject {
         CGContextRotateCTM(context, -(minuteAngle + 90) * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, bezierScale, bezierScale)
 
-        var bezierMinutePath = UIBezierPath()
+        let bezierMinutePath = UIBezierPath()
         bezierMinutePath.moveToPoint(CGPointMake(7.07, -7.07))
         bezierMinutePath.addCurveToPoint(CGPointMake(9.54, -3), controlPoint1: CGPointMake(8.25, -5.89), controlPoint2: CGPointMake(9.07, -4.49))
         bezierMinutePath.addLineToPoint(CGPointMake(95, -3))
@@ -87,7 +87,7 @@ public class FlatClockStyleKit : NSObject {
         CGContextRotateCTM(context, -(hourAngle + 90) * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, bezierScale, bezierScale)
 
-        var bezierHourPath = UIBezierPath()
+        let bezierHourPath = UIBezierPath()
         bezierHourPath.moveToPoint(CGPointMake(7.07, -7.07))
         bezierHourPath.addCurveToPoint(CGPointMake(8.66, -5), controlPoint1: CGPointMake(7.7, -6.44), controlPoint2: CGPointMake(8.24, -5.74))
         bezierHourPath.addLineToPoint(CGPointMake(56, -5))
@@ -110,7 +110,7 @@ public class FlatClockStyleKit : NSObject {
         CGContextRotateCTM(context, -(secondsAngle + 90) * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, bezierScale, bezierScale)
 
-        var bezierSecondPath = UIBezierPath()
+        let bezierSecondPath = UIBezierPath()
         bezierSecondPath.moveToPoint(CGPointMake(4.24, -4.24))
         bezierSecondPath.addCurveToPoint(CGPointMake(5.92, -1), controlPoint1: CGPointMake(5.16, -3.33), controlPoint2: CGPointMake(5.72, -2.19))
         bezierSecondPath.addLineToPoint(CGPointMake(99, -1))
@@ -260,7 +260,7 @@ public class FlatClockStyleKit : NSObject {
 
 
         //// Text-12h Drawing
-        var text12hPath = UIBezierPath()
+        let text12hPath = UIBezierPath()
         text12hPath.moveToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.14596 * frame.height))
         text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.46625 * frame.width, frame.minY + 0.15702 * frame.height))
         text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.45952 * frame.width, frame.minY + 0.14904 * frame.height))
@@ -302,7 +302,7 @@ public class FlatClockStyleKit : NSObject {
 
 
         //// Text-6h Drawing
-        var text6hPath = UIBezierPath()
+        let text6hPath = UIBezierPath()
         text6hPath.moveToPoint(CGPointMake(frame.minX + 0.51686 * frame.width, frame.minY + 0.79808 * frame.height))
         text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.49952 * frame.width, frame.minY + 0.82318 * frame.height))
         text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.49962 * frame.width, frame.minY + 0.82328 * frame.height))
@@ -348,7 +348,7 @@ public class FlatClockStyleKit : NSObject {
 
 
         //// Text-3h Drawing
-        var text3hPath = UIBezierPath()
+        let text3hPath = UIBezierPath()
         text3hPath.moveToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.48496 * frame.height))
         text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84473 * frame.width, frame.minY + 0.48496 * frame.height))
         text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84986 * frame.width, frame.minY + 0.48453 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84646 * frame.width, frame.minY + 0.48496 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84816 * frame.width, frame.minY + 0.48482 * frame.height))
@@ -402,7 +402,7 @@ public class FlatClockStyleKit : NSObject {
 
 
         //// Text-9h Drawing
-        var text9hPath = UIBezierPath()
+        let text9hPath = UIBezierPath()
         text9hPath.moveToPoint(CGPointMake(frame.minX + 0.14780 * frame.width, frame.minY + 0.52490 * frame.height))
         text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16523 * frame.width, frame.minY + 0.49971 * frame.height))
         text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16513 * frame.width, frame.minY + 0.49962 * frame.height))
@@ -463,10 +463,3 @@ public class FlatClockStyleKit : NSObject {
 
 }
 
-@objc protocol StyleKitSettableImage {
-    func setImage(image: UIImage!)
-}
-
-@objc protocol StyleKitSettableSelectedImage {
-    func setSelectedImage(image: UIImage!)
-}

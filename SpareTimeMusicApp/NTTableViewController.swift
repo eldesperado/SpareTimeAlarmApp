@@ -8,15 +8,12 @@
 
 import UIKit
 
-private protocol NTTableViewProtocol {
-    func updateTableViewCell(indexOfCell: Int, section: Int, tableView: UITableView, newAlarmRecord: AlarmRecord, coreDataHelper: CoreDataHelper)
-}
 
-extension UIViewController: NTTableViewProtocol {    
+extension UIViewController {    
     // MARK: TableView's Action
     // Update TableViewCell
     func updateTableViewCell(indexOfCell: Int, section: Int, tableView: UITableView, newAlarmRecord: AlarmRecord, coreDataHelper: CoreDataHelper) {
-        var record = coreDataHelper.findRecord(newAlarmRecord.objectID, managedObjectContext: coreDataHelper.managedObjectContext!) as! AlarmRecord
+        let record = coreDataHelper.findRecord(newAlarmRecord.objectID, managedObjectContext: coreDataHelper.managedObjectContext!) as! AlarmRecord
         // Update Record
         record.copyValueFrom(newAlarmRecord)
         tableView.beginUpdates()

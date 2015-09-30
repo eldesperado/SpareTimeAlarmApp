@@ -21,7 +21,7 @@ extension CATransform3D {
 extension CALayer {
     func animateThemeChangeAnimation() {
         let animation: CATransition = CATransition()
-        animation.duration = ThemeComponent.themeAnimationDuration
+        animation.duration = 0.6
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionFade
         

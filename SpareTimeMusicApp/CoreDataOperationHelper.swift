@@ -79,7 +79,7 @@ struct RecordHelper {
         }
         // Check whether this string begins with " ," characters. If does, remove
         if string.hasPrefix(", ") {
-            string.removeRange(string.startIndex...advance(string.startIndex, 1))
+            string.removeRange(string.startIndex...string.startIndex.advancedBy(1))
         }
         // Check whether this string contains all dates, that means there are 7 Date strings. If does, return "Everyday"
         if self.countStringsSeparateByColon(string) == 7 {
@@ -89,8 +89,7 @@ struct RecordHelper {
     }
     
     private static func countStringsSeparateByColon(string: String) -> Int {
-        var number: Int = 0
-        let strings = split(string, isSeparator: { $0 == ","})
+        let strings = string.characters.split(isSeparator: { $0 == ","}).map { String($0) }
         return strings.count
     }
     
@@ -108,7 +107,7 @@ struct RecordHelper {
     // Convert RepeatDates NSManagedObject to an array containing all activated dates
     static func getRepeatDates(alarmRecord: AlarmRecord) -> [Int]? {
         let repeatDates = alarmRecord.repeatDates
-        var dates = NSMutableArray()
+        let dates = NSMutableArray()
         
         if (repeatDates.isSun.boolValue) {
             dates.addObject(NumberToDate.Sunday.date)
@@ -167,7 +166,6 @@ extension CoreDataHelper {
     
     func listAlarmRecords(listingParameters parameters: ListingParameters) -> [AlarmRecord]? {
         let fetchReq : NSFetchRequest = NSFetchRequest(entityName: EntityTableName.AlarmRecord.rawValue)
-        var error: NSError? = nil
         
         if let predicate = parameters.predicateFilter {
             fetchReq.predicate = predicate
@@ -179,10 +177,11 @@ extension CoreDataHelper {
         
         fetchReq.returnsObjectsAsFaults = false
         
-        let result = self.managedObjectContext!.executeFetchRequest(fetchReq, error: &error)
-        if (error != nil) {
-            // FIXME: Create an appropriately way to handle this error!
-            return nil
+        let result: [AnyObject]?
+        do {
+            result = try self.managedObjectContext!.executeFetchRequest(fetchReq)
+        } catch {
+            result = nil
         }
         
         return result as? [AlarmRecord]
@@ -192,8 +191,8 @@ extension CoreDataHelper {
     
     // MARK: INSERT: Insert AlarmRecord table's records in background
     func createTempAlarmRecord() -> AlarmRecord {
-        var newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
-        var newRDates: RepeatDate = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.RepeatDate.rawValue, inManagedObjectContext: self.backgroundContext!) as! RepeatDate
+        let newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
+        let newRDates: RepeatDate = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.RepeatDate.rawValue, inManagedObjectContext: self.backgroundContext!) as! RepeatDate
         let val = 0
         newRDates.isMon = val
         newRDates.isTue = val
@@ -213,7 +212,7 @@ extension CoreDataHelper {
     
     func insertAlarmRecord(alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String? = "", isRepeat: Bool, repeatDate: RepeatDate?) {
         
-        var newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
+        let newRecord: AlarmRecord = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.AlarmRecord.rawValue, inManagedObjectContext: self.backgroundContext!) as! AlarmRecord
         newRecord.alarmTime = alarmTime
         newRecord.ringtoneType = ringtoneType
         if let saluStr = salutationText {
@@ -222,7 +221,7 @@ extension CoreDataHelper {
         newRecord.isRepeat = isRepeat
         newRecord.isActive = NSNumber(int: 1)
         if repeatDate == nil {
-            var newRDates: RepeatDate = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.RepeatDate.rawValue, inManagedObjectContext: self.backgroundContext!) as! RepeatDate
+            let newRDates: RepeatDate = NSEntityDescription.insertNewObjectForEntityForName(EntityTableName.RepeatDate.rawValue, inManagedObjectContext: self.backgroundContext!) as! RepeatDate
             let val = 1
             newRDates.isMon = val
             newRDates.isTue = val
@@ -259,8 +258,8 @@ extension CoreDataHelper {
             record.salutationText = text
         }
         
-        if let repeat = isRepeat {
-            record.isRepeat = repeat
+        if let `repeat` = isRepeat {
+            record.isRepeat = `repeat`
         }
         
         if let active = isActive {
@@ -290,8 +289,6 @@ extension CoreDataHelper {
     
     // MARK: DELETE: Delete AlarmRecord and RepeatDate in cascade
     func deleteAlarmRecord(alarmRecord record: AlarmRecord) {
-        let recordTimeStamp: String = record.timeStamp
-        
         // Cancel location notifications
         self.notificationManager.cancelLocalNotifications(record)
         

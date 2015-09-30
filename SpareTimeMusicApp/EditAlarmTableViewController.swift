@@ -163,7 +163,7 @@ class EditAlarmTableViewController: UITableViewController {
         let textFieldCellRect = self.alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: self.SALUTATION_TEXT_CELL, inSection: 0))
         // Add Upper Blur View
         let upperBlurView: UIView = UIView(frame: CGRect(origin: CGPointZero, size: CGSizeMake(self.alarmSettingTableView.frame.width, textFieldCellRect.origin.y)))
-        if let currentTheme = ThemeManager.sharedInstance.stylesheet {
+        if let currentTheme = ThemeManager.getSharedInstance().stylesheet {
             if let backgroundColorString = currentTheme[ThemeComponent.ThemeAttribute.BackgroundColor] {
                 let backgroundColor = UIColor(rgba: backgroundColorString)
                 upperBlurView.backgroundColor = backgroundColor.colorWithAlphaComponent(0.9)

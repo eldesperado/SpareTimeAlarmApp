@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum NTTimePickerComponentViewType: Int {
+    case Hour = 0
+    case Minute
+}
+
 @IBDesignable class NTTimeIntervalPickerView: UIControl, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var timeInterval: NSTimeInterval {
@@ -56,7 +61,7 @@ import UIKit
     
     // MARK: - Initialization
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         // Setup
         self.setup()
@@ -126,7 +131,7 @@ import UIKit
     func setupPickerView() {
         pickerView.dataSource = self
         pickerView.delegate = self
-        pickerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(pickerView)
         
         // Size picker view to fit self
@@ -183,7 +188,7 @@ import UIKit
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch Components(rawValue: component)! {
+        switch NTTimePickerComponentViewType(rawValue: component)! {
         case .Hour:
             return 24
         case .Minute:
@@ -204,63 +209,22 @@ import UIKit
     func pickerView(pickerView: UIPickerView,
         viewForRow row: Int,
         forComponent component: Int,
-        reusingView view: UIView!) -> UIView {
+        reusingView view: UIView?) -> UIView {
             
             // Check if view can be reused
-            var newView = view
-            switch Components(rawValue: component)! {
-            case .Hour:
-                if newView == nil {
-                    // Create new view
-                    let size = pickerView.rowSizeForComponent(component)
-                    newView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                    
-                    // Setup label and add as subview
-                    let label = UILabel()
-                    label.font = textFont
-                    label.textColor = self.textColor
-                    label.textAlignment = .Right
-                    label.adjustsFontSizeToFitWidth = false
-                    label.frame = CGRectMake(0, 0, numberWidth, size.height)
-                    newView.addSubview(label)
-                }
-                
-                let label = newView.subviews.first as! UILabel
-                label.text = row < 10 ? "0\(row)" : "\(row)"
-                
-                return newView
-            case .Minute:
-                if newView == nil {
-                    // Create new view
-                    let size = pickerView.rowSizeForComponent(component)
-                    newView = UIView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                    
-                    // Setup label and add as subview
-                    let label = UILabel()
-                    label.font = textFont
-                    label.textColor = self.textColor
-                    label.textAlignment = .Right
-                    label.adjustsFontSizeToFitWidth = false
-                    label.frame = CGRectMake(size.width / 2, CGFloat(0), numberWidth, size.height)
-                    newView.addSubview(label)
-                    
-                }
-                
-                let label = newView.subviews.first as! UILabel
-                label.text = row < 10 ? "0\(row)" : "\(row)"
-                
-                // Hide Separator Lines (http://stackoverflow.com/questions/20612279/ios7-uipickerview-how-to-hide-the-selection-indicator)
-                if let upperSeparatorView = pickerView.subviews[1] as? UIView {
-                    upperSeparatorView.hidden = true
-                }
-                
-                if let belowSeparatorView = pickerView.subviews[2] as? UIView {
-                    belowSeparatorView.hidden = true
-                }
-                
+            if let reusableView = view as? NTTimePickerComponentView {
+                // Update Label
+                reusableView.updateLabel(row)
+                return reusableView
+            } else if let pickerComponentViewType = NTTimePickerComponentViewType(rawValue: component) {
+                // Create new view
+                let size = pickerView.rowSizeForComponent(component)
+                let newView = NTTimePickerComponentView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height), type: pickerComponentViewType, numberWidth: numberWidth)
+                // Update Label
+                newView.updateLabel(row)
                 return newView
             }
-            
+            return UIView()
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -279,11 +243,6 @@ import UIKit
     
     private func minutesToHoursMinutes(minutes: Int) -> (hours: Int, minutes: Int) {
         return (minutes / 60, minutes % 60)
-    }
-    
-    private enum Components: Int {
-        case Hour = 0
-        case Minute
     }
 
 }

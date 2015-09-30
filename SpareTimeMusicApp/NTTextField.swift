@@ -8,14 +8,7 @@
 
 import UIKit
 
-protocol NTTextFieldProtocol {
-    func drawViewsForRect(rect: CGRect)
-    func updateViewsForBoundsChange(bounds: CGRect)
-    func animateViewsForTextEntry()
-    func animateViewsForTextDisplay()
-}
-
-class NTTextField: UITextField, NTTextFieldProtocol {
+class NTTextField: UITextField {
 
     internal typealias Status = Int
     

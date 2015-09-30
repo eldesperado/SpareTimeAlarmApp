@@ -9,19 +9,8 @@
 import CoreData
 import UIKit
 
-protocol CoreDataOperation {
-    // FETCH: Fetches AlarmRecord table's records
-    func listAllAlarmRecordsMostRecently() -> [AlarmRecord]?
-    func listAllActiveAlarmRecordsMostRecently() -> [AlarmRecord]?
-    func listAlarmRecords(listingParameters parameters: CoreDataHelper.ListingParameters) -> [AlarmRecord]?
-    // INSERT: Insert AlarmRecord table's records in background
-    func insertAlarmRecord(alarmTime: NSNumber, ringtoneType: NSNumber, salutationText: String?, isRepeat: Bool, repeatDate: RepeatDate?)
-    // DELETE: Delete AlarmRecord and RepeatDate in cascade
-    func deleteAlarmRecord(alarmRecord record: AlarmRecord)
-}
 
-
-class CoreDataHelper: NSObject, CoreDataOperation {
+class CoreDataHelper: NSObject {
     let store: CoreDataStore!
     let notificationManager: NTNotificationManager
     
@@ -70,11 +59,15 @@ class CoreDataHelper: NSObject, CoreDataOperation {
     
     // Save Context
     func saveContext(managedObjectContext context: NSManagedObjectContext) {
-        var error: NSError? = nil
-        if context.hasChanges && !context.save(&error) {
-            // FIXME: Create an appropritely way to handle this error
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
-            abort()
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch let error as NSError {
+                // TODO: Manage Error
+                // FIXME: Create an appropritely way to handle this error
+                NSLog("Unresolved error \(error), \(error.userInfo)")
+                abort()
+            }
         }
     }
     

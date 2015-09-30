@@ -18,7 +18,7 @@ class AlarmRecordTableViewCell: UITableViewCell {
     // Dependency Injection Pattern
     private var coreDataHelper: CoreDataHelper?
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
     }

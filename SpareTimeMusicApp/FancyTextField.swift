@@ -56,14 +56,18 @@ import UIKit
     
     // MARK: Private Layout Functions
     private func updateLabels(status: TextFieldStatus) {
-        self.font = self.font.fontWithSize(status.fontsize)
+
+        if let aFont = self.font {
+            self.font = aFont.fontWithSize(status.fontsize)
+        }
         self.textColor = status.color
     }
     
     private func updatePlaceholder(status: TextFieldStatus) {
         self.placeholderLabel.text = placeholder
-        
-        self.placeholderLabel.font = self.font.fontWithSize(status.fontsize)
+        if let aFont = self.font {
+            self.font = aFont.fontWithSize(status.fontsize)
+        }
         self.placeholderLabel.textColor = status.color
         self.placeholderLabel.sizeToFit()
     }
@@ -91,7 +95,9 @@ import UIKit
         
         // Set Placeholder
         self.placeholderLabel.frame = frame
-        self.placeholderLabel.font = self.font.fontWithSize(self.activeFontSize)
+        if let aFont = self.font {
+            self.font = aFont.fontWithSize(self.activeFontSize)
+        }
         self.placeholderLabel.textColor = self.activeColor
         self.addSubview(placeholderLabel)
         
@@ -100,7 +106,9 @@ import UIKit
         
         // Set Label Text
         self.textColor = self.inactiveColor
-        self.font = self.font.fontWithSize(self.inactiveFontSize)
+        if let aFont = self.font {
+            self.font = aFont.fontWithSize(self.inactiveFontSize)
+        }
     }
     
     override func animateViewsForTextEntry() {
@@ -109,7 +117,7 @@ import UIKit
             
             self.update()
             
-            }), completion: { [unowned self] (completed) in
+            }), completion: { (completed) in
             })
     }
     
@@ -119,7 +127,7 @@ import UIKit
 
             self.update()
             
-            }), completion: { [unowned self] (completed) in
+            }), completion: { (completed) in
         })
         
     }

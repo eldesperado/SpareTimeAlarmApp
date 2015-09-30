@@ -8,14 +8,6 @@
 
 import UIKit
 import Foundation
-import Timepiece
-
-private protocol NTNotificationManagerProtocol {
-    func setupNotification()
-    func scheduleNewNotification(record: AlarmRecord)
-    func findExistedLocalNotification(uid: String, dateNumber: Int?) -> [UILocalNotification]?
-    func cancelLocalNotification(notification: UILocalNotification)
-}
 
 enum Notifications {
     enum Identity {
@@ -36,7 +28,7 @@ enum Notifications {
     }
 }
 
-struct NTNotificationManager: NTNotificationManagerProtocol {
+struct NTNotificationManager {
     
     // MARK: Setup Notification
     func setupNotification() {
@@ -44,33 +36,27 @@ struct NTNotificationManager: NTNotificationManagerProtocol {
         
         if (notificationSettings.types == UIUserNotificationType.None) {
             // Specify the notification types.
-            var notificationTypes: UIUserNotificationType = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+            let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Alert, UIUserNotificationType.Sound]
             
             
             // Specify the notification actions.
-            var dismissAction = UIMutableUserNotificationAction()
+            let dismissAction = UIMutableUserNotificationAction()
             dismissAction.identifier = Notifications.Actions.Dismiss.rawValue
             dismissAction.title = "Dismiss"
             dismissAction.activationMode = UIUserNotificationActivationMode.Background
             dismissAction.destructive = false
             dismissAction.authenticationRequired = false
             
-            var snoozeAction = UIMutableUserNotificationAction()
+            let snoozeAction = UIMutableUserNotificationAction()
             snoozeAction.identifier = Notifications.Actions.Snooze.rawValue
             snoozeAction.title = "Snooze"
             snoozeAction.activationMode = UIUserNotificationActivationMode.Background
             snoozeAction.destructive = false
             snoozeAction.authenticationRequired = false
             
-            let actionsArray = NSArray(objects: dismissAction, snoozeAction)
-            
             // Specify the category related to the above actions.
-            var reminderCategory = UIMutableUserNotificationCategory()
+            let reminderCategory = UIMutableUserNotificationCategory()
             reminderCategory.identifier = Notifications.Categories.Reminder.rawValue
-            reminderCategory.setActions(actionsArray as [AnyObject], forContext: UIUserNotificationActionContext.Default)
-            reminderCategory.setActions(actionsArray as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
-            
-            
             reminderCategory.setActions([dismissAction, snoozeAction], forContext: .Default)
             reminderCategory.setActions([dismissAction, snoozeAction], forContext: .Minimal)
             
@@ -97,6 +83,9 @@ struct NTNotificationManager: NTNotificationManagerProtocol {
     }
     
     func findExistedLocalNotification(uid: String, dateNumber: Int?) -> [UILocalNotification]? {
+        // Make sure that scheduledLocalNotifications not nil
+        guard let scheduledLocalNotifications = UIApplication.sharedApplication().scheduledLocalNotifications else { return nil }
+        
         // Get Notification's Identity
         var numberToDate: NumberToDate?
         if let number = dateNumber {
@@ -106,12 +95,10 @@ struct NTNotificationManager: NTNotificationManagerProtocol {
         let uidString = "\(Notifications.Identity.UID(timeStamp: uid, date: numberToDate))"
         
         // Get current scheduled local notifications to find
-        let scheduledLocalNotifications = UIApplication.sharedApplication().scheduledLocalNotifications
-        var foundNotificationArray = NSMutableArray()
+        let foundNotificationArray = NSMutableArray()
         
-        for oneEvent in scheduledLocalNotifications {
-            if let notification = oneEvent as? UILocalNotification,
-                userInfoCurrent = notification.userInfo as? [String:AnyObject],
+        for notification in scheduledLocalNotifications {
+            if let userInfoCurrent = notification.userInfo as? [String:AnyObject],
                 notificationUID = userInfoCurrent[Notifications.Properties.UID.rawValue] as? String where notificationUID == uidString {
                     foundNotificationArray.addObject(notification)
             }
@@ -181,7 +168,6 @@ struct NTNotificationManager: NTNotificationManagerProtocol {
         // Else create a new notification
         // Get Date
         let tempDate: NSDate
-        let numberToDate: NumberToDate
         
         if let date = dateNumber {
             tempDate = NSDate().change(weekday: date)
@@ -190,20 +176,16 @@ struct NTNotificationManager: NTNotificationManagerProtocol {
             tempDate = NSDate()
         }
         let alarmTimeComponent = DateTimeHelper.getAlarmTimeComponents(alarmTime: record.alarmTime)
-        // Change to saved alarm time
-        if let timeZone = NSTimeZone(name: "Asia/Ho_Chi_Minh") {
-            tempDate.change(timeZone: timeZone)
-        }
         
         let alarmDate = tempDate.change(hour: alarmTimeComponent.hour, minute: alarmTimeComponent.minutes, second: 0)
         
-        var localNotification = UILocalNotification()
+        let localNotification = UILocalNotification()
         localNotification.alertBody = record.salutationText
         localNotification.timeZone = NSTimeZone(name: "Asia/Ho_Chi_Minh")
         localNotification.fireDate = alarmDate
         localNotification.soundName = UILocalNotificationDefaultSoundName
         
-        localNotification.repeatInterval = NSCalendarUnit.CalendarUnitWeekOfYear
+        localNotification.repeatInterval = NSCalendarUnit.WeekOfYear
         
         localNotification.category = Notifications.Categories.Reminder.rawValue
         

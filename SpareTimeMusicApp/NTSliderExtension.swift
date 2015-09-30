@@ -10,7 +10,7 @@ import UIKit
 
 extension NTSlider {
     func subscribleToUpdateDependOnCurrentTheme() {
-        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
+        ThemeObserver.onMainThread(self) { notification in
             self.updateDependOnTheme()
         }
     }
@@ -22,7 +22,7 @@ extension NTSlider {
     
     private func updateDependOnTheme() {
         // Set theme
-        if let themeColor = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+        if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
             self.trackTintColor  = themeColor
             // Animate Change
             self.layer.animateThemeChangeAnimation()
@@ -32,7 +32,7 @@ extension NTSlider {
 
 extension NTSwitch {
     func subscribleToUpdateDependOnCurrentTheme() {
-        ThemeObserver.onMainThread(self, name: ThemeComponent.themeObserverUpdateNotificationKey) { notification in
+        ThemeObserver.onMainThread(self) { notification in
             self.updateDependOnTheme()
         }
     }
@@ -44,7 +44,7 @@ extension NTSwitch {
     
     private func updateDependOnTheme() {
         // Set theme
-        if let themeColor = ThemeManager.sharedInstance.getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+        if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
             self.onTintColor  = themeColor
             // Animate Change
             self.layer.animateThemeChangeAnimation()

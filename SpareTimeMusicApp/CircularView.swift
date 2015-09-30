@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CircularViewDelegate {
-    func circularViewDidTapped(#tappedView: CircularView)
+    func circularViewDidTapped(tappedView tappedView: CircularView)
 }
 
 @IBDesignable class CircularView: UIView {
@@ -43,7 +43,7 @@ protocol CircularViewDelegate {
     private var initialBackgroundLayerPath: CGPath!
     
     // MARK: Public Methods
-    func setOn(#isOn: Bool, isAnimated: Bool) {
+    func setOn(isOn isOn: Bool, isAnimated: Bool) {
         self.isOn = isOn
         self.shapeTouched(isAnimated: isAnimated)
     }
@@ -52,7 +52,7 @@ protocol CircularViewDelegate {
         return self.isOn
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setup()
     }
@@ -118,7 +118,7 @@ protocol CircularViewDelegate {
         self.shapeTouched(isAnimated: true)
     }
     
-    private func shapeTouched(#isAnimated: Bool) {
+    private func shapeTouched(isAnimated isAnimated: Bool) {
         let scaleUpAnimationKey = "scaleUp"
         let scaleDownAnimationKey = "scaleDown"
         if self.isOn {
@@ -138,7 +138,7 @@ protocol CircularViewDelegate {
                 CATransaction.begin()
                 
                 // Add ScaleUp Animation
-                var scaleUpAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialBackgroundLayerPath, timing: kCAMediaTimingFunctionEaseOut)
+                let scaleUpAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialBackgroundLayerPath, timing: kCAMediaTimingFunctionEaseOut)
                 
                 self.innerLayer.addAnimation(scaleUpAnimation, forKey: scaleUpAnimationKey)
                 
@@ -151,13 +151,13 @@ protocol CircularViewDelegate {
     }
     
     // CAAnimation delegate
-    override func animationDidStart(anim: CAAnimation!){
+    override func animationDidStart(anim: CAAnimation){
         // Do DidStartClosure
         self.animationDidStartClosure(isOn)
     }
     
     
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool){
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool){
         // Do DidStopClosure
         self.animationDidStopClosure(isOn, flag)
     }

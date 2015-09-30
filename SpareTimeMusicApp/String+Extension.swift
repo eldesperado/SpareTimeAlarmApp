@@ -13,7 +13,7 @@ extension String
 {
     var length: Int {
         get {
-            return count(self)
+            return self.characters.count
         }
     }
     
@@ -39,7 +39,7 @@ extension String
     subscript (i: Int) -> Character
         {
         get {
-            let index = advance(startIndex, i)
+            let index = startIndex.advancedBy(i)
             return self[index]
         }
     }
@@ -47,8 +47,8 @@ extension String
     subscript (r: Range<Int>) -> String
         {
         get {
-            let startIndex = advance(self.startIndex, r.startIndex)
-            let endIndex = advance(self.startIndex, r.endIndex - 1)
+            let startIndex = self.startIndex.advancedBy(r.startIndex)
+            let endIndex = self.startIndex.advancedBy(r.endIndex - 1)
             
             return self[Range(start: startIndex, end: endIndex)]
         }
@@ -56,16 +56,16 @@ extension String
     
     func subString(startIndex: Int, length: Int) -> String
     {
-        var start = advance(self.startIndex, startIndex)
-        var end = advance(self.startIndex, startIndex + length)
+        let start = self.startIndex.advancedBy(startIndex)
+        let end = self.startIndex.advancedBy(startIndex + length)
         return self.substringWithRange(Range<String.Index>(start: start, end: end))
     }
     
     func indexOf(target: String) -> Int
     {
-        var range = self.rangeOfString(target)
+        let range = self.rangeOfString(target)
         if let range = range {
-            return distance(self.startIndex, range.startIndex)
+            return self.startIndex.distanceTo(range.startIndex)
         } else {
             return -1
         }
@@ -73,12 +73,12 @@ extension String
     
     func indexOf(target: String, startIndex: Int) -> Int
     {
-        var startRange = advance(self.startIndex, startIndex)
+        let startRange = self.startIndex.advancedBy(startIndex)
         
-        var range = self.rangeOfString(target, options: NSStringCompareOptions.LiteralSearch, range: Range<String.Index>(start: startRange, end: self.endIndex))
+        let range = self.rangeOfString(target, options: NSStringCompareOptions.LiteralSearch, range: Range<String.Index>(start: startRange, end: self.endIndex))
         
         if let range = range {
-            return distance(self.startIndex, range.startIndex)
+            return self.startIndex.distanceTo(range.startIndex)
         } else {
             return -1
         }
@@ -103,12 +103,18 @@ extension String
     func isMatch(regex: String, options: NSRegularExpressionOptions) -> Bool
     {
         var error: NSError?
-        var exp = NSRegularExpression(pattern: regex, options: options, error: &error)
+        var exp: NSRegularExpression?
+        do {
+            exp = try NSRegularExpression(pattern: regex, options: options)
+        } catch let error1 as NSError {
+            error = error1
+            exp = nil
+        }
         if let expression = exp {
             if let error = error {
-                println(error.description)
+                print(error.description)
             }
-            var matchCount = expression.numberOfMatchesInString(self, options: nil, range: NSMakeRange(0, self.length))
+            let matchCount = expression.numberOfMatchesInString(self, options: [], range: NSMakeRange(0, self.length))
             return matchCount > 0
         } else {
             return false
@@ -118,22 +124,20 @@ extension String
     
     func getMatches(regex: String, options: NSRegularExpressionOptions) -> [NSTextCheckingResult]?
     {
-        var error: NSError?
-        var exp = NSRegularExpression(pattern: regex, options: options, error: &error)
+        var exp: NSRegularExpression?
+        do {
+            exp = try NSRegularExpression(pattern: regex, options: options)
+        } catch let error as NSError {
+            exp = nil
+            print(error.description)
+            return nil
+        }
         if let expression = exp {
-            if let error = error {
-                println(error.description)
-            }
-            var matches = expression.matchesInString(self, options: nil, range: NSMakeRange(0, self.length))
-            if let mat = matches as? [NSTextCheckingResult] {
-                return mat
-            } else {
-                return nil
-            }
+            let matches = expression.matchesInString(self, options: [], range: NSMakeRange(0, self.length))
+            return matches
         } else {
             return nil
         }
-        
     }
     
 }

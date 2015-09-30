@@ -15,6 +15,8 @@
 		25432C7F1BA18BEE00C64291 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25432C7D1BA18BEE00C64291 /* CoreData.xcdatamodeld */; };
 		25432C851BA18C9500C64291 /* RepeatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C841BA18C9500C64291 /* RepeatDate.swift */; };
 		25432C8C1BA18FB500C64291 /* AlarmRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C8B1BA18FB500C64291 /* AlarmRecord.swift */; };
+		254BD2671BB5476C00F24448 /* NTTimePickerComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254BD2661BB5476C00F24448 /* NTTimePickerComponentView.swift */; settings = {ASSET_TAGS = (); }; };
+		254BD2691BB5495200F24448 /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254BD2681BB5495200F24448 /* NSDate+Extension.swift */; settings = {ASSET_TAGS = (); }; };
 		25816DDE1B958F66009274CA /* ThemeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25816DDD1B958F66009274CA /* ThemeComponent.swift */; };
 		25831A561B81E4650088404D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A551B81E4650088404D /* SettingTableViewController.swift */; };
 		25831A5B1B846CCC0088404D /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5A1B846CCC0088404D /* CircularView.swift */; };
@@ -81,6 +83,8 @@
 		25432C841BA18C9500C64291 /* RepeatDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepeatDate.swift; path = ../RepeatDate.swift; sourceTree = "<group>"; };
 		25432C881BA18D8B00C64291 /* CoreDatav2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDatav2.xcdatamodel; sourceTree = "<group>"; };
 		25432C8B1BA18FB500C64291 /* AlarmRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlarmRecord.swift; path = ../AlarmRecord.swift; sourceTree = "<group>"; };
+		254BD2661BB5476C00F24448 /* NTTimePickerComponentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTimePickerComponentView.swift; sourceTree = "<group>"; };
+		254BD2681BB5495200F24448 /* NSDate+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extension.swift"; sourceTree = "<group>"; };
 		25816DDD1B958F66009274CA /* ThemeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeComponent.swift; sourceTree = "<group>"; };
 		25831A551B81E4650088404D /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		25831A5A1B846CCC0088404D /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
@@ -98,16 +102,16 @@
 		25A8BDBD1BA0222E00DC986D /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSliderExtension.swift; sourceTree = "<group>"; };
 		25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+LoadCellAnimation.swift"; sourceTree = "<group>"; };
-		25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataExtension.swift; sourceTree = "<group>"; };
+		25AD76111B7C733C0087CED8 /* CoreDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataExtension.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25AD76181B7CABE10087CED8 /* NTTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTextField.swift; sourceTree = "<group>"; };
 		25AD761A1B7CACDE0087CED8 /* FancyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
-		25B559EF1B733C7800F47D84 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
-		25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataOperationHelper.swift; sourceTree = "<group>"; };
+		25B559EF1B733C7800F47D84 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataStore.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataOperationHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25B86FCE1BA178D7000A534C /* Timepiece.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Timepiece.framework; path = "Pods/../build/Debug-iphoneos/Timepiece.framework"; sourceTree = "<group>"; };
 		25D31E171B818AB100E54821 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		25D614841B7214A10042544D /* NTSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSwitch.swift; sourceTree = "<group>"; };
 		25D614861B721EAA0042544D /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
-		25D6148F1B7227FC0042544D /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		25D6148F1B7227FC0042544D /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25DB96A91B6F19290088B3FA /* SpareTimeAlarmApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpareTimeAlarmApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25DB96AD1B6F19290088B3FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25DB96AE1B6F19290088B3FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,14 +127,14 @@
 		25E17B191BA6E3320033EB73 /* AppSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
 		25EFCBD21B748F1200A0FE0C /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTimeIntervalPickerView.swift; sourceTree = "<group>"; };
-		25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAlarmTableViewController.swift; sourceTree = "<group>"; };
+		25EFCBD81B74A97500A0FE0C /* EditAlarmTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EditAlarmTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25EFCBDC1B789B9300A0FE0C /* RepeatDateSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatDateSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		25EFCBDE1B78A04300A0FE0C /* RepeatDateSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatDateSelectionViewController.swift; sourceTree = "<group>"; };
 		25EFCBE01B78B8BC00A0FE0C /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 		25EFCBE21B79A4AC00A0FE0C /* UIColor+AlarmApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+AlarmApp.swift"; sourceTree = "<group>"; };
-		25EFCBE41B79DA5E00A0FE0C /* DateTimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
+		25EFCBE41B79DA5E00A0FE0C /* DateTimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DateTimeHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25EFCBE61B7B4BD100A0FE0C /* NTTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTTableViewController.swift; sourceTree = "<group>"; };
-		25FD4C771B707C6700F7A435 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
+		25FD4C771B707C6700F7A435 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AlarmListViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25FD4C7A1B707EF400F7A435 /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
 		25FD4C861B70D16B00F7A435 /* AlarmRecordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmRecordTableViewCell.swift; sourceTree = "<group>"; };
 		47C81FE89D85716045A43913 /* Pods-SpareTimeAlarmApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpareTimeAlarmApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpareTimeAlarmApp/Pods-SpareTimeAlarmApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -230,6 +234,7 @@
 				25AB47F91B95B60F006462D1 /* NTSliderExtension.swift */,
 				25AB47FC1B999658006462D1 /* UITableView+LoadCellAnimation.swift */,
 				25A8BDBB1B9FE4E700DC986D /* String+Extension.swift */,
+				254BD2681BB5495200F24448 /* NSDate+Extension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				25EFCBD61B74937400A0FE0C /* NTTimeIntervalPickerView.swift */,
+				254BD2661BB5476C00F24448 /* NTTimePickerComponentView.swift */,
 			);
 			name = UIPickerView;
 			sourceTree = "<group>";
@@ -527,7 +533,9 @@
 		25DB96A11B6F19290088B3FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Pham Nguyen Nhat Trung";
 				TargetAttributes = {
 					25DB96A81B6F19290088B3FA = {
@@ -687,6 +695,7 @@
 				25831A5E1B85D1F90088404D /* NTSlider.swift in Sources */,
 				25432C851BA18C9500C64291 /* RepeatDate.swift in Sources */,
 				251B323A1B9587D40044DBDA /* ThemeObserver.swift in Sources */,
+				254BD2691BB5495200F24448 /* NSDate+Extension.swift in Sources */,
 				25EFCBD31B748F1200A0FE0C /* UIViewControllerExtension.swift in Sources */,
 				25EFCBE31B79A4AC00A0FE0C /* UIColor+AlarmApp.swift in Sources */,
 				25FD4C871B70D16B00F7A435 /* AlarmRecordTableViewCell.swift in Sources */,
@@ -702,6 +711,7 @@
 				25432C8C1BA18FB500C64291 /* AlarmRecord.swift in Sources */,
 				25831A621B87037F0088404D /* CAnimationExtension.swift in Sources */,
 				25AB47FD1B999658006462D1 /* UITableView+LoadCellAnimation.swift in Sources */,
+				254BD2671BB5476C00F24448 /* NTTimePickerComponentView.swift in Sources */,
 				25A8BDB31B9D828B00DC986D /* FlatClockStyleKit.swift in Sources */,
 				25EFCBE51B79DA5E00A0FE0C /* DateTimeHelper.swift in Sources */,
 				25DB96AF1B6F19290088B3FA /* AppDelegate.swift in Sources */,
@@ -783,6 +793,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -849,9 +860,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/SpareTimeMusicApp",
 				);
 				INFOPLIST_FILE = SpareTimeMusicApp/Info.plist;
@@ -866,8 +877,10 @@
 					"-framework",
 					Reveal,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmsofresh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpareTimeAlarmApp;
 				SWIFT_OBJC_BRIDGING_HEADER = SpareTimeMusicApp/Bridging.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Debug;
 		};
@@ -877,9 +890,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/SpareTimeMusicApp",
 				);
 				INFOPLIST_FILE = SpareTimeMusicApp/Info.plist;
@@ -894,8 +907,10 @@
 					"-framework",
 					Reveal,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmsofresh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpareTimeAlarmApp;
 				SWIFT_OBJC_BRIDGING_HEADER = SpareTimeMusicApp/Bridging.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -913,6 +928,7 @@
 				);
 				INFOPLIST_FILE = SpareTimeMusicAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmsofresh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpareTimeAlarmAppTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeAlarmApp.app/SpareTimeAlarmApp";
 			};
@@ -928,6 +944,7 @@
 				);
 				INFOPLIST_FILE = SpareTimeMusicAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmsofresh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpareTimeAlarmAppTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpareTimeAlarmApp.app/SpareTimeAlarmApp";
 			};

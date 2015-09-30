@@ -18,7 +18,7 @@ class ThemeManager: NSObject {
     private let storedKeyInUserDefaults: String = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager"
     
     // MARK: Singleton
-    static let sharedInstance = ThemeManager()
+    private static let sharedInstance = ThemeManager()
     
     
     // MARK: Public Methods
@@ -34,6 +34,10 @@ class ThemeManager: NSObject {
             // Post notification
             self.postThemeUpdateNotification()
         }
+    }
+    
+    static func getSharedInstance() -> ThemeManager {
+        return self.sharedInstance
     }
     
     func getThemeComponent(component: ThemeComponent.ThemeAttribute) -> AnyObject? {
@@ -88,7 +92,6 @@ class ThemeManager: NSObject {
         ThemeComponent.ThemeAttribute.BackgroundColor : "",
         ThemeComponent.ThemeAttribute.MandatoryColor : ""]
         
-        var dictKey: ThemeComponent.ThemeAttribute
         for (key, value) in stylesheetDictionary {
             if let k = ThemeComponent.ThemeAttribute(string: key as! String) {
                 theme.updateValue(value as! String, forKey: k)
@@ -98,7 +101,7 @@ class ThemeManager: NSObject {
     }
     
     private func postThemeUpdateNotification() {
-        ThemeObserver.post(ThemeComponent.themeObserverUpdateNotificationKey, sender: self)
+        ThemeObserver.post(sender: self)
     }
     
     // Helpers

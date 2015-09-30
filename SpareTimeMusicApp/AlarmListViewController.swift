@@ -75,7 +75,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     let pushIdentifer: String = "configureAlarmRecord"
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let setting = UITableViewRowAction(style: .Normal, title: "Setting") { (action, index) -> Void in
             // Push data to EditAlarmRecordTableViewController
             let record: AlarmRecord = self.alarmRecordArray[indexPath.row]

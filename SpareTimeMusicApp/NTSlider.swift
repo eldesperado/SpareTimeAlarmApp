@@ -75,7 +75,7 @@ import Foundation
     
     // MARK: Initialization
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setup()
     }
@@ -127,14 +127,16 @@ import Foundation
         self.trackValueLabel.string = "\(Int(self.value * 100))"
     }
 
-    override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+    override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
         self.previousTouchPoint = touch.locationInView(self)
         
         // Show Label
         self.toggleTrackingLabel(isWantToShow: true)
         
+        guard let presentLayer = self.thumbLayer.presentationLayer() else { return false }
+        
         if CGRectContainsPoint(self.thumbLayer.frame, self.previousTouchPoint) {
-            self.thumbLayer.transform = self.thumbLayer.presentationLayer().transform
+            self.thumbLayer.transform = presentLayer.transform
             self.thumbLayer.removeAllAnimations()
             return true
         }
@@ -142,8 +144,8 @@ import Foundation
         return false
     }
     
-    override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
-        var touchPoint = touch.locationInView(self)
+    override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
+        let touchPoint = touch.locationInView(self)
         // Calculate Delta
         let deltaX: CGFloat = touchPoint.x - self.previousTouchPoint.x
         // Update Previous Touch point
@@ -195,7 +197,7 @@ import Foundation
         return true
     }
     
-    override public func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
+    override public func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         // Hide Label
         self.toggleTrackingLabel(isWantToShow: false)
         
@@ -221,7 +223,7 @@ import Foundation
     private func defaultThumbMaskPath() -> CGPath {
         
         //// thumb Drawing
-        var thumbPath = UIBezierPath()
+        let thumbPath = UIBezierPath()
         thumbPath.moveToPoint(CGPointMake(14, 10))
         thumbPath.addCurveToPoint(CGPointMake(12.37, 10.12), controlPoint1: CGPointMake(13.45, 10), controlPoint2: CGPointMake(12.9, 10.04))
         thumbPath.addCurveToPoint(CGPointMake(3, 21), controlPoint1: CGPointMake(7.07, 10.91), controlPoint2: CGPointMake(3, 15.48))
@@ -243,12 +245,12 @@ import Foundation
     }
     
     // MARK: Helpers
-    private func isMaxTilted(#direction: Direction, angle: CGFloat) -> Bool {
+    private func isMaxTilted(direction direction: Direction, angle: CGFloat) -> Bool {
         return direction == Direction.Left ? angle >= self.maxTiltAngle : angle <= -self.maxTiltAngle
     }
     
     private func performBackToStablePositionAnimation() {
-        var animation = SpringAnimation(keyPath: "transform.rotation.z")
+        let animation = SpringAnimation(keyPath: "transform.rotation.z")
         animation.fromValue = self.thumbLayer.transform.rotationZ();
         animation.toValue = 0;
         self.thumbLayer.addAnimation(animation, forKey: nil)
@@ -279,7 +281,7 @@ import Foundation
         
     }
     
-    private func toggleTrackingLabel(#isWantToShow: Bool) {
+    private func toggleTrackingLabel(isWantToShow isWantToShow: Bool) {
         UIView.animateWithDuration(0.3, delay: 0.1, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.5, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [unowned self] in
             self.trackValueLabel.hidden = !isWantToShow
             }), completion:nil)

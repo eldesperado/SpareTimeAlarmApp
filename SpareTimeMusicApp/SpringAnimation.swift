@@ -19,7 +19,7 @@ class SpringAnimation: CAKeyframeAnimation
     
     override func copyWithZone(zone: NSZone) -> AnyObject
     {
-        var copy = super.copyWithZone(zone) as! SpringAnimation
+        let copy = super.copyWithZone(zone) as! SpringAnimation
         
         self.duration = self.durationForEpsilon(0.01)
         copy.values = self.interpolatedValues()
@@ -38,19 +38,19 @@ class SpringAnimation: CAKeyframeAnimation
     {
         var values: [CGFloat] = []
         var value: CGFloat = 0
-        var valuesCount: Int = Int(self.duration * 60)
-        var ω0: CGFloat = sqrt(self.stiffness / self.mass)  // angular frequency
-        var β: CGFloat = self.damping / (2 * self.mass)     // amount of damping
-        var v0 : CGFloat = self.velocity
-        var x0: CGFloat = 1 // substituted initial value
+        let valuesCount: Int = Int(self.duration * 60)
+        let ω0: CGFloat = sqrt(self.stiffness / self.mass)  // angular frequency
+        let β: CGFloat = self.damping / (2 * self.mass)     // amount of damping
+        let v0 : CGFloat = self.velocity
+        let x0: CGFloat = 1 // substituted initial value
         
         for i in 0..<valuesCount {
             
-            var t: CGFloat = CGFloat(i)/60.0
+            let t: CGFloat = CGFloat(i)/60.0
             
             if β < ω0 {
                 // underdamped
-                var ω1: CGFloat = sqrt(ω0 * ω0 - β * β)
+                let ω1: CGFloat = sqrt(ω0 * ω0 - β * β)
                 
                 value = exp(-β * t) * (x0 * cos(ω1 * t) + CGFloat((β * x0 + v0) / ω1) * sin(ω1 * t))
             } else if β == ω0  {
@@ -59,7 +59,7 @@ class SpringAnimation: CAKeyframeAnimation
             }
             else {
                 // overdamped
-                var ω2: CGFloat = sqrt(β * β - ω0 * ω0)
+                let ω2: CGFloat = sqrt(β * β - ω0 * ω0)
                 let sinhVal = sinh( ω2 * t)
                 let coshVal = cosh(CGFloat(ω2 * t))
                 value = exp(-β * t) * (x0 * coshVal + ((β * x0 + v0) /  ω2) * sinhVal)
@@ -73,7 +73,7 @@ class SpringAnimation: CAKeyframeAnimation
     
     func durationForEpsilon(epsilon: CGFloat) -> CFTimeInterval
     {
-        var beta: CGFloat = self.damping / (2 * self.mass)
+        let beta: CGFloat = self.damping / (2 * self.mass)
         var duration: CGFloat = 0
         
         while exp(-beta * duration) >= epsilon {

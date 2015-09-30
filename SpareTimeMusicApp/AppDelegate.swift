@@ -33,15 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        println("===========================")
-        println(UIApplication.sharedApplication().scheduledLocalNotifications)
-        println("===========================")
+        print("===========================")
+        print(UIApplication.sharedApplication().scheduledLocalNotifications)
+        print("===========================")
         notificationManager.setupNotification()
         return true
     }
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        println("\(notification.userInfo) - \(notification.fireDate)")
+        print("\(notification.userInfo) - \(notification.fireDate)")
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, withResponseInfo responseInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
