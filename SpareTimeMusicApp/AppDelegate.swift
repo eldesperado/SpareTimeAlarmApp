@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
         // Save Background NSManagedObjectContext
-        self.cdh.saveContext()
+        cdh.saveContext()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Save Background NSManagedObjectContext
-        self.cdh.saveContext()
+        cdh.saveContext()
     }
 }
 

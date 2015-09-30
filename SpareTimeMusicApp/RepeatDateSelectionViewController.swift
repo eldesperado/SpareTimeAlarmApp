@@ -17,16 +17,16 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
+        setupView()
     }
     
     let unwindSegueId = "doneRepeatDatesSelectionUnwindSegue"
     override func viewWillDisappear(animated: Bool) {
         // Detect whether back button is pressed or not, if pressed, perform unwind segue
-        if ((self.navigationController!.viewControllers ).indexOf(self) == nil) {
+        if ((navigationController!.viewControllers ).indexOf(self) == nil) {
             // back button was pressed.  We know this is true because self is no longer
             // in the navigation stack.
-            self.performSegueWithIdentifier(unwindSegueId, sender: self.repeatDates)
+            performSegueWithIdentifier(unwindSegueId, sender: repeatDates)
         }
         super.viewWillDisappear(animated)
     }
@@ -43,7 +43,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.numberOfDates
+        return numberOfDates
     }
     
     let cellIdentifier = "repeatDateCell"
@@ -51,7 +51,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
         let cell: RepeatDateSelectionTableViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! RepeatDateSelectionTableViewCell
         // If RepeatDate has info, edit repeat dates
         let dateNumber = indexPath.row + 1
-        cell.configureCell(dateNumber, repeatDate: self.repeatDates)
+        cell.configureCell(dateNumber, repeatDate: repeatDates)
         
         return cell
     }
@@ -62,7 +62,7 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell: RepeatDateSelectionTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! RepeatDateSelectionTableViewCell
         cell.checkIconImageView.hidden = !cell.checkIconImageView.hidden
-        if let date = self.repeatDates {
+        if let date = repeatDates {
             let dateNumber = indexPath.row + 1
             switch (dateNumber) {
             case NumberToDate.Monday.date:
@@ -88,19 +88,19 @@ class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, 
     // MARK: Setup Views
     private func setupView() {
         if let component = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
-            self.backgroundImageView.image = component
+            backgroundImageView.image = component
         }
         
-        self.observeTheme()
+        observeTheme()
     }
     
     private func observeTheme() {
-        ThemeObserver.onMainThread(self) { notification in
+        ThemeObserver.onMainThread(self) { [weak self] notification in
             // Set theme
             if let component = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
-                self.backgroundImageView.image = component
+                self?.backgroundImageView.image = component
                 // Animate Change
-                self.backgroundImageView.layer.animateThemeChangeAnimation()
+                self?.backgroundImageView.layer.animateThemeChangeAnimation()
             }
         }
     }

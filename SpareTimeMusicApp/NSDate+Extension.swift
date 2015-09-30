@@ -15,7 +15,7 @@ extension NSDate {
     }
     
     func change(year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil) -> NSDate! {
-        let components = self.getCurrentCalendarComponents()
+        let components = getCurrentCalendarComponents()
         components.year = year ?? components.year
         components.month = month ?? components.month
         components.day = day ?? components.day

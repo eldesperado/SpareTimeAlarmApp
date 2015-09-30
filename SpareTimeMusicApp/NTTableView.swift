@@ -12,19 +12,19 @@ class NTTableView: UITableView {
     // MARK: Initilization
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.observeTheme()
+        observeTheme()
     }
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
-        self.observeTheme()
+        observeTheme()
     }
     
     private func observeTheme() {
-        ThemeObserver.onMainThread(self) { [unowned self] notification in
+        ThemeObserver.onMainThread(self) { [weak self] notification in
             // Set theme
             if let themeImage = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage ,
-                view = self.backgroundView as? UIImageView {
+                view = self?.backgroundView as? UIImageView {
                     view.image = themeImage
                     // Animate Change
                     view.layer.animateThemeChangeAnimation()
@@ -36,10 +36,10 @@ class NTTableView: UITableView {
         super.drawRect(rect)
         // Set theme
         if let themeImage = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.BackgroundImage) as? UIImage {
-            self.backgroundView = UIImageView(image: themeImage)
+            backgroundView = UIImageView(image: themeImage)
         }
         // Hide footer
-        self.tableFooterView = UIView(frame: CGRectZero)
+        tableFooterView = UIView(frame: CGRectZero)
     }
     
     // MARK: Deinit

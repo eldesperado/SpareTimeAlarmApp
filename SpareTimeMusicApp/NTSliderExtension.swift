@@ -10,44 +10,44 @@ import UIKit
 
 extension NTSlider {
     func subscribleToUpdateDependOnCurrentTheme() {
-        ThemeObserver.onMainThread(self) { notification in
-            self.updateDependOnTheme()
+        ThemeObserver.onMainThread(self) { [weak self] notification in
+            self?.updateDependOnTheme()
         }
     }
     
     public override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        self.updateDependOnTheme()
+        updateDependOnTheme()
     }
     
     private func updateDependOnTheme() {
         // Set theme
         if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
-            self.trackTintColor  = themeColor
+            trackTintColor  = themeColor
             // Animate Change
-            self.layer.animateThemeChangeAnimation()
+            layer.animateThemeChangeAnimation()
         }
     }
 }
 
 extension NTSwitch {
     func subscribleToUpdateDependOnCurrentTheme() {
-        ThemeObserver.onMainThread(self) { notification in
-            self.updateDependOnTheme()
+        ThemeObserver.onMainThread(self) { [weak self] notification in
+            self?.updateDependOnTheme()
         }
     }
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        self.updateDependOnTheme()
+        updateDependOnTheme()
     }
     
     private func updateDependOnTheme() {
         // Set theme
         if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
-            self.onTintColor  = themeColor
+            onTintColor  = themeColor
             // Animate Change
-            self.layer.animateThemeChangeAnimation()
+            layer.animateThemeChangeAnimation()
         }
     }
 }

@@ -13,13 +13,13 @@ extension String
 {
     var length: Int {
         get {
-            return self.characters.count
+            return characters.count
         }
     }
     
     func contains(s: String) -> Bool
     {
-        return (self.rangeOfString(s) != nil) ? true : false
+        return (rangeOfString(s) != nil) ? true : false
     }
     
     func containsAllStrings(sArray: String...) -> Bool
@@ -33,7 +33,7 @@ extension String
     
     func replace(target: String, withString: String) -> String
     {
-        return self.stringByReplacingOccurrencesOfString(target, withString: withString, options: NSStringCompareOptions.LiteralSearch, range: nil)
+        return stringByReplacingOccurrencesOfString(target, withString: withString, options: NSStringCompareOptions.LiteralSearch, range: nil)
     }
     
     subscript (i: Int) -> Character
@@ -63,9 +63,9 @@ extension String
     
     func indexOf(target: String) -> Int
     {
-        let range = self.rangeOfString(target)
+        let range = rangeOfString(target)
         if let range = range {
-            return self.startIndex.distanceTo(range.startIndex)
+            return startIndex.distanceTo(range.startIndex)
         } else {
             return -1
         }
@@ -87,11 +87,11 @@ extension String
     func lastIndexOf(target: String) -> Int
     {
         var index = -1
-        var stepIndex = self.indexOf(target)
+        var stepIndex = indexOf(target)
         while stepIndex > -1
         {
             index = stepIndex
-            if stepIndex + target.length < self.length {
+            if stepIndex + target.length < length {
                 stepIndex = indexOf(target, startIndex: stepIndex + target.length)
             } else {
                 stepIndex = -1
@@ -114,7 +114,7 @@ extension String
             if let error = error {
                 print(error.description)
             }
-            let matchCount = expression.numberOfMatchesInString(self, options: [], range: NSMakeRange(0, self.length))
+            let matchCount = expression.numberOfMatchesInString(self, options: [], range: NSMakeRange(0, length))
             return matchCount > 0
         } else {
             return false
@@ -133,7 +133,7 @@ extension String
             return nil
         }
         if let expression = exp {
-            let matches = expression.matchesInString(self, options: [], range: NSMakeRange(0, self.length))
+            let matches = expression.matchesInString(self, options: [], range: NSMakeRange(0, length))
             return matches
         } else {
             return nil

@@ -32,12 +32,12 @@ class RepeatDateSelectionTableViewCell: UITableViewCell {
         // Get Date string
         if let date = NumberToDate(dateNumber: dateNumber) {
             // Get Date name and set to dateLabel
-            self.dateLabel.text = date.simpleDescription
+            dateLabel.text = date.simpleDescription
             // Get isRepeat
             if let rDate = repeatDate {
-                self.checkIconImageView.hidden = !date.getIsRepeat(rDate)
+                checkIconImageView.hidden = !date.getIsRepeat(rDate)
             } else {
-                self.checkIconImageView.hidden = true
+                checkIconImageView.hidden = true
             }
         }
         

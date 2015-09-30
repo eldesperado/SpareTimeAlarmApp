@@ -14,7 +14,7 @@ class NTTimePickerComponentView: UIPickerView {
     
     init(frame: CGRect, type: NTTimePickerComponentViewType, numberWidth: CGFloat) {
         super.init(frame: frame)
-        self.setup(type, numberWidth: numberWidth)
+        setup(type, numberWidth: numberWidth)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,19 +26,19 @@ class NTTimePickerComponentView: UIPickerView {
     }
     
     func updateLabel(row: Int) {
-        self.label.text = row < 10 ? "0\(row)" : "\(row)"
+        label.text = row < 10 ? "0\(row)" : "\(row)"
     }
     
     private func setup(type: NTTimePickerComponentViewType, numberWidth: CGFloat) {
-        self.label.textAlignment = .Right
-        self.label.adjustsFontSizeToFitWidth = false
-        self.addSubview(label)
+        label.textAlignment = .Right
+        label.adjustsFontSizeToFitWidth = false
+        addSubview(label)
 
         switch (type) {
         case .Hour:
-            label.frame = CGRectMake(0, 0, numberWidth, self.frame.size.height)
+            label.frame = CGRectMake(0, 0, numberWidth, frame.size.height)
         case .Minute:
-            label.frame = CGRectMake(self.frame.size.width / 2, CGFloat(0), numberWidth, self.frame.size.height)
+            label.frame = CGRectMake(frame.size.width / 2, CGFloat(0), numberWidth, frame.size.height)
         }
     }
 

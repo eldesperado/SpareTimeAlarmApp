@@ -13,20 +13,20 @@ class NTSwitch: SevenSwitch {
     
     override init() {
         super.init()
-        self.setup()
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.setup()
+        setup()
     }
     
     func setup() {
-        self.onTintColor = UIColor.untAzulColor()
-        self.borderColor = UIColor(white: 1, alpha: 0.41)
-        self.shadowColor = UIColor.untTransparentColor()
-        self.thumbTintColor = UIColor.untTransparentColor()
-        self.onThumbTintColor = UIColor.whiteColor()
+        onTintColor = UIColor.untAzulColor()
+        borderColor = UIColor(white: 1, alpha: 0.41)
+        shadowColor = UIColor.untTransparentColor()
+        thumbTintColor = UIColor.untTransparentColor()
+        onThumbTintColor = UIColor.whiteColor()
     }
     
 }

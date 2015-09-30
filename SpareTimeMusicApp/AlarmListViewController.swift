@@ -21,27 +21,27 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
         return cdh
         }()
     
-    var alarmRecordArray: [AlarmRecord]!
+    var alarmRecordArray: [AlarmRecord]?
     var workingRecord: AlarmRecord?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Load Data
-        self.loadData()
+        loadData()
         // Setup View
-        self.setupView()
+        setupView()
         // Animate Cell Loading
-        if self.alarmRecordArray.count > 0 {
-            self.recordsTableView.reloadDataWithAnimation(UITableViewCellLoadingAnimations.AnimationCellDirection.LiftUpFromBottom, animationTime: 0.5, interval: 0.05)
+        if let dataArray = alarmRecordArray where dataArray.count > 0 {
+            recordsTableView.reloadDataWithAnimation(UITableViewCellLoadingAnimations.AnimationCellDirection.LiftUpFromBottom, animationTime: 0.5, interval: 0.05)
         }
         
     }
     
     func loadData() {
-        if self.alarmRecordArray != nil {
-            self.alarmRecordArray = nil
+        if alarmRecordArray != nil {
+            alarmRecordArray = nil
         }
-        self.alarmRecordArray = self.cdh.listAllActiveAlarmRecordsMostRecently()
+        alarmRecordArray = cdh.listAllActiveAlarmRecordsMostRecently()
     }
     
     // MARK: UITableViewDelegates
@@ -51,11 +51,17 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return alarmRecordArray.count
+      if let dataArray = alarmRecordArray {
+        return dataArray.count
+      } else {
+        return 0
+      }
     }
     
     let textCellIdentifier = "alarmRecordCell"
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+      guard let dataArray = alarmRecordArray else { fatalError("AlarmRecord Array is nil") }
+      
         let cell: AlarmRecordTableViewCell
         if let dequeCell: AlarmRecordTableViewCell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as?AlarmRecordTableViewCell {
             cell = dequeCell
@@ -63,9 +69,9 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
             cell = AlarmRecordTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: textCellIdentifier)
         }
         
-        let record: AlarmRecord = alarmRecordArray[indexPath.row]
+        let record: AlarmRecord = dataArray[indexPath.row]
         // Configure Cell
-        cell.configureCell(alarmRecord: record, coreDataHelper: self.cdh)
+        cell.configureCell(alarmRecord: record, coreDataHelper: cdh)
         
         return cell
     }
@@ -76,18 +82,20 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let pushIdentifer: String = "configureAlarmRecord"
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let setting = UITableViewRowAction(style: .Normal, title: "Setting") { (action, index) -> Void in
+      guard var dataArray = alarmRecordArray else { fatalError("AlarmRecord Array is nil") }
+      
+        let setting = UITableViewRowAction(style: .Normal, title: "Setting") { [unowned self] (action, index) -> Void in
             // Push data to EditAlarmRecordTableViewController
-            let record: AlarmRecord = self.alarmRecordArray[indexPath.row]
+            let record: AlarmRecord = dataArray[indexPath.row]
             self.performSegueWithIdentifier(self.pushIdentifer, sender: record)
         }
         setting.backgroundColor = UIColor.clearColor()
-        let remove = UITableViewRowAction(style: .Normal, title: "Remove") { (action, index) -> Void in
-            let record: AlarmRecord = self.alarmRecordArray[indexPath.row]
+        let remove = UITableViewRowAction(style: .Normal, title: "Remove") { [unowned self] (action, index) -> Void in
+            let record: AlarmRecord = dataArray[indexPath.row]
             // Delete this record
             self.cdh.deleteAlarmRecord(alarmRecord: record)
             // Update Array
-            self.alarmRecordArray.removeAtIndex(indexPath.row)
+            dataArray.removeAtIndex(indexPath.row)
             // Animate the removal of the row
             self.recordsTableView.beginUpdates()
             self.recordsTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
@@ -99,7 +107,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == self.pushIdentifer {
+        if segue.identifier == pushIdentifer {
             if let record: AlarmRecord = sender as? AlarmRecord, editVC = segue.destinationViewController as? EditAlarmTableViewController {
                 editVC.alarmRecord = record
             }
@@ -110,24 +118,24 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: Setup Views
     private func setupView() {
         // Setup Navigation
-        self.setupNavigation()
+        setupNavigation()
         // Hide back button title
-        self.hideBackButtonTitle()
+        hideBackButtonTitle()
         // Hide footer
-        self.recordsTableView.tableFooterView = UIView(frame: CGRectZero)
+        recordsTableView.tableFooterView = UIView(frame: CGRectZero)
         // Display Clock
-        self.updateClock()
+        updateClock()
         // Update TimeToWakeUpLabel
-        self.updateTimeToWakeUpLabel()
+        updateTimeToWakeUpLabel()
     }
     
     func updateClock() {
         // Redraw clock
-        self.clockView.setNeedsDisplay()
+        clockView.setNeedsDisplay()
         // In every 60 seconds, we update TimeToWakeUp Label
         if DateTimeHelper.getCurrentTimeInSeconds().integerValue % 60 == 0 {
             // Reupdate TimeToWakeUpLabel
-            self.updateTimeToWakeUpLabel()
+            updateTimeToWakeUpLabel()
         }
 
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateClock"), userInfo: nil, repeats: false)
@@ -135,9 +143,9 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func updateTimeToWakeUpLabel() {
         // If there are some alarm records, then
-        if !self.alarmRecordArray.isEmpty {
+        if let dataArray = alarmRecordArray where dataArray.isEmpty {
             // Get all Alarm Time
-            let alarmTimeArray = self.alarmRecordArray.map{ (record: AlarmRecord) in
+            let alarmTimeArray = dataArray.map{ (record: AlarmRecord) in
                 record.alarmTime
                 }
             // Find the closest alarm time from the current time
@@ -146,7 +154,7 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let closestAlarmTimeAsString = DateTimeHelper.getAlarmTime(alarmTime: closestAlarmTime)
             
-            self.timeToWakeUpLabel.text =  "Time to wake UP - \(closestAlarmTimeAsString)"
+            timeToWakeUpLabel.text =  "Time to wake UP - \(closestAlarmTimeAsString)"
         }
     }
 
@@ -154,37 +162,39 @@ class AlarmListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func doneEditingAlarmRecord(segue:UIStoryboardSegue) {
         if let editAlarmRecordVC = segue.sourceViewController as? EditAlarmTableViewController {
             // Get created or edited alarm record from EditAlarmRecordVC
-            self.workingRecord = editAlarmRecordVC.alarmRecord
-            if let record = self.workingRecord {
+            workingRecord = editAlarmRecordVC.alarmRecord
+            if let dataArray = alarmRecordArray, record = workingRecord {
                 // Find which cell containing this record
-                if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, timeStamp: record.timeStamp) {
+                if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(dataArray, timeStamp: record.timeStamp) {
                     // Update Alarm Array
-                    self.updateTableViewCell(record, recordIndex: recordIndex)
+                    updateTableViewCell(record, recordIndex: recordIndex)
                 } else {
                     // Add new Cell
-                    self.insertTableViewCell(record)
+                    insertTableViewCell(record)
                 }
                 // Update TimeToWakeUpLabel
-                self.updateTimeToWakeUpLabel()
+                updateTimeToWakeUpLabel()
             }
         }
     }
 
     private func updateTableViewCell(record: AlarmRecord, recordIndex: Int) {
         // Update Alarm Array
-        self.loadData()
+        loadData()
         // Update Cell
-        self.updateTableViewCell(recordIndex, section: 0, tableView: self.recordsTableView, newAlarmRecord: record, coreDataHelper: self.cdh)
+        updateTableViewCell(recordIndex, section: 0, tableView: recordsTableView, newAlarmRecord: record, coreDataHelper: cdh)
     }
     
     private func insertTableViewCell(record: AlarmRecord) {
+      guard let dataArray = alarmRecordArray else { return }
+      
         // Update before add new cell
-        self.loadData()
+        loadData()
         // Find which cell containing this record
-        if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(self.alarmRecordArray, timeStamp: record.timeStamp) {
-            self.recordsTableView.beginUpdates()
-            self.recordsTableView.insertRowsAtIndexPaths([NSIndexPath(forItem: recordIndex, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
-            self.recordsTableView.endUpdates()
+        if let recordIndex = RecordHelper.getAlarmRecordIndexInAlarmArrays(dataArray, timeStamp: record.timeStamp) {
+            recordsTableView.beginUpdates()
+            recordsTableView.insertRowsAtIndexPaths([NSIndexPath(forItem: recordIndex, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Right)
+            recordsTableView.endUpdates()
         }
     }
     

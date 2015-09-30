@@ -16,8 +16,8 @@ class CoreDataHelper: NSObject {
     
     override init() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.store = appDelegate.cdstore
-        self.notificationManager = appDelegate.notificationManager
+        store = appDelegate.cdstore
+        notificationManager = appDelegate.notificationManager
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "contextDidSaveContext:", name: NSManagedObjectContextDidSaveNotification, object: nil)
     }
@@ -72,7 +72,7 @@ class CoreDataHelper: NSObject {
     }
     
     func saveContext() {
-        if let context = self.backgroundContext {
+        if let context = backgroundContext {
             saveContext(managedObjectContext: context)
         } else {
             // FIXME: Create an appropritely way to handle this error
@@ -82,24 +82,26 @@ class CoreDataHelper: NSObject {
     
     // call back function by saveContext, support multi-thread
     func contextDidSaveContext(notification: NSNotification) {
+      guard let backgroundContext = backgroundContext, managedObjectContext = managedObjectContext else { return }
+      
         if let sender = notification.object as? NSManagedObjectContext {
-            if sender === self.managedObjectContext {
+            if sender === managedObjectContext {
                 NSLog("******** Saved main Context in this thread")
-                self.backgroundContext!.performBlock {
-                    self.backgroundContext!.mergeChangesFromContextDidSaveNotification(notification)
+                backgroundContext.performBlock {
+                    backgroundContext.mergeChangesFromContextDidSaveNotification(notification)
                 }
-            } else if sender === self.backgroundContext {
+            } else if sender === backgroundContext {
                 NSLog("******** Saved background Context in this thread")
-                self.managedObjectContext!.performBlock {
-                    self.managedObjectContext!.mergeChangesFromContextDidSaveNotification(notification)
+                managedObjectContext.performBlock {
+                    managedObjectContext.mergeChangesFromContextDidSaveNotification(notification)
                 }
             } else {
                 NSLog("******** Saved Context in other thread")
-                self.backgroundContext!.performBlock {
-                    self.backgroundContext!.mergeChangesFromContextDidSaveNotification(notification)
+                backgroundContext.performBlock {
+                    backgroundContext.mergeChangesFromContextDidSaveNotification(notification)
                 }
-                self.managedObjectContext!.performBlock {
-                    self.managedObjectContext!.mergeChangesFromContextDidSaveNotification(notification)
+                managedObjectContext.performBlock {
+                    managedObjectContext.mergeChangesFromContextDidSaveNotification(notification)
                 }
         }
         }

@@ -12,7 +12,7 @@ extension CATransform3D {
 
     func rotationZ() -> CGFloat
     {
-        return atan2(self.m12, self.m11)
+        return atan2(m12, m11)
     }
 
 }
@@ -25,7 +25,7 @@ extension CALayer {
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionFade
         
-        self.addAnimation(animation, forKey: nil)
+        addAnimation(animation, forKey: nil)
     }
 
 }

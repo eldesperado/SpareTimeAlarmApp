@@ -72,13 +72,13 @@ struct NTNotificationManager {
             // For each date in this AlarmRecord's RepeatDate array, create a seperated notification
             for repeatDate in repeatDates {
                 if let dateNumber = NumberToDate(dateNumber: repeatDate) {
-                    self.createLocalNotification(record, dateNumber: dateNumber.date)
+                    createLocalNotification(record, dateNumber: dateNumber.date)
                 }
                 
             }
         } else {
             // If this is an one-time alarm record
-            self.createLocalNotification(record)
+            createLocalNotification(record)
         }
     }
     
@@ -117,22 +117,22 @@ struct NTNotificationManager {
             // For each date in this AlarmRecord's RepeatDate array, create a seperated notification
             for repeatDate in repeatDatesArray {
                 // Cancel notification
-                if let notification = self.findExistedLocalNotification(record.timeStamp, dateNumber: repeatDate) {
-                    self.cancelLocalNotifications(notification)
+                if let notification = findExistedLocalNotification(record.timeStamp, dateNumber: repeatDate) {
+                    cancelLocalNotifications(notification)
                 }
                 
             }
         } else {
             // If this is an one-time alarm record
-            if let notification = self.findExistedLocalNotification(record.timeStamp, dateNumber: nil) {
-                self.cancelLocalNotifications(notification)
+            if let notification = findExistedLocalNotification(record.timeStamp, dateNumber: nil) {
+                cancelLocalNotifications(notification)
             }
         }
     }
     
     func cancelLocalNotifications(notifications: [UILocalNotification]) {
         for noti in notifications {
-            self.cancelLocalNotification(noti)
+            cancelLocalNotification(noti)
         }
     }
     
@@ -162,8 +162,8 @@ struct NTNotificationManager {
     private func createLocalNotification(record: AlarmRecord, dateNumber: Int? = nil ) {
         // Check if existed a notification, if had, cancel it
         
-        if let existedNoti = self.findExistedLocalNotification(record.timeStamp, dateNumber: dateNumber) {
-            self.cancelLocalNotifications(existedNoti)
+        if let existedNoti = findExistedLocalNotification(record.timeStamp, dateNumber: dateNumber) {
+            cancelLocalNotifications(existedNoti)
         }
         // Else create a new notification
         // Get Date
@@ -190,7 +190,7 @@ struct NTNotificationManager {
         localNotification.category = Notifications.Categories.Reminder.rawValue
         
         // Set UID for this notification
-        self.setUIDForNotification(localNotification, uid: record.timeStamp, dateNumber: dateNumber)
+        setUIDForNotification(localNotification, uid: record.timeStamp, dateNumber: dateNumber)
         
         UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
     }

@@ -19,7 +19,7 @@ struct ThemeComponent {
         case MandatoryColor = "MandatoryColor"
         
         func getString() -> String {
-            return self.rawValue
+            return rawValue
         }
     }
     typealias Theme = [ThemeAttribute: String]
@@ -55,6 +55,6 @@ extension ThemeComponent.ThemeType {
     
     
     func getString() -> String {
-        return self.rawValue
+        return rawValue
     }
 }

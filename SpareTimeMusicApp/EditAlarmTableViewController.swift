@@ -32,41 +32,41 @@ class EditAlarmTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup Views
-        self.setup()
+        setup()
         // Add Action for salutation Text field
-        self.salutationTextField.actionWhenTextFieldDidBeginEditing = {self.showBlurViewWhenEditTextField()}
-        self.salutationTextField.actionWhenTextFieldDidEndEditing = {self.hideBlurViewWhenEndEdittingTextField()}
+        salutationTextField.actionWhenTextFieldDidBeginEditing = {[weak self] in self?.showBlurViewWhenEditTextField()}
+        salutationTextField.actionWhenTextFieldDidEndEditing = {[weak self] in self?.hideBlurViewWhenEndEdittingTextField()}
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         // Update Navigation Title
         if alarmRecord == nil {
-            self.navigationItem.title = "New Alarm"
+            navigationItem.title = "New Alarm"
         } else {
-            self.navigationItem.title = "Edit Alarm"
+            navigationItem.title = "Edit Alarm"
         }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         // Check whether alarmRecord variable has value or not, if not create a temporary new alarm record to create new alarm
-        if self.alarmRecord == nil {
-            self.alarmRecord = self.cdh.createTempAlarmRecord()
+        if alarmRecord == nil {
+            alarmRecord = cdh.createTempAlarmRecord()
         }
     }
     
     // MARK: Actions    
     let unwindSegueId = "doneEditingAlarmUnwindSegue"
     @IBAction func doneBarButtonDidTouch(sender: AnyObject) {
-        if let record = self.alarmRecord, backgroundObject = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord {
+        if let record = alarmRecord, backgroundObject = cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord {
             // Update Alarm Record with new values
-            self.cdh.updateAlarmRecord(backgroundObject, alarmTime: self.alarmTimePickerView.timeInterval, salutationText: self.salutationTextField.text, isRepeat: self.repeatRingtoneSwitch.isOn(), repeatDate: record.repeatDates)
+            cdh.updateAlarmRecord(backgroundObject, alarmTime: alarmTimePickerView.timeInterval, salutationText: salutationTextField.text, isRepeat: repeatRingtoneSwitch.isOn(), repeatDate: record.repeatDates)
             // Update alarmRecord
-            self.alarmRecord = backgroundObject
+            alarmRecord = backgroundObject
 
             // Perform Unwind Segue
-            self.performSegueWithIdentifier(self.unwindSegueId, sender: self)
+            performSegueWithIdentifier(unwindSegueId, sender: self)
         }
     }
     
@@ -84,38 +84,38 @@ class EditAlarmTableViewController: UITableViewController {
     
     let pushIdentifer: String = "showRepeatDates"
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == self.REPEAT_DATE_CELL {
-            performSegueWithIdentifier(self.pushIdentifer, sender: self.alarmRecord)
+        if indexPath.row == REPEAT_DATE_CELL {
+            performSegueWithIdentifier(pushIdentifer, sender: alarmRecord)
         }
     }
     
     // Setup
     private func setup() {
         // Setup View
-        self.setupView()
+        setupView()
         
         // Setup Cells
-        if let record = self.alarmRecord {
+        if let record = alarmRecord {
             // Set Alarm Time
-            self.alarmTimePickerView.setTimeIntervalAnimate(NSTimeInterval(record.alarmTime))
+            alarmTimePickerView.setTimeIntervalAnimate(NSTimeInterval(record.alarmTime))
             
             // Set RepeatDate Label
-            self.updateRepeatDateLabel(record.repeatDates)
+            updateRepeatDateLabel(record.repeatDates)
             
             // Set Salutation Label
-            self.salutationTextField.text = record.salutationText as String
+            salutationTextField.text = record.salutationText as String
             
             // Set Value for switch
-            self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
+            repeatRingtoneSwitch.on = record.isRepeat.boolValue
         } else {
             // Set Default values
-            self.repeatDatesLabel.text = "Select Repeat Dates"
-            self.ringtoneTypeStringLabel.text = "Select Ringtone Type"
-            self.repeatRingtoneSwitch.on = false
+            repeatDatesLabel.text = "Select Repeat Dates"
+            ringtoneTypeStringLabel.text = "Select Ringtone Type"
+            repeatRingtoneSwitch.on = false
             // Set current time for time picker view
             let currentTime = DateTimeHelper.getCurrentTime()
             let currentTimeAsMinutes = DateTimeHelper.getMinutesForHoursMinutes(currentTime.hours, minutes: currentTime.minutes)
-            self.alarmTimePickerView.setTimeIntervalAnimate(NSTimeInterval(currentTimeAsMinutes))
+            alarmTimePickerView.setTimeIntervalAnimate(NSTimeInterval(currentTimeAsMinutes))
         }
     }
     
@@ -123,14 +123,14 @@ class EditAlarmTableViewController: UITableViewController {
         // Get Repeat Dates as a String
         let repeatDateString = RecordHelper.getRepeatDatesString(repeatDates)
         // Set RepeatDate Label
-        self.repeatDatesLabel.text = repeatDateString
+        repeatDatesLabel.text = repeatDateString
     }
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == self.pushIdentifer {
+        if segue.identifier == pushIdentifer {
             if let record: AlarmRecord = sender as? AlarmRecord,
-            let backgroundRecord = self.cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord,
+            let backgroundRecord = cdh.findRecordInBackgroundManagedObjectContext(record.objectID) as? AlarmRecord,
             let repeatDateSelectionVC = segue.destinationViewController as? RepeatDateSelectionViewController
             {
                 repeatDateSelectionVC.repeatDates = backgroundRecord.repeatDates
@@ -141,16 +141,16 @@ class EditAlarmTableViewController: UITableViewController {
     @IBAction func doneRepeatDatesSelectionUnwindSegue(segue:UIStoryboardSegue) {
         // Update Repeat Date TableViewCell
         // Update Repeat Dates
-        if let repeatDatesSelectionVC = segue.sourceViewController as? RepeatDateSelectionViewController, record = self.alarmRecord where repeatDatesSelectionVC.repeatDates != nil {
+        if let repeatDatesSelectionVC = segue.sourceViewController as? RepeatDateSelectionViewController, record = alarmRecord where repeatDatesSelectionVC.repeatDates != nil {
             record.repeatDates.copyValueFrom(repeatDatesSelectionVC.repeatDates!)
-            self.updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
+            updateRepeatDateLabel(repeatDatesSelectionVC.repeatDates!)
         }
     }
     
     // MARK: Setup View
     private func setupView() {
         // Hide Back Button Title
-        self.hideBackButtonTitle()
+        hideBackButtonTitle()
     }
 
     // MARK: Animation Closures
@@ -158,11 +158,11 @@ class EditAlarmTableViewController: UITableViewController {
     let belowBlurViewTag: Int = 999
     func showBlurViewWhenEditTextField() {
         // Toggle navigation bar
-        self.toggleNavigationbar(true)
+        toggleNavigationbar(true)
         
-        let textFieldCellRect = self.alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: self.SALUTATION_TEXT_CELL, inSection: 0))
+        let textFieldCellRect = alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: SALUTATION_TEXT_CELL, inSection: 0))
         // Add Upper Blur View
-        let upperBlurView: UIView = UIView(frame: CGRect(origin: CGPointZero, size: CGSizeMake(self.alarmSettingTableView.frame.width, textFieldCellRect.origin.y)))
+        let upperBlurView: UIView = UIView(frame: CGRect(origin: CGPointZero, size: CGSizeMake(alarmSettingTableView.frame.width, textFieldCellRect.origin.y)))
         if let currentTheme = ThemeManager.getSharedInstance().stylesheet {
             if let backgroundColorString = currentTheme[ThemeComponent.ThemeAttribute.BackgroundColor] {
                 let backgroundColor = UIColor(rgba: backgroundColorString)
@@ -171,21 +171,21 @@ class EditAlarmTableViewController: UITableViewController {
             }
         }
         upperBlurView.alpha = 0.9
-        upperBlurView.tag = self.upperBlurViewTag
+        upperBlurView.tag = upperBlurViewTag
         upperBlurView.userInteractionEnabled = true
         upperBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideBlurViewWhenEndEdittingTextField"))
-        self.view.addSubview(upperBlurView)
+        view.addSubview(upperBlurView)
         
         // Add Below Blur View
-        let belowBlurViewHeight = self.alarmSettingTableView.frame.size.height - textFieldCellRect.height - textFieldCellRect.origin.y
+        let belowBlurViewHeight = alarmSettingTableView.frame.size.height - textFieldCellRect.height - textFieldCellRect.origin.y
         let belowBlurViewY = textFieldCellRect.origin.y + textFieldCellRect.height
-        let belowBlurView: UIView = UIView(frame: CGRect(origin: CGPointMake(0, belowBlurViewY), size: CGSizeMake(self.alarmSettingTableView.frame.width, belowBlurViewHeight)))
+        let belowBlurView: UIView = UIView(frame: CGRect(origin: CGPointMake(0, belowBlurViewY), size: CGSizeMake(alarmSettingTableView.frame.width, belowBlurViewHeight)))
         belowBlurView.backgroundColor = upperBlurView.backgroundColor
         belowBlurView.alpha = 0.0
-        belowBlurView.tag = self.belowBlurViewTag
+        belowBlurView.tag = belowBlurViewTag
         belowBlurView.userInteractionEnabled = true
         belowBlurView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideBlurViewWhenEndEdittingTextField"))
-        self.view.addSubview(belowBlurView)
+        view.addSubview(belowBlurView)
         // Animate
         UIView.animateWithDuration(0.35, animations: {
             upperBlurView.alpha = 0.9

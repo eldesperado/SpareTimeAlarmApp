@@ -17,17 +17,17 @@ protocol CircularViewDelegate {
     // MARK: Public Attributes
     @IBInspectable var backgroundLayerColor: UIColor = UIColor.whiteColor() {
         didSet {
-            self.backgroundLayer.fillColor = backgroundLayerColor.CGColor
+            backgroundLayer.fillColor = backgroundLayerColor.CGColor
         }
     }
     @IBInspectable var lineWidth: CGFloat = 1.0 {
         didSet {
-            self.backgroundLayer.lineWidth = lineWidth
+            backgroundLayer.lineWidth = lineWidth
         }
     }
     @IBInspectable var innerColor: UIColor = UIColor.blackColor() {
         didSet {
-            self.innerLayer.fillColor = innerColor.CGColor
+            innerLayer.fillColor = innerColor.CGColor
         }
     }
 
@@ -45,21 +45,21 @@ protocol CircularViewDelegate {
     // MARK: Public Methods
     func setOn(isOn isOn: Bool, isAnimated: Bool) {
         self.isOn = isOn
-        self.shapeTouched(isAnimated: isAnimated)
+        shapeTouched(isAnimated: isAnimated)
     }
     
     func getIsOn() -> Bool {
-        return self.isOn
+        return isOn
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.setup()
+        setup()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setup()
+        setup()
     }
     
     override func layoutSubviews() {
@@ -68,10 +68,10 @@ protocol CircularViewDelegate {
     }
     
     private func setup() {
-        self.setBackgroundLayer()
-        self.setBackgroundInnerLayer()
-        self.setUserInteraction()
-        self.isOn = false
+        setBackgroundLayer()
+        setBackgroundInnerLayer()
+        setUserInteraction()
+        isOn = false
     }
     
     private func setBackgroundLayer() {
@@ -83,7 +83,7 @@ protocol CircularViewDelegate {
             backgroundLayer.path = path.CGPath
             backgroundLayer.lineWidth = lineWidth
             backgroundLayer.fillColor = backgroundLayerColor.CGColor
-            self.initialBackgroundLayerPath = path.CGPath
+            initialBackgroundLayerPath = path.CGPath
         }
         
         backgroundLayer.frame = layer.bounds
@@ -94,57 +94,57 @@ protocol CircularViewDelegate {
         if innerLayer == nil {
             innerLayer = CAShapeLayer()
             let dx = lineWidth + 3.0
-            let path = UIBezierPath(ovalInRect: CGRectInset(self.bounds, dx, dx))
-            innerLayer.fillColor = self.innerColor.CGColor
+            let path = UIBezierPath(ovalInRect: CGRectInset(bounds, dx, dx))
+            innerLayer.fillColor = innerColor.CGColor
             innerLayer.path = path.CGPath
-            innerLayer.frame = self.bounds
+            innerLayer.frame = bounds
             layer.addSublayer(innerLayer)
             // Stored Initial Inner Layer's Path
-            self.initialInnerLayerPath = path.CGPath
+            initialInnerLayerPath = path.CGPath
         }
         
     }
     private func setUserInteraction() {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "circularViewDidTapped")
-        self.addGestureRecognizer(tapGesture)
+        addGestureRecognizer(tapGesture)
     }
     
     @IBAction func circularViewDidTapped() {
-        if let delegate = self.delegate {
+        if let delegate = delegate {
             delegate.circularViewDidTapped(tappedView: self)
         }
         // Change state
-        self.isOn = !self.isOn
-        self.shapeTouched(isAnimated: true)
+        isOn = !isOn
+        shapeTouched(isAnimated: true)
     }
     
     private func shapeTouched(isAnimated isAnimated: Bool) {
         let scaleUpAnimationKey = "scaleUp"
         let scaleDownAnimationKey = "scaleDown"
-        if self.isOn {
+        if isOn {
             if (isAnimated) {
                 CATransaction.begin()
                 
                 // Add ScaleDown Animation
-                let scaleDownAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialInnerLayerPath, timing: kCAMediaTimingFunctionEaseOut)
-                self.innerLayer.addAnimation(scaleDownAnimation, forKey: scaleDownAnimationKey)
+                let scaleDownAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: initialInnerLayerPath, timing: kCAMediaTimingFunctionEaseOut)
+                innerLayer.addAnimation(scaleDownAnimation, forKey: scaleDownAnimationKey)
                 
                 CATransaction.commit()
             } else {
-                self.innerLayer.path = self.initialInnerLayerPath
+                innerLayer.path = initialInnerLayerPath
             }
         } else {
             if (isAnimated) {
                 CATransaction.begin()
                 
                 // Add ScaleUp Animation
-                let scaleUpAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: self.initialBackgroundLayerPath, timing: kCAMediaTimingFunctionEaseOut)
+                let scaleUpAnimation: CABasicAnimation = animateKeyPath("path", fromValue: nil, toValue: initialBackgroundLayerPath, timing: kCAMediaTimingFunctionEaseOut)
                 
-                self.innerLayer.addAnimation(scaleUpAnimation, forKey: scaleUpAnimationKey)
+                innerLayer.addAnimation(scaleUpAnimation, forKey: scaleUpAnimationKey)
                 
                 CATransaction.commit()
             } else {
-                self.innerLayer.path = self.initialBackgroundLayerPath
+                innerLayer.path = initialBackgroundLayerPath
             }
             
         }
@@ -153,13 +153,13 @@ protocol CircularViewDelegate {
     // CAAnimation delegate
     override func animationDidStart(anim: CAAnimation){
         // Do DidStartClosure
-        self.animationDidStartClosure(isOn)
+        animationDidStartClosure(isOn)
     }
     
     
     override func animationDidStop(anim: CAAnimation, finished flag: Bool){
         // Do DidStopClosure
-        self.animationDidStopClosure(isOn, flag)
+        animationDidStopClosure(isOn, flag)
     }
     
     // MARK: Helpers

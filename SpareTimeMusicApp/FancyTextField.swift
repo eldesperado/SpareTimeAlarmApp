@@ -13,37 +13,37 @@ import UIKit
     // MARK: Public Properties
     override var placeholder: String? {
         didSet {
-            self.update()
+            update()
         }
     }
     
     @IBInspectable var inactiveFontSize: CGFloat = 14 {
         didSet {
-            self.update()
+            update()
         }
     }
     
     @IBInspectable var activeFontSize: CGFloat = 22 {
         didSet {
-            self.update()
+            update()
         }
     }
     
     @IBInspectable var inactiveColor: UIColor = UIColor(white: 1.0, alpha: 0.51) {
         didSet {
-            self.update()
+            update()
         }
     }
     
     @IBInspectable var activeColor: UIColor = UIColor.whiteColor() {
         didSet {
-            self.update()
+            update()
         }
     }
     
     override var bounds: CGRect {
         didSet {
-            self.update()
+            update()
         }
     }
     
@@ -57,36 +57,36 @@ import UIKit
     // MARK: Private Layout Functions
     private func updateLabels(status: TextFieldStatus) {
 
-        if let aFont = self.font {
-            self.font = aFont.fontWithSize(status.fontsize)
+        if let aFont = font {
+            font = aFont.fontWithSize(status.fontsize)
         }
-        self.textColor = status.color
+        textColor = status.color
     }
     
     private func updatePlaceholder(status: TextFieldStatus) {
-        self.placeholderLabel.text = placeholder
-        if let aFont = self.font {
-            self.font = aFont.fontWithSize(status.fontsize)
+        placeholderLabel.text = placeholder
+        if let aFont = font {
+            font = aFont.fontWithSize(status.fontsize)
         }
-        self.placeholderLabel.textColor = status.color
-        self.placeholderLabel.sizeToFit()
+        placeholderLabel.textColor = status.color
+        placeholderLabel.sizeToFit()
     }
     
     private func update() {
-        self.inactiveTextFieldStatus.color = self.inactiveColor
-        self.inactiveTextFieldStatus.fontsize = self.inactiveFontSize
-        self.activeTextFieldStatus.color = self.activeColor
-        self.activeTextFieldStatus.fontsize = self.activeFontSize
+        inactiveTextFieldStatus.color = inactiveColor
+        inactiveTextFieldStatus.fontsize = inactiveFontSize
+        activeTextFieldStatus.color = activeColor
+        activeTextFieldStatus.fontsize = activeFontSize
         // Update Label & placeholder
-        switch (self.isEdit) {
+        switch (isEdit) {
         case .Active:
-            self.updateLabels(activeTextFieldStatus)
-            self.updatePlaceholder(inactiveTextFieldStatus)
+            updateLabels(activeTextFieldStatus)
+            updatePlaceholder(inactiveTextFieldStatus)
         case .Inactive:
-            self.updateLabels(inactiveTextFieldStatus)
-            self.updatePlaceholder(activeTextFieldStatus)
+            updateLabels(inactiveTextFieldStatus)
+            updatePlaceholder(activeTextFieldStatus)
         }
-        self.reloadInputViews()
+        reloadInputViews()
     }
     
     // MARK: NTTextFieldProtocol
@@ -94,38 +94,38 @@ import UIKit
         let frame = CGRect(origin: CGPointZero, size: rect.size)
         
         // Set Placeholder
-        self.placeholderLabel.frame = frame
-        if let aFont = self.font {
-            self.font = aFont.fontWithSize(self.activeFontSize)
+        placeholderLabel.frame = frame
+        if let aFont = font {
+            font = aFont.fontWithSize(activeFontSize)
         }
-        self.placeholderLabel.textColor = self.activeColor
-        self.addSubview(placeholderLabel)
+        placeholderLabel.textColor = activeColor
+        addSubview(placeholderLabel)
         
         // Update
-        self.update()
+        update()
         
         // Set Label Text
-        self.textColor = self.inactiveColor
-        if let aFont = self.font {
-            self.font = aFont.fontWithSize(self.inactiveFontSize)
+        textColor = inactiveColor
+        if let aFont = font {
+            font = aFont.fontWithSize(inactiveFontSize)
         }
     }
     
     override func animateViewsForTextEntry() {
         // Animate textField placeholder when UITextfield's text is empty
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [unowned self] in
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [weak self] in
             
-            self.update()
+            self?.update()
             
             }), completion: { (completed) in
             })
     }
     
     override func animateViewsForTextDisplay() {
-        UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [unowned self] in
+        UIView.animateWithDuration(0.35, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 2.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: ({ [weak self] in
             // Animate textField placeholder when UITextfield's text is filled
 
-            self.update()
+            self?.update()
             
             }), completion: { (completed) in
         })

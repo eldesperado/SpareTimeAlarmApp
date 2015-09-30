@@ -24,12 +24,12 @@ func !^^<T : BooleanType, U : BooleanType>(lhs: T, rhs: U) -> Bool {
 
 extension AlarmRecord {
     func copyValueFrom(sourceRecord: AlarmRecord) {
-        self.alarmTime = sourceRecord.alarmTime
-        self.ringtoneType = sourceRecord.ringtoneType
-        self.salutationText = sourceRecord.salutationText
-        self.isRepeat = sourceRecord.isRepeat
-        self.isActive = sourceRecord.isActive
-        self.repeatDates.copyValueFrom(sourceRecord.repeatDates)
+        alarmTime = sourceRecord.alarmTime
+        ringtoneType = sourceRecord.ringtoneType
+        salutationText = sourceRecord.salutationText
+        isRepeat = sourceRecord.isRepeat
+        isActive = sourceRecord.isActive
+        repeatDates.copyValueFrom(sourceRecord.repeatDates)
     }
     
 }
@@ -56,12 +56,12 @@ func !=(left: RepeatDate, right: RepeatDate) -> Bool {
 
 extension RepeatDate {
     func copyValueFrom(source: RepeatDate) {
-        self.isMon = source.isMon
-        self.isTue = source.isTue
-        self.isWed = source.isWed
-        self.isThu = source.isThu
-        self.isFri = source.isFri
-        self.isSat = source.isSat
-        self.isSun = source.isSun
+        isMon = source.isMon
+        isTue = source.isTue
+        isWed = source.isWed
+        isThu = source.isThu
+        isFri = source.isFri
+        isSat = source.isSat
+        isSun = source.isSun
     }
 }

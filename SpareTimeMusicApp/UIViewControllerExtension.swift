@@ -11,15 +11,15 @@ import UIKit
 extension UIViewController {
     
     func setupNavigation() {
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        self.navigationController!.navigationBar.shadowImage = UIImage()
-        self.navigationController!.navigationBar.translucent = true
-        self.navigationController!.view.backgroundColor = UIColor.clearColor()
-        self.navigationController!.view.backgroundColor = UIColor.clearColor()
+        navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navigationController!.navigationBar.shadowImage = UIImage()
+        navigationController!.navigationBar.translucent = true
+        navigationController!.view.backgroundColor = UIColor.clearColor()
+        navigationController!.view.backgroundColor = UIColor.clearColor()
 
     }
     
     func hideBackButtonTitle() {
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style:.Plain, target: nil, action: nil)
     }
 }

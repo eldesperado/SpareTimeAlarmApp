@@ -14,19 +14,19 @@ class ClockView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.observeTheme()
+        observeTheme()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.observeTheme()
+        observeTheme()
     }
     
     private func observeTheme() {
-        ThemeObserver.onMainThread(self) { [unowned self] notification in
+        ThemeObserver.onMainThread(self) { [weak self] notification in
             // Set theme
             if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
-                self.lightHandColor  = themeColor
+                self?.lightHandColor  = themeColor
             }
         }
 
@@ -37,7 +37,7 @@ class ClockView: UIView {
     override func drawRect(rect: CGRect) {
         let currentTime = DateTimeHelper.getCurrentTime()
         
-        if let lightHColor = self.lightHandColor {
+        if let lightHColor = lightHandColor {
             FlatClockStyleKit.drawClock(frame: rect, lightHandColor: lightHColor, hours: CGFloat(currentTime.hours), minutes: CGFloat(currentTime.minutes), seconds: CGFloat(currentTime.seconds))
         } else {
             FlatClockStyleKit.drawClock(frame: rect, hours: CGFloat(currentTime.hours), minutes: CGFloat(currentTime.minutes), seconds: CGFloat(currentTime.seconds))

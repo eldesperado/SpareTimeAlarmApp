@@ -25,19 +25,19 @@ class ThemeManager: NSObject {
     func saveTheme(theme: ThemeComponent.ThemeType) {
         if let newTheme = loadTheme(theme) {
             // Update Stylesheet
-            self.stylesheet = newTheme
+            stylesheet = newTheme
             // Update current theme
-            self.currentThemeType = theme
+            currentThemeType = theme
             // Save to NSUserDefaults
-            NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: self.storedKeyInUserDefaults)
+            NSUserDefaults.standardUserDefaults().setValue(theme.getString(), forKey: storedKeyInUserDefaults)
             NSUserDefaults.standardUserDefaults().synchronize()
             // Post notification
-            self.postThemeUpdateNotification()
+            postThemeUpdateNotification()
         }
     }
     
     static func getSharedInstance() -> ThemeManager {
-        return self.sharedInstance
+        return sharedInstance
     }
     
     func getThemeComponent(component: ThemeComponent.ThemeAttribute) -> AnyObject? {
@@ -60,20 +60,20 @@ class ThemeManager: NSObject {
     override init() {
         super.init()
         // Setup Theme
-        self.setup()
+        setup()
     }
     
     // MARK: Setup
     private func setup() {
         // Get Current Theme stored in userDefaults
-        let themeName: String = (NSUserDefaults.standardUserDefaults().objectForKey(self.storedKeyInUserDefaults) ?? ThemeComponent.ThemeType.Default.getString()) as! String
+        let themeName: String = (NSUserDefaults.standardUserDefaults().objectForKey(storedKeyInUserDefaults) ?? ThemeComponent.ThemeType.Default.getString()) as! String
         // Get the current theme type
         if let currTheme = ThemeComponent.ThemeType(string: themeName) {
-            self.currentThemeType = currTheme
+            currentThemeType = currTheme
         }
         // Load stored stylesheet
         if let theme = getStylesheetFromFile(themeName) {
-            self.stylesheet = theme
+            stylesheet = theme
         }
     }
     

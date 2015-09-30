@@ -29,7 +29,7 @@ class AlarmRecordTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.repeatRingtoneSwitch.subscribleToUpdateDependOnCurrentTheme()
+        repeatRingtoneSwitch.subscribleToUpdateDependOnCurrentTheme()
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -39,13 +39,13 @@ class AlarmRecordTableViewCell: UITableViewCell {
     }
     
     @IBAction func repeatRingtoneSwitchValueChanged(sender: AnyObject) {
-        if let alarmRecord = self.record {
-            if let cdh = self.coreDataHelper {
+        if let alarmRecord = record {
+            if let cdh = coreDataHelper {
                 // Update isRepeat shows that whether the ringtone is repeated or not
                 // Find ManagedObject in background managed object context
                 if let record = cdh.findRecordInBackgroundManagedObjectContext(alarmRecord.objectID) as? AlarmRecord {
                     // Update value of isRepeat
-                    cdh.updateAlarmRecord(record, isRepeat: self.repeatRingtoneSwitch.isOn())
+                    cdh.updateAlarmRecord(record, isRepeat: repeatRingtoneSwitch.isOn())
                 }
             }
         }
@@ -59,23 +59,23 @@ class AlarmRecordTableViewCell: UITableViewCell {
         self.coreDataHelper = coreDataHelper
         // Get Alarm Time as a String
         let alarmString = DateTimeHelper.getAlarmTime(alarmTime: record.alarmTime)
-        self.alarmTimeLabel.text = alarmString
+        alarmTimeLabel.text = alarmString
         
         // Get Repeat Dates as a String
         let repeatDateString = RecordHelper.getRepeatDatesString(record.repeatDates)
-        self.alarmRepeatDatesLabel.text = repeatDateString
+        alarmRepeatDatesLabel.text = repeatDateString
         
         // Set Value for switch
-        self.repeatRingtoneSwitch.on = record.isRepeat.boolValue
+        repeatRingtoneSwitch.on = record.isRepeat.boolValue
     }
     
     override func setupCellViews() {
         super.setupCellViews()
         let rightSeperatorPaddingConstant: CGFloat = 0.52
-        let rightSeperatorTopPadding = self.contentView.frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
-        let rightSeparator = UIView(frame: CGRectMake(self.contentView.frame.size.width - 1, rightSeperatorTopPadding, 1.0, self.contentView.frame.height * rightSeperatorPaddingConstant))
+        let rightSeperatorTopPadding = contentView.frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
+        let rightSeparator = UIView(frame: CGRectMake(contentView.frame.size.width - 1, rightSeperatorTopPadding, 1.0, contentView.frame.height * rightSeperatorPaddingConstant))
         rightSeparator.backgroundColor = separatorColour
-        self.addSubview(rightSeparator)
+        addSubview(rightSeparator)
     }
     
     deinit {

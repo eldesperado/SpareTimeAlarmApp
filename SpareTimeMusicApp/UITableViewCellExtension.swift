@@ -12,8 +12,8 @@ extension UITableViewCell {
     // MARK: Private Attributes
     private var topSeparator: UIView {
         get {
-            let view = UIView(frame: CGRectMake(0, 1.0, self.frame.size.width, 1))
-            view.backgroundColor = self.separatorColour
+            let view = UIView(frame: CGRectMake(0, 1.0, frame.size.width, 1))
+            view.backgroundColor = separatorColour
             return view
         }
     }
@@ -21,9 +21,9 @@ extension UITableViewCell {
     private var rightSeparator: UIView {
         get {
             let rightSeperatorPaddingConstant: CGFloat = 0.52
-            let rightSeperatorTopPadding = self.frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
-            let view = UIView(frame: CGRectMake(self.frame.size.width - 1, rightSeperatorTopPadding, 1.0, self.frame.height * rightSeperatorPaddingConstant))
-            view.backgroundColor = self.separatorColour
+            let rightSeperatorTopPadding = frame.height * (1.0 - rightSeperatorPaddingConstant) / 2.0
+            let view = UIView(frame: CGRectMake(frame.size.width - 1, rightSeperatorTopPadding, 1.0, frame.height * rightSeperatorPaddingConstant))
+            view.backgroundColor = separatorColour
             return view
         }
     }
@@ -41,16 +41,16 @@ extension UITableViewCell {
     }
     public override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        self.setupCellViews()
+        setupCellViews()
     }
     
     
     // MARK: Setup Default TableViewCells
     func setupCellViews() {
         // Add Separator
-        self.topSeparator.removeFromSuperview()
-        self.topSeparator.layoutIfNeeded()
-        self.addSubview(self.topSeparator)
+        topSeparator.removeFromSuperview()
+        topSeparator.layoutIfNeeded()
+        addSubview(topSeparator)
     }
     
 }

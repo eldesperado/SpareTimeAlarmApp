@@ -22,13 +22,13 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup
-        self.setup()
+        setup()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         // Set state for theme selector cicular views
-        self.setStateForThemeSelectorCircularViews()
+        setStateForThemeSelectorCircularViews()
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,44 +49,44 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     // MARK: Setup
     private func setup() {
         // Setup CircularViews
-        self.setupThemeSelectorCircularView()
+        setupThemeSelectorCircularView()
         // Setup Volume Slider
-        self.setupVolumeSlider()
+        setupVolumeSlider()
         // Add Theme Observer
     }
 
     // MARK: Setup Volume Slider
     private func setupVolumeSlider() {
-        self.volumeNTSlider.subscribleToUpdateDependOnCurrentTheme()
+        volumeNTSlider.subscribleToUpdateDependOnCurrentTheme()
     }
     
     // MARK: Setup CircularViews
     private func setupThemeSelectorCircularView() {
         // Set Delegate
-        self.blueThemeSelectorCircularView.delegate = self
-        self.orangeThemeSelectorCircularView.delegate = self
+        blueThemeSelectorCircularView.delegate = self
+        orangeThemeSelectorCircularView.delegate = self
         
         // Update Theme
-        self.blueThemeSelectorCircularView.animationDidStopClosure = { (onAnimation: Bool, finished: Bool) in
-            if self.blueThemeSelectorCircularView.getIsOn() {
+        blueThemeSelectorCircularView.animationDidStopClosure = { [weak self] (onAnimation: Bool, finished: Bool) in
+            if let blueThemeSelectorCircularView = self?.blueThemeSelectorCircularView where blueThemeSelectorCircularView.getIsOn() {
                 ThemeManager.getSharedInstance().saveTheme(ThemeComponent.ThemeType.Default)
             }
         }
         
-        self.orangeThemeSelectorCircularView.animationDidStopClosure = { (onAnimation: Bool, finished: Bool) in
-            if self.orangeThemeSelectorCircularView.getIsOn() {
-                ThemeManager.getSharedInstance().saveTheme(ThemeComponent.ThemeType.Orange)
-            }
+        orangeThemeSelectorCircularView.animationDidStopClosure = { [weak self] (onAnimation: Bool, finished: Bool) in
+          if let orangeThemeSelectorCircularView = self?.orangeThemeSelectorCircularView where orangeThemeSelectorCircularView.getIsOn() {
+            ThemeManager.getSharedInstance().saveTheme(ThemeComponent.ThemeType.Orange)
+          }
         }
     }
     
     // CircularViews Delegate
     func circularViewDidTapped(tappedView tappedView: CircularView) {
         switch (tappedView) {
-        case self.blueThemeSelectorCircularView:
-            self.orangeThemeSelectorCircularView.setOn(isOn: self.blueThemeSelectorCircularView.getIsOn(), isAnimated: true)
-        case self.orangeThemeSelectorCircularView:
-            self.blueThemeSelectorCircularView.setOn(isOn: self.orangeThemeSelectorCircularView.getIsOn(), isAnimated: true)
+        case blueThemeSelectorCircularView:
+            orangeThemeSelectorCircularView.setOn(isOn: blueThemeSelectorCircularView.getIsOn(), isAnimated: true)
+        case orangeThemeSelectorCircularView:
+            blueThemeSelectorCircularView.setOn(isOn: orangeThemeSelectorCircularView.getIsOn(), isAnimated: true)
         default:
             break
         }
@@ -97,11 +97,11 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
         if let currentTheme = ThemeManager.getSharedInstance().currentThemeType {
             switch (currentTheme) {
             case .Default:
-                self.blueThemeSelectorCircularView.setOn(isOn: true, isAnimated: false)
-                self.orangeThemeSelectorCircularView.setOn(isOn: false, isAnimated: false)
+                blueThemeSelectorCircularView.setOn(isOn: true, isAnimated: false)
+                orangeThemeSelectorCircularView.setOn(isOn: false, isAnimated: false)
             case .Orange:
-                self.blueThemeSelectorCircularView.setOn(isOn: false, isAnimated: false)
-                self.orangeThemeSelectorCircularView.setOn(isOn: true, isAnimated: false)
+                blueThemeSelectorCircularView.setOn(isOn: false, isAnimated: false)
+                orangeThemeSelectorCircularView.setOn(isOn: true, isAnimated: false)
             }
         }
     }

@@ -22,23 +22,23 @@ enum NTTimePickerComponentViewType: Int {
             return NSTimeInterval(hours + minutes)
         }
         set {
-            self.setPickerToTimeInterval(newValue, animated: false)
+            setPickerToTimeInterval(newValue, animated: false)
         }
     }
     
     var timeIntervalAsHousrMinutes:(hours: Int, minutes: Int) {
         get {
-            return self.minutesToHoursMinutes(Int(timeInterval))
+            return minutesToHoursMinutes(Int(timeInterval))
         }
     }
     
     func setTimeIntervalAnimate(interval: NSTimeInterval) {
-        self.setPickerToTimeInterval(interval, animated: true)
+        setPickerToTimeInterval(interval, animated: true)
     }
     
     @IBInspectable var textColor: UIColor = UIColor.whiteColor() {
         didSet {
-            self.updateLabels()
+            updateLabels()
             pickerView.reloadAllComponents()
         }
     }
@@ -47,9 +47,9 @@ enum NTTimePickerComponentViewType: Int {
     // than this view can cause layout problems
     @IBInspectable var textFont: UIFont = UIFont.systemFontOfSize(24) {
         didSet {
-            self.updateLabels()
-            self.calculateNumberSize()
-            self.calculateTotalPickerWidth()
+            updateLabels()
+            calculateNumberSize()
+            calculateTotalPickerWidth()
             pickerView.reloadAllComponents()
         }
     }
@@ -64,26 +64,26 @@ enum NTTimePickerComponentViewType: Int {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         // Setup
-        self.setup()
+        setup()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         // Setup
-        self.setup()
+        setup()
     }
     
     private func setup() {
-        self.setupLabels()
-        self.calculateNumberSize()
-        self.calculateTotalPickerWidth()
-        self.setupPickerView()
+        setupLabels()
+        calculateNumberSize()
+        calculateTotalPickerWidth()
+        setupPickerView()
     }
     
     private func setupLabels() {
         colonLabel.text = ":"
-        self.addSubview(colonLabel)
-        self.updateLabels()
+        addSubview(colonLabel)
+        updateLabels()
     }
     
     private func updateLabels() {
@@ -132,7 +132,7 @@ enum NTTimePickerComponentViewType: Int {
         pickerView.dataSource = self
         pickerView.delegate = self
         pickerView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(pickerView)
+        addSubview(pickerView)
         
         // Size picker view to fit self
         let top = NSLayoutConstraint(item: pickerView,
@@ -167,7 +167,7 @@ enum NTTimePickerComponentViewType: Int {
             multiplier: 1,
             constant: 0)
         
-        self.addConstraints([top, bottom, leading, trailing])
+        addConstraints([top, bottom, leading, trailing])
     }
     
     // MARK: - Layout
@@ -228,7 +228,7 @@ enum NTTimePickerComponentViewType: Int {
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.sendActionsForControlEvents(.ValueChanged)
+        sendActionsForControlEvents(.ValueChanged)
     }
     
     // MARK: - Helpers
@@ -237,8 +237,8 @@ enum NTTimePickerComponentViewType: Int {
         let time = minutesToHoursMinutes(Int(interval))
         pickerView.selectRow(time.hours, inComponent: 0, animated: animated)
         pickerView.selectRow(time.minutes, inComponent: 1, animated: animated)
-        self.pickerView(pickerView, didSelectRow: time.hours, inComponent: 0)
-        self.pickerView(pickerView, didSelectRow: time.minutes, inComponent: 1)
+        pickerView(pickerView, didSelectRow: time.hours, inComponent: 0)
+        pickerView(pickerView, didSelectRow: time.minutes, inComponent: 1)
     }
     
     private func minutesToHoursMinutes(minutes: Int) -> (hours: Int, minutes: Int) {

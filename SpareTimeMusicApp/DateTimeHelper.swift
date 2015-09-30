@@ -14,13 +14,13 @@ enum NumberToDate: Int, RawRepresentable {
     case Sunday = 1, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
     var simpleDescription: String {
         get {
-            return self.getDescription()
+            return getDescription()
         }
     }
     
     var date: Int {
         get {
-            return self.rawValue
+            return rawValue
         }
     }
     
@@ -69,7 +69,7 @@ enum NumberToDate: Int, RawRepresentable {
 
 struct DateTimeHelper {
     static func getRemainingTimeFromCurrentTime(destinatedTime: NSNumber) -> NSNumber {
-        let currentTime = self.getCurrentTime()
+        let currentTime = getCurrentTime()
         let currentTimeInMinutes: Int = getMinutesForHoursMinutes(currentTime.hours, minutes: currentTime.minutes)
         if currentTimeInMinutes > destinatedTime.integerValue {
             return 1440 - currentTimeInMinutes + destinatedTime.integerValue
@@ -86,12 +86,12 @@ struct DateTimeHelper {
     }
     
     static func getCurrentTimeInMinutes() -> NSNumber {
-        let currentTime = self.getCurrentTime()
+        let currentTime = getCurrentTime()
         return getMinutesForHoursMinutes(currentTime.hours, minutes: currentTime.minutes)
     }
     
     static func getCurrentTimeInSeconds() -> NSNumber {
-        let currentTime = self.getCurrentTime()
+        let currentTime = getCurrentTime()
         return getMinutesForHoursMinutesSeconds(currentTime.hours, minutes: currentTime.minutes, seconds: currentTime.seconds)
     }
     

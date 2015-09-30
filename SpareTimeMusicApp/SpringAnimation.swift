@@ -21,15 +21,15 @@ class SpringAnimation: CAKeyframeAnimation
     {
         let copy = super.copyWithZone(zone) as! SpringAnimation
         
-        self.duration = self.durationForEpsilon(0.01)
-        copy.values = self.interpolatedValues()
-        copy.duration = self.duration
-        copy.mass = self.mass
-        copy.stiffness = self.stiffness
-        copy.damping = self.damping
-        copy.velocity = self.velocity
-        copy.fromValue = self.fromValue
-        copy.toValue = self.toValue
+        duration = durationForEpsilon(0.01)
+        copy.values = interpolatedValues()
+        copy.duration = duration
+        copy.mass = mass
+        copy.stiffness = stiffness
+        copy.damping = damping
+        copy.velocity = velocity
+        copy.fromValue = fromValue
+        copy.toValue = toValue
         
         return copy
     }
@@ -38,10 +38,10 @@ class SpringAnimation: CAKeyframeAnimation
     {
         var values: [CGFloat] = []
         var value: CGFloat = 0
-        let valuesCount: Int = Int(self.duration * 60)
-        let ω0: CGFloat = sqrt(self.stiffness / self.mass)  // angular frequency
-        let β: CGFloat = self.damping / (2 * self.mass)     // amount of damping
-        let v0 : CGFloat = self.velocity
+        let valuesCount: Int = Int(duration * 60)
+        let ω0: CGFloat = sqrt(stiffness / mass)  // angular frequency
+        let β: CGFloat = damping / (2 * mass)     // amount of damping
+        let v0 : CGFloat = velocity
         let x0: CGFloat = 1 // substituted initial value
         
         for i in 0..<valuesCount {
@@ -65,7 +65,7 @@ class SpringAnimation: CAKeyframeAnimation
                 value = exp(-β * t) * (x0 * coshVal + ((β * x0 + v0) /  ω2) * sinhVal)
             }
             
-            values.append(self.toValue - value * (self.toValue - self.fromValue))
+            values.append(toValue - value * (toValue - fromValue))
         }
         
         return values
@@ -73,7 +73,7 @@ class SpringAnimation: CAKeyframeAnimation
     
     func durationForEpsilon(epsilon: CGFloat) -> CFTimeInterval
     {
-        let beta: CGFloat = self.damping / (2 * self.mass)
+        let beta: CGFloat = damping / (2 * mass)
         var duration: CGFloat = 0
         
         while exp(-beta * duration) >= epsilon {
