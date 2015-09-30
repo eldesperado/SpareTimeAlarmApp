@@ -9,45 +9,45 @@
 import UIKit
 
 extension NTSlider {
-    func subscribleToUpdateDependOnCurrentTheme() {
-        ThemeObserver.onMainThread(self) { [weak self] notification in
-            self?.updateDependOnTheme()
-        }
+  func subscribleToUpdateDependOnCurrentTheme() {
+    ThemeObserver.onMainThread(self) { [weak self] notification in
+      self?.updateDependOnTheme()
     }
-    
-    public override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        updateDependOnTheme()
+  }
+  
+  public override func drawRect(rect: CGRect) {
+    super.drawRect(rect)
+    updateDependOnTheme()
+  }
+  
+  private func updateDependOnTheme() {
+    // Set theme
+    if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+      trackTintColor  = themeColor
+      // Animate Change
+      layer.animateThemeChangeAnimation()
     }
-    
-    private func updateDependOnTheme() {
-        // Set theme
-        if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
-            trackTintColor  = themeColor
-            // Animate Change
-            layer.animateThemeChangeAnimation()
-        }
-    }
+  }
 }
 
 extension NTSwitch {
-    func subscribleToUpdateDependOnCurrentTheme() {
-        ThemeObserver.onMainThread(self) { [weak self] notification in
-            self?.updateDependOnTheme()
-        }
+  func subscribleToUpdateDependOnCurrentTheme() {
+    ThemeObserver.onMainThread(self) { [weak self] notification in
+      self?.updateDependOnTheme()
     }
-    
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        updateDependOnTheme()
+  }
+  
+  override func drawRect(rect: CGRect) {
+    super.drawRect(rect)
+    updateDependOnTheme()
+  }
+  
+  private func updateDependOnTheme() {
+    // Set theme
+    if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
+      onTintColor  = themeColor
+      // Animate Change
+      layer.animateThemeChangeAnimation()
     }
-    
-    private func updateDependOnTheme() {
-        // Set theme
-        if let themeColor = ThemeManager.getSharedInstance().getThemeComponent(ThemeComponent.ThemeAttribute.MandatoryColor) as? UIColor {
-            onTintColor  = themeColor
-            // Animate Change
-            layer.animateThemeChangeAnimation()
-        }
-    }
+  }
 }

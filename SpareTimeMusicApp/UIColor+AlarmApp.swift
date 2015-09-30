@@ -8,107 +8,107 @@
 import UIKit
 
 extension UIColor {
-    class func untMarineColor() -> UIColor {
-        return UIColor(red: 9.0 / 255.0, green: 39.0 / 255.0, blue: 73.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untAzulColor() -> UIColor {
-        return UIColor(red: 43.0 / 255.0, green: 100.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untCoralColor() -> UIColor {
-        return UIColor(red: 247.0 / 255.0, green: 70.0 / 255.0, blue: 70.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untOrangeYellowColor() -> UIColor {
-        return UIColor(red: 255.0 / 255.0, green: 160.0 / 255.0, blue: 0.0, alpha: 1.0)
-    }
-
-    class func untWhiteColor() -> UIColor {
-        return UIColor(white: 255.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untLightWhiteColor() -> UIColor {
-        return UIColor(white: 255.0 / 255.0, alpha: 0.15)
-    }
-
-    class func untTranswhiteColor() -> UIColor {
-        return UIColor(white: 215.0 / 255.0, alpha: 0.0)
-    }
-
-    class func untLightishBlueColor() -> UIColor {
-        return UIColor(red: 66.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untTransparentColor() -> UIColor {
-        return UIColor(white: 255.0 / 255.0, alpha: 0.0)
-    }
-
-    class func untDeepSkyBlueColor() -> UIColor {
-        return UIColor(red: 11.0 / 255.0, green: 118.0 / 255.0, blue: 241.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untDustyOrangeColor() -> UIColor {
-        return UIColor(red: 237.0 / 255.0, green: 111.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untGreyishBrownColor() -> UIColor {
-        return UIColor(white: 67.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untBlackColor() -> UIColor {
-        return UIColor(white: 33.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untGrayColor() -> UIColor {
-        return UIColor(white: 229.0 / 255.0, alpha: 1.0)
-    }
-
-    class func untSkyBlueColor() -> UIColor {
-        return UIColor(red: 109.0 / 255.0, green: 173.0 / 255.0, blue: 248.0 / 255.0, alpha: 1.0)
-    }
-
-    // Method found from: https://github.com/yeahdongcn/UIColor-Hex-Swift/blob/master/UIColorExtension.swift
-    public convenience init(rgba: String) {
-        var red:   CGFloat = 0.0
-        var green: CGFloat = 0.0
-        var blue:  CGFloat = 0.0
-        var alpha: CGFloat = 1.0
-        
-        if rgba.hasPrefix("#") {
-            let index   = rgba.startIndex.advancedBy(1)
-            let hex     = rgba.substringFromIndex(index)
-            let scanner = NSScanner(string: hex)
-            var hexValue: CUnsignedLongLong = 0
-            if scanner.scanHexLongLong(&hexValue) {
-                switch (hex.characters.count) {
-                case 3:
-                    red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
-                    green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
-                    blue  = CGFloat(hexValue & 0x00F)              / 15.0
-                case 4:
-                    red   = CGFloat((hexValue & 0xF000) >> 12)     / 15.0
-                    green = CGFloat((hexValue & 0x0F00) >> 8)      / 15.0
-                    blue  = CGFloat((hexValue & 0x00F0) >> 4)      / 15.0
-                    alpha = CGFloat(hexValue & 0x000F)             / 15.0
-                case 6:
-                    red   = CGFloat((hexValue & 0xFF0000) >> 16)   / 255.0
-                    green = CGFloat((hexValue & 0x00FF00) >> 8)    / 255.0
-                    blue  = CGFloat(hexValue & 0x0000FF)           / 255.0
-                case 8:
-                    red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
-                    green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
-                    blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0
-                    alpha = CGFloat(hexValue & 0x000000FF)         / 255.0
-                default:
-                    print("Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8", terminator: "")
-                }
-            } else {
-                print("Scan hex error")
-            }
-        } else {
-            print("Invalid RGB string, missing '#' as prefix", terminator: "")
+  class func untMarineColor() -> UIColor {
+    return UIColor(red: 9.0 / 255.0, green: 39.0 / 255.0, blue: 73.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untAzulColor() -> UIColor {
+    return UIColor(red: 43.0 / 255.0, green: 100.0 / 255.0, blue: 243.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untCoralColor() -> UIColor {
+    return UIColor(red: 247.0 / 255.0, green: 70.0 / 255.0, blue: 70.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untOrangeYellowColor() -> UIColor {
+    return UIColor(red: 255.0 / 255.0, green: 160.0 / 255.0, blue: 0.0, alpha: 1.0)
+  }
+  
+  class func untWhiteColor() -> UIColor {
+    return UIColor(white: 255.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untLightWhiteColor() -> UIColor {
+    return UIColor(white: 255.0 / 255.0, alpha: 0.15)
+  }
+  
+  class func untTranswhiteColor() -> UIColor {
+    return UIColor(white: 215.0 / 255.0, alpha: 0.0)
+  }
+  
+  class func untLightishBlueColor() -> UIColor {
+    return UIColor(red: 66.0 / 255.0, green: 121.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untTransparentColor() -> UIColor {
+    return UIColor(white: 255.0 / 255.0, alpha: 0.0)
+  }
+  
+  class func untDeepSkyBlueColor() -> UIColor {
+    return UIColor(red: 11.0 / 255.0, green: 118.0 / 255.0, blue: 241.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untDustyOrangeColor() -> UIColor {
+    return UIColor(red: 237.0 / 255.0, green: 111.0 / 255.0, blue: 75.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untGreyishBrownColor() -> UIColor {
+    return UIColor(white: 67.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untBlackColor() -> UIColor {
+    return UIColor(white: 33.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untGrayColor() -> UIColor {
+    return UIColor(white: 229.0 / 255.0, alpha: 1.0)
+  }
+  
+  class func untSkyBlueColor() -> UIColor {
+    return UIColor(red: 109.0 / 255.0, green: 173.0 / 255.0, blue: 248.0 / 255.0, alpha: 1.0)
+  }
+  
+  // Method found from: https://github.com/yeahdongcn/UIColor-Hex-Swift/blob/master/UIColorExtension.swift
+  public convenience init(rgba: String) {
+    var red:   CGFloat = 0.0
+    var green: CGFloat = 0.0
+    var blue:  CGFloat = 0.0
+    var alpha: CGFloat = 1.0
+    
+    if rgba.hasPrefix("#") {
+      let index   = rgba.startIndex.advancedBy(1)
+      let hex     = rgba.substringFromIndex(index)
+      let scanner = NSScanner(string: hex)
+      var hexValue: CUnsignedLongLong = 0
+      if scanner.scanHexLongLong(&hexValue) {
+        switch (hex.characters.count) {
+        case 3:
+          red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
+          green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
+          blue  = CGFloat(hexValue & 0x00F)              / 15.0
+        case 4:
+          red   = CGFloat((hexValue & 0xF000) >> 12)     / 15.0
+          green = CGFloat((hexValue & 0x0F00) >> 8)      / 15.0
+          blue  = CGFloat((hexValue & 0x00F0) >> 4)      / 15.0
+          alpha = CGFloat(hexValue & 0x000F)             / 15.0
+        case 6:
+          red   = CGFloat((hexValue & 0xFF0000) >> 16)   / 255.0
+          green = CGFloat((hexValue & 0x00FF00) >> 8)    / 255.0
+          blue  = CGFloat(hexValue & 0x0000FF)           / 255.0
+        case 8:
+          red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
+          green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
+          blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0
+          alpha = CGFloat(hexValue & 0x000000FF)         / 255.0
+        default:
+          print("Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8", terminator: "")
         }
-        self.init(red:red, green:green, blue:blue, alpha:alpha)
+      } else {
+        print("Scan hex error")
+      }
+    } else {
+      print("Invalid RGB string, missing '#' as prefix", terminator: "")
     }
+    self.init(red:red, green:green, blue:blue, alpha:alpha)
+  }
 }

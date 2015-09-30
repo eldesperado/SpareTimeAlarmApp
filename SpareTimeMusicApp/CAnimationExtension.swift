@@ -9,23 +9,23 @@
 import UIKit
 
 extension CATransform3D {
-
-    func rotationZ() -> CGFloat
-    {
-        return atan2(m12, m11)
-    }
-
+  
+  func rotationZ() -> CGFloat
+  {
+    return atan2(m12, m11)
+  }
+  
 }
 
 
 extension CALayer {
-    func animateThemeChangeAnimation() {
-        let animation: CATransition = CATransition()
-        animation.duration = 0.6
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.type = kCATransitionFade
-        
-        addAnimation(animation, forKey: nil)
-    }
-
+  func animateThemeChangeAnimation() {
+    let animation: CATransition = CATransition()
+    animation.duration = 0.6
+    animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    animation.type = kCATransitionFade
+    
+    addAnimation(animation, forKey: nil)
+  }
+  
 }

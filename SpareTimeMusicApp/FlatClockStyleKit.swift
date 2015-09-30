@@ -14,452 +14,452 @@
 import UIKit
 
 public class FlatClockStyleKit : NSObject {
-
-    //// Cache
-
-    private struct Cache {
-        private static var color2: UIColor = UIColor(red: 0.219, green: 0.373, blue: 0.457, alpha: 1.000)
-        private static var lightWhite: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.600)
-        private static var orange: UIColor = UIColor(red: 1.000, green: 0.627, blue: 0.000, alpha: 1.000)
-        private static var darkGray: UIColor = UIColor(red: 0.263, green: 0.263, blue: 0.263, alpha: 1.000)
-    }
-
-    //// Colors
-
-    public class var color2: UIColor { return Cache.color2 }
-    public class var lightWhite: UIColor { return Cache.lightWhite }
-    public class var orange: UIColor { return Cache.orange }
-    public class var darkGray: UIColor { return Cache.darkGray }
-
-    //// Drawing Methods
-
-    public class func drawClock(frame frame: CGRect, numbersColor: UIColor? = Cache.darkGray, darkHandsColor: UIColor? = Cache.darkGray, lightHandColor: UIColor? = Cache.orange, rimColor: UIColor? = Cache.lightWhite, tickColor: UIColor? = UIColor.grayColor(), faceColor: UIColor? = UIColor.whiteColor(), hours: CGFloat, minutes: CGFloat, seconds: CGFloat) {
-        //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
-
-
-        //// Variable Declarations
-        let expression = hours > 12 ? "PM" : "AM"
-        let secondsAngle: CGFloat = -seconds / 60.0 * 360
-        let minuteAngle: CGFloat = -(minutes / 60.0 * 360 - secondsAngle / 60.0)
-        let hourAngle: CGFloat = -hours / 12.0 * 360 + minuteAngle / 12.0
-        let defaultHeight: CGFloat = 261
-        let bezierScale: CGFloat = frame.height / defaultHeight
-
-        //// OuterFace Drawing
-        let outerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.05747 + 0.5), frame.minY + floor(frame.height * 0.04981 + 0.5), floor(frame.width * 0.95019 + 0.5) - floor(frame.width * 0.05747 + 0.5), floor(frame.height * 0.94253 + 0.5) - floor(frame.height * 0.04981 + 0.5)))
-        rimColor!.setFill()
-        outerFacePath.fill()
-
-
-        //// InnerFace Drawing
-        let innerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.08046 + 0.5), frame.minY + floor(frame.height * 0.07280 + 0.5), floor(frame.width * 0.92720 + 0.5) - floor(frame.width * 0.08046 + 0.5), floor(frame.height * 0.91954 + 0.5) - floor(frame.height * 0.07280 + 0.5)))
-        faceColor!.setFill()
-        innerFacePath.fill()
-
-
-        //// Bezier-Minute Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50575 * frame.width, frame.minY + 0.49425 * frame.height)
-        CGContextRotateCTM(context, -(minuteAngle + 90) * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, bezierScale, bezierScale)
-
-        let bezierMinutePath = UIBezierPath()
-        bezierMinutePath.moveToPoint(CGPointMake(7.07, -7.07))
-        bezierMinutePath.addCurveToPoint(CGPointMake(9.54, -3), controlPoint1: CGPointMake(8.25, -5.89), controlPoint2: CGPointMake(9.07, -4.49))
-        bezierMinutePath.addLineToPoint(CGPointMake(95, -3))
-        bezierMinutePath.addLineToPoint(CGPointMake(95, 3))
-        bezierMinutePath.addLineToPoint(CGPointMake(9.54, 3))
-        bezierMinutePath.addCurveToPoint(CGPointMake(7.07, 7.07), controlPoint1: CGPointMake(9.07, 4.49), controlPoint2: CGPointMake(8.25, 5.89))
-        bezierMinutePath.addCurveToPoint(CGPointMake(-7.07, 7.07), controlPoint1: CGPointMake(3.17, 10.98), controlPoint2: CGPointMake(-3.17, 10.98))
-        bezierMinutePath.addCurveToPoint(CGPointMake(-7.07, -7.07), controlPoint1: CGPointMake(-10.98, 3.17), controlPoint2: CGPointMake(-10.98, -3.17))
-        bezierMinutePath.addCurveToPoint(CGPointMake(7.07, -7.07), controlPoint1: CGPointMake(-3.17, -10.98), controlPoint2: CGPointMake(3.17, -10.98))
-        bezierMinutePath.closePath()
-        darkHandsColor!.setFill()
-        bezierMinutePath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Bezier-Hour Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50575 * frame.width, frame.minY + 0.49425 * frame.height)
-        CGContextRotateCTM(context, -(hourAngle + 90) * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, bezierScale, bezierScale)
-
-        let bezierHourPath = UIBezierPath()
-        bezierHourPath.moveToPoint(CGPointMake(7.07, -7.07))
-        bezierHourPath.addCurveToPoint(CGPointMake(8.66, -5), controlPoint1: CGPointMake(7.7, -6.44), controlPoint2: CGPointMake(8.24, -5.74))
-        bezierHourPath.addLineToPoint(CGPointMake(56, -5))
-        bezierHourPath.addLineToPoint(CGPointMake(56, 5))
-        bezierHourPath.addLineToPoint(CGPointMake(8.66, 5))
-        bezierHourPath.addCurveToPoint(CGPointMake(7.07, 7.07), controlPoint1: CGPointMake(8.24, 5.74), controlPoint2: CGPointMake(7.7, 6.44))
-        bezierHourPath.addCurveToPoint(CGPointMake(-7.07, 7.07), controlPoint1: CGPointMake(3.17, 10.98), controlPoint2: CGPointMake(-3.17, 10.98))
-        bezierHourPath.addCurveToPoint(CGPointMake(-7.07, -7.07), controlPoint1: CGPointMake(-10.98, 3.17), controlPoint2: CGPointMake(-10.98, -3.17))
-        bezierHourPath.addCurveToPoint(CGPointMake(7.07, -7.07), controlPoint1: CGPointMake(-3.17, -10.98), controlPoint2: CGPointMake(3.17, -10.98))
-        bezierHourPath.closePath()
-        darkHandsColor!.setFill()
-        bezierHourPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Bezier-Second Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50575 * frame.width, frame.minY + 0.49425 * frame.height)
-        CGContextRotateCTM(context, -(secondsAngle + 90) * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, bezierScale, bezierScale)
-
-        let bezierSecondPath = UIBezierPath()
-        bezierSecondPath.moveToPoint(CGPointMake(4.24, -4.24))
-        bezierSecondPath.addCurveToPoint(CGPointMake(5.92, -1), controlPoint1: CGPointMake(5.16, -3.33), controlPoint2: CGPointMake(5.72, -2.19))
-        bezierSecondPath.addLineToPoint(CGPointMake(99, -1))
-        bezierSecondPath.addLineToPoint(CGPointMake(99, 1))
-        bezierSecondPath.addLineToPoint(CGPointMake(5.92, 1))
-        bezierSecondPath.addCurveToPoint(CGPointMake(4.24, 4.24), controlPoint1: CGPointMake(5.72, 2.19), controlPoint2: CGPointMake(5.16, 3.33))
-        bezierSecondPath.addCurveToPoint(CGPointMake(-4.24, 4.24), controlPoint1: CGPointMake(1.9, 6.59), controlPoint2: CGPointMake(-1.9, 6.59))
-        bezierSecondPath.addCurveToPoint(CGPointMake(-4.24, -4.24), controlPoint1: CGPointMake(-6.59, 1.9), controlPoint2: CGPointMake(-6.59, -1.9))
-        bezierSecondPath.addCurveToPoint(CGPointMake(4.24, -4.24), controlPoint1: CGPointMake(-1.9, -6.59), controlPoint2: CGPointMake(1.9, -6.59))
-        bezierSecondPath.closePath()
-        lightHandColor!.setFill()
-        bezierSecondPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-11h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.28506 * frame.width, frame.minY + 0.13501 * frame.height)
-        CGContextRotateCTM(context, -30 * CGFloat(M_PI) / 180)
-
-        let rectangle11hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle11hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-10h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.13501 * frame.width, frame.minY + 0.29348 * frame.height)
-        CGContextRotateCTM(context, -60 * CGFloat(M_PI) / 180)
-
-        let rectangle10hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle10hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-9h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.11494 * frame.width, frame.minY + 0.48276 * frame.height)
-        CGContextRotateCTM(context, 90 * CGFloat(M_PI) / 180)
-
-        let rectangle9hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle9hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-8h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.14650 * frame.width, frame.minY + 0.71494 * frame.height)
-        CGContextRotateCTM(context, -120 * CGFloat(M_PI) / 180)
-
-        let rectangle8hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle8hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-7h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.30497 * frame.width, frame.minY + 0.86499 * frame.height)
-        CGContextRotateCTM(context, -150 * CGFloat(M_PI) / 180)
-
-        let rectangle7hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle7hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-6h Drawing
-        let rectangle6hPath = UIBezierPath(rect: CGRectMake(frame.minX + floor((frame.width - 7) * 0.50394 + 0.5), frame.minY + floor((frame.height - 8) * 0.91700 + 0.5), 7, 8))
-        tickColor!.setFill()
-        rectangle6hPath.fill()
-
-
-        //// Rectangle-5h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.69120 * frame.width, frame.minY + 0.83845 * frame.height)
-        CGContextRotateCTM(context, -30 * CGFloat(M_PI) / 180)
-
-        let rectangle5hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle5hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-4h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.83845 * frame.width, frame.minY + 0.69961 * frame.height)
-        CGContextRotateCTM(context, -60 * CGFloat(M_PI) / 180)
-
-        let rectangle4hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle4hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-3h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.92720 * frame.width, frame.minY + 0.48276 * frame.height)
-        CGContextRotateCTM(context, 90 * CGFloat(M_PI) / 180)
-
-        let rectangle3hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle3hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-2h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.84994 * frame.width, frame.minY + 0.30880 * frame.height)
-        CGContextRotateCTM(context, -120 * CGFloat(M_PI) / 180)
-
-        let rectangle2hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle2hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-1h Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.71110 * frame.width, frame.minY + 0.16155 * frame.height)
-        CGContextRotateCTM(context, -150 * CGFloat(M_PI) / 180)
-
-        let rectangle1hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
-        tickColor!.setFill()
-        rectangle1hPath.fill()
-
-        CGContextRestoreGState(context)
-
-
-        //// Rectangle-0h Drawing
-        let rectangle0hPath = UIBezierPath(rect: CGRectMake(frame.minX + floor((frame.width - 7) * 0.50394 + 0.5), frame.minY + floor((frame.height - 8) * 0.07510 + 0.5), 7, 8))
-        tickColor!.setFill()
-        rectangle0hPath.fill()
-
-
-        //// Text-12h Drawing
-        let text12hPath = UIBezierPath()
-        text12hPath.moveToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.14596 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.46625 * frame.width, frame.minY + 0.15702 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.45952 * frame.width, frame.minY + 0.14904 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.48077 * frame.width, frame.minY + 0.13192 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.49125 * frame.width, frame.minY + 0.13192 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.49125 * frame.width, frame.minY + 0.20000 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.20000 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.14596 * frame.height))
-        text12hPath.closePath()
-        text12hPath.moveToPoint(CGPointMake(frame.minX + 0.50663 * frame.width, frame.minY + 0.18942 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.53288 * frame.width, frame.minY + 0.16365 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53793 * frame.width, frame.minY + 0.15745 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53500 * frame.width, frame.minY + 0.16160 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53668 * frame.width, frame.minY + 0.15954 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53981 * frame.width, frame.minY + 0.15029 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53918 * frame.width, frame.minY + 0.15537 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53981 * frame.width, frame.minY + 0.15298 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53668 * frame.width, frame.minY + 0.14264 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53981 * frame.width, frame.minY + 0.14708 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53877 * frame.width, frame.minY + 0.14454 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52894 * frame.width, frame.minY + 0.13981 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53460 * frame.width, frame.minY + 0.14075 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53202 * frame.width, frame.minY + 0.13981 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52106 * frame.width, frame.minY + 0.14313 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52567 * frame.width, frame.minY + 0.13981 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52304 * frame.width, frame.minY + 0.14091 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51740 * frame.width, frame.minY + 0.15144 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51907 * frame.width, frame.minY + 0.14534 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51785 * frame.width, frame.minY + 0.14811 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.50615 * frame.width, frame.minY + 0.14971 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50856 * frame.width, frame.minY + 0.14192 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50647 * frame.width, frame.minY + 0.14689 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50728 * frame.width, frame.minY + 0.14429 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51346 * frame.width, frame.minY + 0.13577 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50984 * frame.width, frame.minY + 0.13955 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51147 * frame.width, frame.minY + 0.13750 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52043 * frame.width, frame.minY + 0.13168 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51545 * frame.width, frame.minY + 0.13404 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51777 * frame.width, frame.minY + 0.13268 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52913 * frame.width, frame.minY + 0.13019 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52309 * frame.width, frame.minY + 0.13069 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52599 * frame.width, frame.minY + 0.13019 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53764 * frame.width, frame.minY + 0.13144 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53208 * frame.width, frame.minY + 0.13019 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53492 * frame.width, frame.minY + 0.13061 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54490 * frame.width, frame.minY + 0.13524 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54037 * frame.width, frame.minY + 0.13228 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54279 * frame.width, frame.minY + 0.13354 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54995 * frame.width, frame.minY + 0.14149 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54702 * frame.width, frame.minY + 0.13694 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54870 * frame.width, frame.minY + 0.13902 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.55183 * frame.width, frame.minY + 0.15010 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.55120 * frame.width, frame.minY + 0.14396 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.55183 * frame.width, frame.minY + 0.14683 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.55096 * frame.width, frame.minY + 0.15620 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.55183 * frame.width, frame.minY + 0.15228 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.55154 * frame.width, frame.minY + 0.15431 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54861 * frame.width, frame.minY + 0.16154 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.55038 * frame.width, frame.minY + 0.15809 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54960 * frame.width, frame.minY + 0.15987 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54514 * frame.width, frame.minY + 0.16630 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54761 * frame.width, frame.minY + 0.16321 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54646 * frame.width, frame.minY + 0.16479 * frame.height))
-        text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54087 * frame.width, frame.minY + 0.17067 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54383 * frame.width, frame.minY + 0.16780 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54240 * frame.width, frame.minY + 0.16926 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.52125 * frame.width, frame.minY + 0.18942 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.55192 * frame.width, frame.minY + 0.18942 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.55192 * frame.width, frame.minY + 0.20000 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.50663 * frame.width, frame.minY + 0.20000 * frame.height))
-        text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.50663 * frame.width, frame.minY + 0.18942 * frame.height))
-        text12hPath.closePath()
-        numbersColor!.setFill()
-        text12hPath.fill()
-
-
-        //// Text-6h Drawing
-        let text6hPath = UIBezierPath()
-        text6hPath.moveToPoint(CGPointMake(frame.minX + 0.51686 * frame.width, frame.minY + 0.79808 * frame.height))
-        text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.49952 * frame.width, frame.minY + 0.82318 * frame.height))
-        text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.49962 * frame.width, frame.minY + 0.82328 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50302 * frame.width, frame.minY + 0.82241 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50051 * frame.width, frame.minY + 0.82289 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50164 * frame.width, frame.minY + 0.82261 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50680 * frame.width, frame.minY + 0.82213 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50439 * frame.width, frame.minY + 0.82222 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50565 * frame.width, frame.minY + 0.82213 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51523 * frame.width, frame.minY + 0.82380 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50980 * frame.width, frame.minY + 0.82213 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51261 * frame.width, frame.minY + 0.82269 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52213 * frame.width, frame.minY + 0.82840 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51785 * frame.width, frame.minY + 0.82492 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52015 * frame.width, frame.minY + 0.82645 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52677 * frame.width, frame.minY + 0.83530 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52411 * frame.width, frame.minY + 0.83035 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52565 * frame.width, frame.minY + 0.83265 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52845 * frame.width, frame.minY + 0.84387 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52789 * frame.width, frame.minY + 0.83795 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52845 * frame.width, frame.minY + 0.84080 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52653 * frame.width, frame.minY + 0.85364 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52845 * frame.width, frame.minY + 0.84745 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52781 * frame.width, frame.minY + 0.85070 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52131 * frame.width, frame.minY + 0.86116 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52526 * frame.width, frame.minY + 0.85658 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52352 * frame.width, frame.minY + 0.85908 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51346 * frame.width, frame.minY + 0.86595 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51911 * frame.width, frame.minY + 0.86323 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51649 * frame.width, frame.minY + 0.86483 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50374 * frame.width, frame.minY + 0.86762 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51042 * frame.width, frame.minY + 0.86707 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50718 * frame.width, frame.minY + 0.86762 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49387 * frame.width, frame.minY + 0.86585 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50016 * frame.width, frame.minY + 0.86762 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49687 * frame.width, frame.minY + 0.86703 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48602 * frame.width, frame.minY + 0.86092 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49087 * frame.width, frame.minY + 0.86467 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48825 * frame.width, frame.minY + 0.86303 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48080 * frame.width, frame.minY + 0.85350 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.48378 * frame.width, frame.minY + 0.85881 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48204 * frame.width, frame.minY + 0.85634 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.47893 * frame.width, frame.minY + 0.84435 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.47955 * frame.width, frame.minY + 0.85065 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.47893 * frame.width, frame.minY + 0.84761 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.47941 * frame.width, frame.minY + 0.83894 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.47893 * frame.width, frame.minY + 0.84243 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.47909 * frame.width, frame.minY + 0.84063 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48080 * frame.width, frame.minY + 0.83405 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.47973 * frame.width, frame.minY + 0.83724 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48019 * frame.width, frame.minY + 0.83562 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48300 * frame.width, frame.minY + 0.82931 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.48140 * frame.width, frame.minY + 0.83249 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48214 * frame.width, frame.minY + 0.83091 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48592 * frame.width, frame.minY + 0.82433 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.48386 * frame.width, frame.minY + 0.82771 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48483 * frame.width, frame.minY + 0.82605 * frame.height))
-        text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.50287 * frame.width, frame.minY + 0.79808 * frame.height))
-        text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.51686 * frame.width, frame.minY + 0.79808 * frame.height))
-        text6hPath.closePath()
-        text6hPath.moveToPoint(CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84464 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49152 * frame.width, frame.minY + 0.84971 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84642 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49092 * frame.width, frame.minY + 0.84812 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49416 * frame.width, frame.minY + 0.85393 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49213 * frame.width, frame.minY + 0.85131 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49301 * frame.width, frame.minY + 0.85271 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49828 * frame.width, frame.minY + 0.85680 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49531 * frame.width, frame.minY + 0.85514 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49668 * frame.width, frame.minY + 0.85610 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50364 * frame.width, frame.minY + 0.85785 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49987 * frame.width, frame.minY + 0.85750 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50166 * frame.width, frame.minY + 0.85785 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51307 * frame.width, frame.minY + 0.85417 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50754 * frame.width, frame.minY + 0.85785 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51068 * frame.width, frame.minY + 0.85663 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51667 * frame.width, frame.minY + 0.84444 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51547 * frame.width, frame.minY + 0.85171 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51667 * frame.width, frame.minY + 0.84847 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51576 * frame.width, frame.minY + 0.83913 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51667 * frame.width, frame.minY + 0.84253 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51636 * frame.width, frame.minY + 0.84076 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51312 * frame.width, frame.minY + 0.83496 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51515 * frame.width, frame.minY + 0.83750 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51427 * frame.width, frame.minY + 0.83611 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50905 * frame.width, frame.minY + 0.83223 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51197 * frame.width, frame.minY + 0.83381 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51062 * frame.width, frame.minY + 0.83290 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50383 * frame.width, frame.minY + 0.83123 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50749 * frame.width, frame.minY + 0.83156 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50575 * frame.width, frame.minY + 0.83123 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49852 * frame.width, frame.minY + 0.83218 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50192 * frame.width, frame.minY + 0.83123 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50014 * frame.width, frame.minY + 0.83155 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49430 * frame.width, frame.minY + 0.83491 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49689 * frame.width, frame.minY + 0.83282 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49548 * frame.width, frame.minY + 0.83373 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49157 * frame.width, frame.minY + 0.83918 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49312 * frame.width, frame.minY + 0.83610 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49221 * frame.width, frame.minY + 0.83752 * frame.height))
-        text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84464 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49093 * frame.width, frame.minY + 0.84084 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84266 * frame.height))
-        text6hPath.closePath()
-        numbersColor!.setFill()
-        text6hPath.fill()
-
-
-        //// Text-3h Drawing
-        let text3hPath = UIBezierPath()
-        text3hPath.moveToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.48496 * frame.height))
-        text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84473 * frame.width, frame.minY + 0.48496 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84986 * frame.width, frame.minY + 0.48453 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84646 * frame.width, frame.minY + 0.48496 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84816 * frame.width, frame.minY + 0.48482 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85450 * frame.width, frame.minY + 0.48295 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85155 * frame.width, frame.minY + 0.48424 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85310 * frame.width, frame.minY + 0.48372 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85790 * frame.width, frame.minY + 0.47984 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85591 * frame.width, frame.minY + 0.48218 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85704 * frame.width, frame.minY + 0.48115 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85920 * frame.width, frame.minY + 0.47471 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85876 * frame.width, frame.minY + 0.47853 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85920 * frame.width, frame.minY + 0.47682 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85833 * frame.width, frame.minY + 0.47059 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85920 * frame.width, frame.minY + 0.47318 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85891 * frame.width, frame.minY + 0.47181 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85599 * frame.width, frame.minY + 0.46753 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85776 * frame.width, frame.minY + 0.46938 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85698 * frame.width, frame.minY + 0.46836 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85254 * frame.width, frame.minY + 0.46561 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85500 * frame.width, frame.minY + 0.46670 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85385 * frame.width, frame.minY + 0.46606 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84847 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85123 * frame.width, frame.minY + 0.46517 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84987 * frame.width, frame.minY + 0.46494 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84148 * frame.width, frame.minY + 0.46734 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84566 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84333 * frame.width, frame.minY + 0.46574 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83764 * frame.width, frame.minY + 0.47366 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83962 * frame.width, frame.minY + 0.46893 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83835 * frame.width, frame.minY + 0.47104 * frame.height))
-        text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.82682 * frame.width, frame.minY + 0.47088 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.82974 * frame.width, frame.minY + 0.46461 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.82739 * frame.width, frame.minY + 0.46858 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.82837 * frame.width, frame.minY + 0.46649 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83472 * frame.width, frame.minY + 0.45972 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83111 * frame.width, frame.minY + 0.46272 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83277 * frame.width, frame.minY + 0.46110 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84128 * frame.width, frame.minY + 0.45651 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83667 * frame.width, frame.minY + 0.45835 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83886 * frame.width, frame.minY + 0.45728 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84895 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84371 * frame.width, frame.minY + 0.45575 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84626 * frame.width, frame.minY + 0.45536 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85733 * frame.width, frame.minY + 0.45656 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85188 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85468 * frame.width, frame.minY + 0.45576 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86432 * frame.width, frame.minY + 0.46011 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85998 * frame.width, frame.minY + 0.45736 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86231 * frame.width, frame.minY + 0.45854 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86906 * frame.width, frame.minY + 0.46590 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86633 * frame.width, frame.minY + 0.46167 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86791 * frame.width, frame.minY + 0.46360 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.87079 * frame.width, frame.minY + 0.47395 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87021 * frame.width, frame.minY + 0.46820 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.87079 * frame.width, frame.minY + 0.47088 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86748 * frame.width, frame.minY + 0.48367 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87079 * frame.width, frame.minY + 0.47759 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86968 * frame.width, frame.minY + 0.48083 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85862 * frame.width, frame.minY + 0.48927 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86528 * frame.width, frame.minY + 0.48651 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86232 * frame.width, frame.minY + 0.48838 * frame.height))
-        text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.85862 * frame.width, frame.minY + 0.48946 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86873 * frame.width, frame.minY + 0.49507 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86277 * frame.width, frame.minY + 0.49029 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86614 * frame.width, frame.minY + 0.49216 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.87261 * frame.width, frame.minY + 0.50575 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87131 * frame.width, frame.minY + 0.49797 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.87261 * frame.width, frame.minY + 0.50153 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.87055 * frame.width, frame.minY + 0.51494 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87261 * frame.width, frame.minY + 0.50926 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.87192 * frame.width, frame.minY + 0.51232 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86509 * frame.width, frame.minY + 0.52146 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86917 * frame.width, frame.minY + 0.51756 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86735 * frame.width, frame.minY + 0.51973 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85747 * frame.width, frame.minY + 0.52534 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86282 * frame.width, frame.minY + 0.52318 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86028 * frame.width, frame.minY + 0.52447 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84895 * frame.width, frame.minY + 0.52663 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85466 * frame.width, frame.minY + 0.52620 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85182 * frame.width, frame.minY + 0.52663 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84080 * frame.width, frame.minY + 0.52572 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84607 * frame.width, frame.minY + 0.52663 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84336 * frame.width, frame.minY + 0.52633 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83376 * frame.width, frame.minY + 0.52289 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83825 * frame.width, frame.minY + 0.52511 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83590 * frame.width, frame.minY + 0.52417 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.82811 * frame.width, frame.minY + 0.51791 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83163 * frame.width, frame.minY + 0.52162 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.82974 * frame.width, frame.minY + 0.51996 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.82433 * frame.width, frame.minY + 0.51063 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.82648 * frame.width, frame.minY + 0.51587 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.82522 * frame.width, frame.minY + 0.51344 * frame.height))
-        text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.83506 * frame.width, frame.minY + 0.50728 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83970 * frame.width, frame.minY + 0.51408 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83589 * frame.width, frame.minY + 0.50996 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83744 * frame.width, frame.minY + 0.51223 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84856 * frame.width, frame.minY + 0.51686 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84197 * frame.width, frame.minY + 0.51593 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84492 * frame.width, frame.minY + 0.51686 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85302 * frame.width, frame.minY + 0.51624 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85003 * frame.width, frame.minY + 0.51686 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85152 * frame.width, frame.minY + 0.51665 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85704 * frame.width, frame.minY + 0.51427 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85452 * frame.width, frame.minY + 0.51582 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85586 * frame.width, frame.minY + 0.51517 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85991 * frame.width, frame.minY + 0.51082 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85822 * frame.width, frame.minY + 0.51338 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85918 * frame.width, frame.minY + 0.51223 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86102 * frame.width, frame.minY + 0.50565 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86065 * frame.width, frame.minY + 0.50942 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86102 * frame.width, frame.minY + 0.50769 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85943 * frame.width, frame.minY + 0.50014 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86102 * frame.width, frame.minY + 0.50348 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86049 * frame.width, frame.minY + 0.50164 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85546 * frame.width, frame.minY + 0.49660 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85838 * frame.width, frame.minY + 0.49864 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85706 * frame.width, frame.minY + 0.49746 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85014 * frame.width, frame.minY + 0.49473 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85386 * frame.width, frame.minY + 0.49574 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85209 * frame.width, frame.minY + 0.49511 * frame.height))
-        text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84454 * frame.width, frame.minY + 0.49416 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84820 * frame.width, frame.minY + 0.49435 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84633 * frame.width, frame.minY + 0.49416 * frame.height))
-        text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.49416 * frame.height))
-        text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.48496 * frame.height))
-        text3hPath.closePath()
-        numbersColor!.setFill()
-        text3hPath.fill()
-
-
-        //// Text-9h Drawing
-        let text9hPath = UIBezierPath()
-        text9hPath.moveToPoint(CGPointMake(frame.minX + 0.14780 * frame.width, frame.minY + 0.52490 * frame.height))
-        text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16523 * frame.width, frame.minY + 0.49971 * frame.height))
-        text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16513 * frame.width, frame.minY + 0.49962 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16164 * frame.width, frame.minY + 0.50057 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16418 * frame.width, frame.minY + 0.50006 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16301 * frame.width, frame.minY + 0.50038 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15785 * frame.width, frame.minY + 0.50086 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16026 * frame.width, frame.minY + 0.50077 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15900 * frame.width, frame.minY + 0.50086 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14943 * frame.width, frame.minY + 0.49919 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15485 * frame.width, frame.minY + 0.50086 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15204 * frame.width, frame.minY + 0.50030 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14253 * frame.width, frame.minY + 0.49459 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14681 * frame.width, frame.minY + 0.49807 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14451 * frame.width, frame.minY + 0.49654 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.13788 * frame.width, frame.minY + 0.48769 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14055 * frame.width, frame.minY + 0.49264 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.13900 * frame.width, frame.minY + 0.49034 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.13621 * frame.width, frame.minY + 0.47912 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.13677 * frame.width, frame.minY + 0.48504 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.13621 * frame.width, frame.minY + 0.48218 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.13812 * frame.width, frame.minY + 0.46935 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.13621 * frame.width, frame.minY + 0.47554 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.13685 * frame.width, frame.minY + 0.47229 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14334 * frame.width, frame.minY + 0.46183 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.13940 * frame.width, frame.minY + 0.46641 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14114 * frame.width, frame.minY + 0.46390 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15120 * frame.width, frame.minY + 0.45704 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14555 * frame.width, frame.minY + 0.45975 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14816 * frame.width, frame.minY + 0.45816 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16092 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15423 * frame.width, frame.minY + 0.45592 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15747 * frame.width, frame.minY + 0.45536 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17074 * frame.width, frame.minY + 0.45714 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16443 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16770 * frame.width, frame.minY + 0.45595 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17864 * frame.width, frame.minY + 0.46207 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17377 * frame.width, frame.minY + 0.45832 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17640 * frame.width, frame.minY + 0.45996 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18386 * frame.width, frame.minY + 0.46949 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18087 * frame.width, frame.minY + 0.46418 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18261 * frame.width, frame.minY + 0.46665 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18573 * frame.width, frame.minY + 0.47864 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18511 * frame.width, frame.minY + 0.47233 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18573 * frame.width, frame.minY + 0.47538 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18525 * frame.width, frame.minY + 0.48405 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18573 * frame.width, frame.minY + 0.48056 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18557 * frame.width, frame.minY + 0.48236 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18386 * frame.width, frame.minY + 0.48894 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18493 * frame.width, frame.minY + 0.48574 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18447 * frame.width, frame.minY + 0.48737 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18166 * frame.width, frame.minY + 0.49368 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18325 * frame.width, frame.minY + 0.49050 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18252 * frame.width, frame.minY + 0.49208 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17874 * frame.width, frame.minY + 0.49866 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18080 * frame.width, frame.minY + 0.49527 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17982 * frame.width, frame.minY + 0.49693 * frame.height))
-        text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16178 * frame.width, frame.minY + 0.52490 * frame.height))
-        text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.14780 * frame.width, frame.minY + 0.52490 * frame.height))
-        text9hPath.closePath()
-        text9hPath.moveToPoint(CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.47835 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17313 * frame.width, frame.minY + 0.47328 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.47656 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17374 * frame.width, frame.minY + 0.47487 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17050 * frame.width, frame.minY + 0.46901 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17253 * frame.width, frame.minY + 0.47168 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17165 * frame.width, frame.minY + 0.47026 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16638 * frame.width, frame.minY + 0.46604 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16935 * frame.width, frame.minY + 0.46777 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16798 * frame.width, frame.minY + 0.46678 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16102 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16478 * frame.width, frame.minY + 0.46531 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16299 * frame.width, frame.minY + 0.46494 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15158 * frame.width, frame.minY + 0.46873 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15712 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15398 * frame.width, frame.minY + 0.46620 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14799 * frame.width, frame.minY + 0.47854 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14919 * frame.width, frame.minY + 0.47125 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14799 * frame.width, frame.minY + 0.47452 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14890 * frame.width, frame.minY + 0.48386 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14799 * frame.width, frame.minY + 0.48046 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14829 * frame.width, frame.minY + 0.48223 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15153 * frame.width, frame.minY + 0.48803 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14951 * frame.width, frame.minY + 0.48549 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15038 * frame.width, frame.minY + 0.48688 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15560 * frame.width, frame.minY + 0.49076 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15268 * frame.width, frame.minY + 0.48918 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15404 * frame.width, frame.minY + 0.49009 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16082 * frame.width, frame.minY + 0.49176 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15717 * frame.width, frame.minY + 0.49143 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15891 * frame.width, frame.minY + 0.49176 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16614 * frame.width, frame.minY + 0.49080 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16274 * frame.width, frame.minY + 0.49176 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16451 * frame.width, frame.minY + 0.49144 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17035 * frame.width, frame.minY + 0.48807 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16777 * frame.width, frame.minY + 0.49017 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16917 * frame.width, frame.minY + 0.48926 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17308 * frame.width, frame.minY + 0.48381 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17154 * frame.width, frame.minY + 0.48689 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17245 * frame.width, frame.minY + 0.48547 * frame.height))
-        text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.47835 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17372 * frame.width, frame.minY + 0.48215 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.48033 * frame.height))
-        text9hPath.closePath()
-        numbersColor!.setFill()
-        text9hPath.fill()
-
-
-        //// Text-PM Drawing
-        let textPMRect = CGRectMake(frame.minX + floor((frame.width - 63) * 0.50505 + 0.5), frame.minY + floor((frame.height - 34) * 0.63436 + 0.5), 63, 34)
-        let textPMStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-        textPMStyle.alignment = NSTextAlignment.Center
-        
-        let textPMFontAttributes = [NSFontAttributeName: UIFont(name: "AvenirNext-DemiBold", size: 20)!, NSForegroundColorAttributeName: numbersColor!, NSParagraphStyleAttributeName: textPMStyle]
-        
-        let textPMTextHeight: CGFloat = NSString(string: expression).boundingRectWithSize(CGSizeMake(textPMRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textPMFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, textPMRect);
-        NSString(string: expression).drawInRect(CGRectMake(textPMRect.minX, textPMRect.minY + (textPMRect.height - textPMTextHeight) / 2, textPMRect.width, textPMTextHeight), withAttributes: textPMFontAttributes)
-        CGContextRestoreGState(context)
-    }
-
+  
+  //// Cache
+  
+  private struct Cache {
+    private static var color2: UIColor = UIColor(red: 0.219, green: 0.373, blue: 0.457, alpha: 1.000)
+    private static var lightWhite: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.600)
+    private static var orange: UIColor = UIColor(red: 1.000, green: 0.627, blue: 0.000, alpha: 1.000)
+    private static var darkGray: UIColor = UIColor(red: 0.263, green: 0.263, blue: 0.263, alpha: 1.000)
+  }
+  
+  //// Colors
+  
+  public class var color2: UIColor { return Cache.color2 }
+  public class var lightWhite: UIColor { return Cache.lightWhite }
+  public class var orange: UIColor { return Cache.orange }
+  public class var darkGray: UIColor { return Cache.darkGray }
+  
+  //// Drawing Methods
+  
+  public class func drawClock(frame frame: CGRect, numbersColor: UIColor? = Cache.darkGray, darkHandsColor: UIColor? = Cache.darkGray, lightHandColor: UIColor? = Cache.orange, rimColor: UIColor? = Cache.lightWhite, tickColor: UIColor? = UIColor.grayColor(), faceColor: UIColor? = UIColor.whiteColor(), hours: CGFloat, minutes: CGFloat, seconds: CGFloat) {
+    //// General Declarations
+    let context = UIGraphicsGetCurrentContext()
+    
+    
+    //// Variable Declarations
+    let expression = hours > 12 ? "PM" : "AM"
+    let secondsAngle: CGFloat = -seconds / 60.0 * 360
+    let minuteAngle: CGFloat = -(minutes / 60.0 * 360 - secondsAngle / 60.0)
+    let hourAngle: CGFloat = -hours / 12.0 * 360 + minuteAngle / 12.0
+    let defaultHeight: CGFloat = 261
+    let bezierScale: CGFloat = frame.height / defaultHeight
+    
+    //// OuterFace Drawing
+    let outerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.05747 + 0.5), frame.minY + floor(frame.height * 0.04981 + 0.5), floor(frame.width * 0.95019 + 0.5) - floor(frame.width * 0.05747 + 0.5), floor(frame.height * 0.94253 + 0.5) - floor(frame.height * 0.04981 + 0.5)))
+    rimColor!.setFill()
+    outerFacePath.fill()
+    
+    
+    //// InnerFace Drawing
+    let innerFacePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + floor(frame.width * 0.08046 + 0.5), frame.minY + floor(frame.height * 0.07280 + 0.5), floor(frame.width * 0.92720 + 0.5) - floor(frame.width * 0.08046 + 0.5), floor(frame.height * 0.91954 + 0.5) - floor(frame.height * 0.07280 + 0.5)))
+    faceColor!.setFill()
+    innerFacePath.fill()
+    
+    
+    //// Bezier-Minute Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.50575 * frame.width, frame.minY + 0.49425 * frame.height)
+    CGContextRotateCTM(context, -(minuteAngle + 90) * CGFloat(M_PI) / 180)
+    CGContextScaleCTM(context, bezierScale, bezierScale)
+    
+    let bezierMinutePath = UIBezierPath()
+    bezierMinutePath.moveToPoint(CGPointMake(7.07, -7.07))
+    bezierMinutePath.addCurveToPoint(CGPointMake(9.54, -3), controlPoint1: CGPointMake(8.25, -5.89), controlPoint2: CGPointMake(9.07, -4.49))
+    bezierMinutePath.addLineToPoint(CGPointMake(95, -3))
+    bezierMinutePath.addLineToPoint(CGPointMake(95, 3))
+    bezierMinutePath.addLineToPoint(CGPointMake(9.54, 3))
+    bezierMinutePath.addCurveToPoint(CGPointMake(7.07, 7.07), controlPoint1: CGPointMake(9.07, 4.49), controlPoint2: CGPointMake(8.25, 5.89))
+    bezierMinutePath.addCurveToPoint(CGPointMake(-7.07, 7.07), controlPoint1: CGPointMake(3.17, 10.98), controlPoint2: CGPointMake(-3.17, 10.98))
+    bezierMinutePath.addCurveToPoint(CGPointMake(-7.07, -7.07), controlPoint1: CGPointMake(-10.98, 3.17), controlPoint2: CGPointMake(-10.98, -3.17))
+    bezierMinutePath.addCurveToPoint(CGPointMake(7.07, -7.07), controlPoint1: CGPointMake(-3.17, -10.98), controlPoint2: CGPointMake(3.17, -10.98))
+    bezierMinutePath.closePath()
+    darkHandsColor!.setFill()
+    bezierMinutePath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Bezier-Hour Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.50575 * frame.width, frame.minY + 0.49425 * frame.height)
+    CGContextRotateCTM(context, -(hourAngle + 90) * CGFloat(M_PI) / 180)
+    CGContextScaleCTM(context, bezierScale, bezierScale)
+    
+    let bezierHourPath = UIBezierPath()
+    bezierHourPath.moveToPoint(CGPointMake(7.07, -7.07))
+    bezierHourPath.addCurveToPoint(CGPointMake(8.66, -5), controlPoint1: CGPointMake(7.7, -6.44), controlPoint2: CGPointMake(8.24, -5.74))
+    bezierHourPath.addLineToPoint(CGPointMake(56, -5))
+    bezierHourPath.addLineToPoint(CGPointMake(56, 5))
+    bezierHourPath.addLineToPoint(CGPointMake(8.66, 5))
+    bezierHourPath.addCurveToPoint(CGPointMake(7.07, 7.07), controlPoint1: CGPointMake(8.24, 5.74), controlPoint2: CGPointMake(7.7, 6.44))
+    bezierHourPath.addCurveToPoint(CGPointMake(-7.07, 7.07), controlPoint1: CGPointMake(3.17, 10.98), controlPoint2: CGPointMake(-3.17, 10.98))
+    bezierHourPath.addCurveToPoint(CGPointMake(-7.07, -7.07), controlPoint1: CGPointMake(-10.98, 3.17), controlPoint2: CGPointMake(-10.98, -3.17))
+    bezierHourPath.addCurveToPoint(CGPointMake(7.07, -7.07), controlPoint1: CGPointMake(-3.17, -10.98), controlPoint2: CGPointMake(3.17, -10.98))
+    bezierHourPath.closePath()
+    darkHandsColor!.setFill()
+    bezierHourPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Bezier-Second Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.50575 * frame.width, frame.minY + 0.49425 * frame.height)
+    CGContextRotateCTM(context, -(secondsAngle + 90) * CGFloat(M_PI) / 180)
+    CGContextScaleCTM(context, bezierScale, bezierScale)
+    
+    let bezierSecondPath = UIBezierPath()
+    bezierSecondPath.moveToPoint(CGPointMake(4.24, -4.24))
+    bezierSecondPath.addCurveToPoint(CGPointMake(5.92, -1), controlPoint1: CGPointMake(5.16, -3.33), controlPoint2: CGPointMake(5.72, -2.19))
+    bezierSecondPath.addLineToPoint(CGPointMake(99, -1))
+    bezierSecondPath.addLineToPoint(CGPointMake(99, 1))
+    bezierSecondPath.addLineToPoint(CGPointMake(5.92, 1))
+    bezierSecondPath.addCurveToPoint(CGPointMake(4.24, 4.24), controlPoint1: CGPointMake(5.72, 2.19), controlPoint2: CGPointMake(5.16, 3.33))
+    bezierSecondPath.addCurveToPoint(CGPointMake(-4.24, 4.24), controlPoint1: CGPointMake(1.9, 6.59), controlPoint2: CGPointMake(-1.9, 6.59))
+    bezierSecondPath.addCurveToPoint(CGPointMake(-4.24, -4.24), controlPoint1: CGPointMake(-6.59, 1.9), controlPoint2: CGPointMake(-6.59, -1.9))
+    bezierSecondPath.addCurveToPoint(CGPointMake(4.24, -4.24), controlPoint1: CGPointMake(-1.9, -6.59), controlPoint2: CGPointMake(1.9, -6.59))
+    bezierSecondPath.closePath()
+    lightHandColor!.setFill()
+    bezierSecondPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-11h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.28506 * frame.width, frame.minY + 0.13501 * frame.height)
+    CGContextRotateCTM(context, -30 * CGFloat(M_PI) / 180)
+    
+    let rectangle11hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle11hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-10h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.13501 * frame.width, frame.minY + 0.29348 * frame.height)
+    CGContextRotateCTM(context, -60 * CGFloat(M_PI) / 180)
+    
+    let rectangle10hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle10hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-9h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.11494 * frame.width, frame.minY + 0.48276 * frame.height)
+    CGContextRotateCTM(context, 90 * CGFloat(M_PI) / 180)
+    
+    let rectangle9hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle9hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-8h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.14650 * frame.width, frame.minY + 0.71494 * frame.height)
+    CGContextRotateCTM(context, -120 * CGFloat(M_PI) / 180)
+    
+    let rectangle8hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle8hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-7h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.30497 * frame.width, frame.minY + 0.86499 * frame.height)
+    CGContextRotateCTM(context, -150 * CGFloat(M_PI) / 180)
+    
+    let rectangle7hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle7hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-6h Drawing
+    let rectangle6hPath = UIBezierPath(rect: CGRectMake(frame.minX + floor((frame.width - 7) * 0.50394 + 0.5), frame.minY + floor((frame.height - 8) * 0.91700 + 0.5), 7, 8))
+    tickColor!.setFill()
+    rectangle6hPath.fill()
+    
+    
+    //// Rectangle-5h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.69120 * frame.width, frame.minY + 0.83845 * frame.height)
+    CGContextRotateCTM(context, -30 * CGFloat(M_PI) / 180)
+    
+    let rectangle5hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle5hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-4h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.83845 * frame.width, frame.minY + 0.69961 * frame.height)
+    CGContextRotateCTM(context, -60 * CGFloat(M_PI) / 180)
+    
+    let rectangle4hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle4hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-3h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.92720 * frame.width, frame.minY + 0.48276 * frame.height)
+    CGContextRotateCTM(context, 90 * CGFloat(M_PI) / 180)
+    
+    let rectangle3hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle3hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-2h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.84994 * frame.width, frame.minY + 0.30880 * frame.height)
+    CGContextRotateCTM(context, -120 * CGFloat(M_PI) / 180)
+    
+    let rectangle2hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle2hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-1h Drawing
+    CGContextSaveGState(context)
+    CGContextTranslateCTM(context, frame.minX + 0.71110 * frame.width, frame.minY + 0.16155 * frame.height)
+    CGContextRotateCTM(context, -150 * CGFloat(M_PI) / 180)
+    
+    let rectangle1hPath = UIBezierPath(rect: CGRectMake(0, 0, 6, 8))
+    tickColor!.setFill()
+    rectangle1hPath.fill()
+    
+    CGContextRestoreGState(context)
+    
+    
+    //// Rectangle-0h Drawing
+    let rectangle0hPath = UIBezierPath(rect: CGRectMake(frame.minX + floor((frame.width - 7) * 0.50394 + 0.5), frame.minY + floor((frame.height - 8) * 0.07510 + 0.5), 7, 8))
+    tickColor!.setFill()
+    rectangle0hPath.fill()
+    
+    
+    //// Text-12h Drawing
+    let text12hPath = UIBezierPath()
+    text12hPath.moveToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.14596 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.46625 * frame.width, frame.minY + 0.15702 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.45952 * frame.width, frame.minY + 0.14904 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.48077 * frame.width, frame.minY + 0.13192 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.49125 * frame.width, frame.minY + 0.13192 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.49125 * frame.width, frame.minY + 0.20000 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.20000 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.47971 * frame.width, frame.minY + 0.14596 * frame.height))
+    text12hPath.closePath()
+    text12hPath.moveToPoint(CGPointMake(frame.minX + 0.50663 * frame.width, frame.minY + 0.18942 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.53288 * frame.width, frame.minY + 0.16365 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53793 * frame.width, frame.minY + 0.15745 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53500 * frame.width, frame.minY + 0.16160 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53668 * frame.width, frame.minY + 0.15954 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53981 * frame.width, frame.minY + 0.15029 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53918 * frame.width, frame.minY + 0.15537 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53981 * frame.width, frame.minY + 0.15298 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53668 * frame.width, frame.minY + 0.14264 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53981 * frame.width, frame.minY + 0.14708 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53877 * frame.width, frame.minY + 0.14454 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52894 * frame.width, frame.minY + 0.13981 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53460 * frame.width, frame.minY + 0.14075 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53202 * frame.width, frame.minY + 0.13981 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52106 * frame.width, frame.minY + 0.14313 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52567 * frame.width, frame.minY + 0.13981 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52304 * frame.width, frame.minY + 0.14091 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51740 * frame.width, frame.minY + 0.15144 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51907 * frame.width, frame.minY + 0.14534 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51785 * frame.width, frame.minY + 0.14811 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.50615 * frame.width, frame.minY + 0.14971 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50856 * frame.width, frame.minY + 0.14192 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50647 * frame.width, frame.minY + 0.14689 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50728 * frame.width, frame.minY + 0.14429 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51346 * frame.width, frame.minY + 0.13577 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50984 * frame.width, frame.minY + 0.13955 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51147 * frame.width, frame.minY + 0.13750 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52043 * frame.width, frame.minY + 0.13168 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51545 * frame.width, frame.minY + 0.13404 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51777 * frame.width, frame.minY + 0.13268 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52913 * frame.width, frame.minY + 0.13019 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52309 * frame.width, frame.minY + 0.13069 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52599 * frame.width, frame.minY + 0.13019 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.53764 * frame.width, frame.minY + 0.13144 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.53208 * frame.width, frame.minY + 0.13019 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.53492 * frame.width, frame.minY + 0.13061 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54490 * frame.width, frame.minY + 0.13524 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54037 * frame.width, frame.minY + 0.13228 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54279 * frame.width, frame.minY + 0.13354 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54995 * frame.width, frame.minY + 0.14149 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54702 * frame.width, frame.minY + 0.13694 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54870 * frame.width, frame.minY + 0.13902 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.55183 * frame.width, frame.minY + 0.15010 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.55120 * frame.width, frame.minY + 0.14396 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.55183 * frame.width, frame.minY + 0.14683 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.55096 * frame.width, frame.minY + 0.15620 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.55183 * frame.width, frame.minY + 0.15228 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.55154 * frame.width, frame.minY + 0.15431 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54861 * frame.width, frame.minY + 0.16154 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.55038 * frame.width, frame.minY + 0.15809 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54960 * frame.width, frame.minY + 0.15987 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54514 * frame.width, frame.minY + 0.16630 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54761 * frame.width, frame.minY + 0.16321 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54646 * frame.width, frame.minY + 0.16479 * frame.height))
+    text12hPath.addCurveToPoint(CGPointMake(frame.minX + 0.54087 * frame.width, frame.minY + 0.17067 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.54383 * frame.width, frame.minY + 0.16780 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.54240 * frame.width, frame.minY + 0.16926 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.52125 * frame.width, frame.minY + 0.18942 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.55192 * frame.width, frame.minY + 0.18942 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.55192 * frame.width, frame.minY + 0.20000 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.50663 * frame.width, frame.minY + 0.20000 * frame.height))
+    text12hPath.addLineToPoint(CGPointMake(frame.minX + 0.50663 * frame.width, frame.minY + 0.18942 * frame.height))
+    text12hPath.closePath()
+    numbersColor!.setFill()
+    text12hPath.fill()
+    
+    
+    //// Text-6h Drawing
+    let text6hPath = UIBezierPath()
+    text6hPath.moveToPoint(CGPointMake(frame.minX + 0.51686 * frame.width, frame.minY + 0.79808 * frame.height))
+    text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.49952 * frame.width, frame.minY + 0.82318 * frame.height))
+    text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.49962 * frame.width, frame.minY + 0.82328 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50302 * frame.width, frame.minY + 0.82241 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50051 * frame.width, frame.minY + 0.82289 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50164 * frame.width, frame.minY + 0.82261 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50680 * frame.width, frame.minY + 0.82213 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50439 * frame.width, frame.minY + 0.82222 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50565 * frame.width, frame.minY + 0.82213 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51523 * frame.width, frame.minY + 0.82380 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50980 * frame.width, frame.minY + 0.82213 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51261 * frame.width, frame.minY + 0.82269 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52213 * frame.width, frame.minY + 0.82840 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51785 * frame.width, frame.minY + 0.82492 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52015 * frame.width, frame.minY + 0.82645 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52677 * frame.width, frame.minY + 0.83530 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52411 * frame.width, frame.minY + 0.83035 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52565 * frame.width, frame.minY + 0.83265 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52845 * frame.width, frame.minY + 0.84387 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52789 * frame.width, frame.minY + 0.83795 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52845 * frame.width, frame.minY + 0.84080 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52653 * frame.width, frame.minY + 0.85364 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52845 * frame.width, frame.minY + 0.84745 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52781 * frame.width, frame.minY + 0.85070 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.52131 * frame.width, frame.minY + 0.86116 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.52526 * frame.width, frame.minY + 0.85658 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.52352 * frame.width, frame.minY + 0.85908 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51346 * frame.width, frame.minY + 0.86595 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51911 * frame.width, frame.minY + 0.86323 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51649 * frame.width, frame.minY + 0.86483 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50374 * frame.width, frame.minY + 0.86762 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51042 * frame.width, frame.minY + 0.86707 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50718 * frame.width, frame.minY + 0.86762 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49387 * frame.width, frame.minY + 0.86585 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50016 * frame.width, frame.minY + 0.86762 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49687 * frame.width, frame.minY + 0.86703 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48602 * frame.width, frame.minY + 0.86092 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49087 * frame.width, frame.minY + 0.86467 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48825 * frame.width, frame.minY + 0.86303 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48080 * frame.width, frame.minY + 0.85350 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.48378 * frame.width, frame.minY + 0.85881 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48204 * frame.width, frame.minY + 0.85634 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.47893 * frame.width, frame.minY + 0.84435 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.47955 * frame.width, frame.minY + 0.85065 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.47893 * frame.width, frame.minY + 0.84761 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.47941 * frame.width, frame.minY + 0.83894 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.47893 * frame.width, frame.minY + 0.84243 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.47909 * frame.width, frame.minY + 0.84063 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48080 * frame.width, frame.minY + 0.83405 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.47973 * frame.width, frame.minY + 0.83724 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48019 * frame.width, frame.minY + 0.83562 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48300 * frame.width, frame.minY + 0.82931 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.48140 * frame.width, frame.minY + 0.83249 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48214 * frame.width, frame.minY + 0.83091 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.48592 * frame.width, frame.minY + 0.82433 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.48386 * frame.width, frame.minY + 0.82771 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.48483 * frame.width, frame.minY + 0.82605 * frame.height))
+    text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.50287 * frame.width, frame.minY + 0.79808 * frame.height))
+    text6hPath.addLineToPoint(CGPointMake(frame.minX + 0.51686 * frame.width, frame.minY + 0.79808 * frame.height))
+    text6hPath.closePath()
+    text6hPath.moveToPoint(CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84464 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49152 * frame.width, frame.minY + 0.84971 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84642 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49092 * frame.width, frame.minY + 0.84812 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49416 * frame.width, frame.minY + 0.85393 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49213 * frame.width, frame.minY + 0.85131 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49301 * frame.width, frame.minY + 0.85271 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49828 * frame.width, frame.minY + 0.85680 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49531 * frame.width, frame.minY + 0.85514 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49668 * frame.width, frame.minY + 0.85610 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50364 * frame.width, frame.minY + 0.85785 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49987 * frame.width, frame.minY + 0.85750 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50166 * frame.width, frame.minY + 0.85785 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51307 * frame.width, frame.minY + 0.85417 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50754 * frame.width, frame.minY + 0.85785 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51068 * frame.width, frame.minY + 0.85663 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51667 * frame.width, frame.minY + 0.84444 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51547 * frame.width, frame.minY + 0.85171 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51667 * frame.width, frame.minY + 0.84847 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51576 * frame.width, frame.minY + 0.83913 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51667 * frame.width, frame.minY + 0.84253 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51636 * frame.width, frame.minY + 0.84076 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.51312 * frame.width, frame.minY + 0.83496 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51515 * frame.width, frame.minY + 0.83750 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51427 * frame.width, frame.minY + 0.83611 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50905 * frame.width, frame.minY + 0.83223 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.51197 * frame.width, frame.minY + 0.83381 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.51062 * frame.width, frame.minY + 0.83290 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.50383 * frame.width, frame.minY + 0.83123 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50749 * frame.width, frame.minY + 0.83156 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50575 * frame.width, frame.minY + 0.83123 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49852 * frame.width, frame.minY + 0.83218 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.50192 * frame.width, frame.minY + 0.83123 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.50014 * frame.width, frame.minY + 0.83155 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49430 * frame.width, frame.minY + 0.83491 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49689 * frame.width, frame.minY + 0.83282 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49548 * frame.width, frame.minY + 0.83373 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49157 * frame.width, frame.minY + 0.83918 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49312 * frame.width, frame.minY + 0.83610 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49221 * frame.width, frame.minY + 0.83752 * frame.height))
+    text6hPath.addCurveToPoint(CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84464 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.49093 * frame.width, frame.minY + 0.84084 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.49061 * frame.width, frame.minY + 0.84266 * frame.height))
+    text6hPath.closePath()
+    numbersColor!.setFill()
+    text6hPath.fill()
+    
+    
+    //// Text-3h Drawing
+    let text3hPath = UIBezierPath()
+    text3hPath.moveToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.48496 * frame.height))
+    text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84473 * frame.width, frame.minY + 0.48496 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84986 * frame.width, frame.minY + 0.48453 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84646 * frame.width, frame.minY + 0.48496 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84816 * frame.width, frame.minY + 0.48482 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85450 * frame.width, frame.minY + 0.48295 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85155 * frame.width, frame.minY + 0.48424 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85310 * frame.width, frame.minY + 0.48372 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85790 * frame.width, frame.minY + 0.47984 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85591 * frame.width, frame.minY + 0.48218 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85704 * frame.width, frame.minY + 0.48115 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85920 * frame.width, frame.minY + 0.47471 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85876 * frame.width, frame.minY + 0.47853 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85920 * frame.width, frame.minY + 0.47682 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85833 * frame.width, frame.minY + 0.47059 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85920 * frame.width, frame.minY + 0.47318 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85891 * frame.width, frame.minY + 0.47181 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85599 * frame.width, frame.minY + 0.46753 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85776 * frame.width, frame.minY + 0.46938 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85698 * frame.width, frame.minY + 0.46836 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85254 * frame.width, frame.minY + 0.46561 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85500 * frame.width, frame.minY + 0.46670 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85385 * frame.width, frame.minY + 0.46606 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84847 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85123 * frame.width, frame.minY + 0.46517 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84987 * frame.width, frame.minY + 0.46494 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84148 * frame.width, frame.minY + 0.46734 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84566 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84333 * frame.width, frame.minY + 0.46574 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83764 * frame.width, frame.minY + 0.47366 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83962 * frame.width, frame.minY + 0.46893 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83835 * frame.width, frame.minY + 0.47104 * frame.height))
+    text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.82682 * frame.width, frame.minY + 0.47088 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.82974 * frame.width, frame.minY + 0.46461 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.82739 * frame.width, frame.minY + 0.46858 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.82837 * frame.width, frame.minY + 0.46649 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83472 * frame.width, frame.minY + 0.45972 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83111 * frame.width, frame.minY + 0.46272 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83277 * frame.width, frame.minY + 0.46110 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84128 * frame.width, frame.minY + 0.45651 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83667 * frame.width, frame.minY + 0.45835 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83886 * frame.width, frame.minY + 0.45728 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84895 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84371 * frame.width, frame.minY + 0.45575 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84626 * frame.width, frame.minY + 0.45536 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85733 * frame.width, frame.minY + 0.45656 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85188 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85468 * frame.width, frame.minY + 0.45576 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86432 * frame.width, frame.minY + 0.46011 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85998 * frame.width, frame.minY + 0.45736 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86231 * frame.width, frame.minY + 0.45854 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86906 * frame.width, frame.minY + 0.46590 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86633 * frame.width, frame.minY + 0.46167 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86791 * frame.width, frame.minY + 0.46360 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.87079 * frame.width, frame.minY + 0.47395 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87021 * frame.width, frame.minY + 0.46820 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.87079 * frame.width, frame.minY + 0.47088 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86748 * frame.width, frame.minY + 0.48367 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87079 * frame.width, frame.minY + 0.47759 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86968 * frame.width, frame.minY + 0.48083 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85862 * frame.width, frame.minY + 0.48927 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86528 * frame.width, frame.minY + 0.48651 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86232 * frame.width, frame.minY + 0.48838 * frame.height))
+    text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.85862 * frame.width, frame.minY + 0.48946 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86873 * frame.width, frame.minY + 0.49507 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86277 * frame.width, frame.minY + 0.49029 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86614 * frame.width, frame.minY + 0.49216 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.87261 * frame.width, frame.minY + 0.50575 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87131 * frame.width, frame.minY + 0.49797 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.87261 * frame.width, frame.minY + 0.50153 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.87055 * frame.width, frame.minY + 0.51494 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.87261 * frame.width, frame.minY + 0.50926 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.87192 * frame.width, frame.minY + 0.51232 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86509 * frame.width, frame.minY + 0.52146 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86917 * frame.width, frame.minY + 0.51756 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86735 * frame.width, frame.minY + 0.51973 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85747 * frame.width, frame.minY + 0.52534 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86282 * frame.width, frame.minY + 0.52318 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86028 * frame.width, frame.minY + 0.52447 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84895 * frame.width, frame.minY + 0.52663 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85466 * frame.width, frame.minY + 0.52620 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85182 * frame.width, frame.minY + 0.52663 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84080 * frame.width, frame.minY + 0.52572 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84607 * frame.width, frame.minY + 0.52663 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84336 * frame.width, frame.minY + 0.52633 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83376 * frame.width, frame.minY + 0.52289 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83825 * frame.width, frame.minY + 0.52511 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83590 * frame.width, frame.minY + 0.52417 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.82811 * frame.width, frame.minY + 0.51791 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83163 * frame.width, frame.minY + 0.52162 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.82974 * frame.width, frame.minY + 0.51996 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.82433 * frame.width, frame.minY + 0.51063 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.82648 * frame.width, frame.minY + 0.51587 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.82522 * frame.width, frame.minY + 0.51344 * frame.height))
+    text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.83506 * frame.width, frame.minY + 0.50728 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.83970 * frame.width, frame.minY + 0.51408 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.83589 * frame.width, frame.minY + 0.50996 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.83744 * frame.width, frame.minY + 0.51223 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84856 * frame.width, frame.minY + 0.51686 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84197 * frame.width, frame.minY + 0.51593 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84492 * frame.width, frame.minY + 0.51686 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85302 * frame.width, frame.minY + 0.51624 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85003 * frame.width, frame.minY + 0.51686 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85152 * frame.width, frame.minY + 0.51665 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85704 * frame.width, frame.minY + 0.51427 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85452 * frame.width, frame.minY + 0.51582 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85586 * frame.width, frame.minY + 0.51517 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85991 * frame.width, frame.minY + 0.51082 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85822 * frame.width, frame.minY + 0.51338 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85918 * frame.width, frame.minY + 0.51223 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.86102 * frame.width, frame.minY + 0.50565 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86065 * frame.width, frame.minY + 0.50942 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86102 * frame.width, frame.minY + 0.50769 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85943 * frame.width, frame.minY + 0.50014 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.86102 * frame.width, frame.minY + 0.50348 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.86049 * frame.width, frame.minY + 0.50164 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85546 * frame.width, frame.minY + 0.49660 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85838 * frame.width, frame.minY + 0.49864 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85706 * frame.width, frame.minY + 0.49746 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.85014 * frame.width, frame.minY + 0.49473 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.85386 * frame.width, frame.minY + 0.49574 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.85209 * frame.width, frame.minY + 0.49511 * frame.height))
+    text3hPath.addCurveToPoint(CGPointMake(frame.minX + 0.84454 * frame.width, frame.minY + 0.49416 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.84820 * frame.width, frame.minY + 0.49435 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.84633 * frame.width, frame.minY + 0.49416 * frame.height))
+    text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.49416 * frame.height))
+    text3hPath.addLineToPoint(CGPointMake(frame.minX + 0.84167 * frame.width, frame.minY + 0.48496 * frame.height))
+    text3hPath.closePath()
+    numbersColor!.setFill()
+    text3hPath.fill()
+    
+    
+    //// Text-9h Drawing
+    let text9hPath = UIBezierPath()
+    text9hPath.moveToPoint(CGPointMake(frame.minX + 0.14780 * frame.width, frame.minY + 0.52490 * frame.height))
+    text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16523 * frame.width, frame.minY + 0.49971 * frame.height))
+    text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16513 * frame.width, frame.minY + 0.49962 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16164 * frame.width, frame.minY + 0.50057 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16418 * frame.width, frame.minY + 0.50006 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16301 * frame.width, frame.minY + 0.50038 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15785 * frame.width, frame.minY + 0.50086 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16026 * frame.width, frame.minY + 0.50077 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15900 * frame.width, frame.minY + 0.50086 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14943 * frame.width, frame.minY + 0.49919 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15485 * frame.width, frame.minY + 0.50086 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15204 * frame.width, frame.minY + 0.50030 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14253 * frame.width, frame.minY + 0.49459 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14681 * frame.width, frame.minY + 0.49807 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14451 * frame.width, frame.minY + 0.49654 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.13788 * frame.width, frame.minY + 0.48769 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14055 * frame.width, frame.minY + 0.49264 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.13900 * frame.width, frame.minY + 0.49034 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.13621 * frame.width, frame.minY + 0.47912 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.13677 * frame.width, frame.minY + 0.48504 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.13621 * frame.width, frame.minY + 0.48218 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.13812 * frame.width, frame.minY + 0.46935 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.13621 * frame.width, frame.minY + 0.47554 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.13685 * frame.width, frame.minY + 0.47229 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14334 * frame.width, frame.minY + 0.46183 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.13940 * frame.width, frame.minY + 0.46641 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14114 * frame.width, frame.minY + 0.46390 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15120 * frame.width, frame.minY + 0.45704 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14555 * frame.width, frame.minY + 0.45975 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14816 * frame.width, frame.minY + 0.45816 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16092 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15423 * frame.width, frame.minY + 0.45592 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15747 * frame.width, frame.minY + 0.45536 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17074 * frame.width, frame.minY + 0.45714 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16443 * frame.width, frame.minY + 0.45536 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16770 * frame.width, frame.minY + 0.45595 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17864 * frame.width, frame.minY + 0.46207 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17377 * frame.width, frame.minY + 0.45832 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17640 * frame.width, frame.minY + 0.45996 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18386 * frame.width, frame.minY + 0.46949 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18087 * frame.width, frame.minY + 0.46418 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18261 * frame.width, frame.minY + 0.46665 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18573 * frame.width, frame.minY + 0.47864 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18511 * frame.width, frame.minY + 0.47233 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18573 * frame.width, frame.minY + 0.47538 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18525 * frame.width, frame.minY + 0.48405 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18573 * frame.width, frame.minY + 0.48056 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18557 * frame.width, frame.minY + 0.48236 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18386 * frame.width, frame.minY + 0.48894 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18493 * frame.width, frame.minY + 0.48574 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18447 * frame.width, frame.minY + 0.48737 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.18166 * frame.width, frame.minY + 0.49368 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18325 * frame.width, frame.minY + 0.49050 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.18252 * frame.width, frame.minY + 0.49208 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17874 * frame.width, frame.minY + 0.49866 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.18080 * frame.width, frame.minY + 0.49527 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17982 * frame.width, frame.minY + 0.49693 * frame.height))
+    text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.16178 * frame.width, frame.minY + 0.52490 * frame.height))
+    text9hPath.addLineToPoint(CGPointMake(frame.minX + 0.14780 * frame.width, frame.minY + 0.52490 * frame.height))
+    text9hPath.closePath()
+    text9hPath.moveToPoint(CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.47835 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17313 * frame.width, frame.minY + 0.47328 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.47656 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17374 * frame.width, frame.minY + 0.47487 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17050 * frame.width, frame.minY + 0.46901 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17253 * frame.width, frame.minY + 0.47168 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17165 * frame.width, frame.minY + 0.47026 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16638 * frame.width, frame.minY + 0.46604 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16935 * frame.width, frame.minY + 0.46777 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16798 * frame.width, frame.minY + 0.46678 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16102 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16478 * frame.width, frame.minY + 0.46531 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16299 * frame.width, frame.minY + 0.46494 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15158 * frame.width, frame.minY + 0.46873 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15712 * frame.width, frame.minY + 0.46494 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15398 * frame.width, frame.minY + 0.46620 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14799 * frame.width, frame.minY + 0.47854 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14919 * frame.width, frame.minY + 0.47125 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14799 * frame.width, frame.minY + 0.47452 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.14890 * frame.width, frame.minY + 0.48386 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14799 * frame.width, frame.minY + 0.48046 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.14829 * frame.width, frame.minY + 0.48223 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15153 * frame.width, frame.minY + 0.48803 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.14951 * frame.width, frame.minY + 0.48549 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15038 * frame.width, frame.minY + 0.48688 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.15560 * frame.width, frame.minY + 0.49076 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15268 * frame.width, frame.minY + 0.48918 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15404 * frame.width, frame.minY + 0.49009 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16082 * frame.width, frame.minY + 0.49176 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.15717 * frame.width, frame.minY + 0.49143 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.15891 * frame.width, frame.minY + 0.49176 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.16614 * frame.width, frame.minY + 0.49080 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16274 * frame.width, frame.minY + 0.49176 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16451 * frame.width, frame.minY + 0.49144 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17035 * frame.width, frame.minY + 0.48807 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.16777 * frame.width, frame.minY + 0.49017 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.16917 * frame.width, frame.minY + 0.48926 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17308 * frame.width, frame.minY + 0.48381 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17154 * frame.width, frame.minY + 0.48689 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17245 * frame.width, frame.minY + 0.48547 * frame.height))
+    text9hPath.addCurveToPoint(CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.47835 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.17372 * frame.width, frame.minY + 0.48215 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.17404 * frame.width, frame.minY + 0.48033 * frame.height))
+    text9hPath.closePath()
+    numbersColor!.setFill()
+    text9hPath.fill()
+    
+    
+    //// Text-PM Drawing
+    let textPMRect = CGRectMake(frame.minX + floor((frame.width - 63) * 0.50505 + 0.5), frame.minY + floor((frame.height - 34) * 0.63436 + 0.5), 63, 34)
+    let textPMStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+    textPMStyle.alignment = NSTextAlignment.Center
+    
+    let textPMFontAttributes = [NSFontAttributeName: UIFont(name: "AvenirNext-DemiBold", size: 20)!, NSForegroundColorAttributeName: numbersColor!, NSParagraphStyleAttributeName: textPMStyle]
+    
+    let textPMTextHeight: CGFloat = NSString(string: expression).boundingRectWithSize(CGSizeMake(textPMRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textPMFontAttributes, context: nil).size.height
+    CGContextSaveGState(context)
+    CGContextClipToRect(context, textPMRect);
+    NSString(string: expression).drawInRect(CGRectMake(textPMRect.minX, textPMRect.minY + (textPMRect.height - textPMTextHeight) / 2, textPMRect.width, textPMTextHeight), withAttributes: textPMFontAttributes)
+    CGContextRestoreGState(context)
+  }
+  
 }
 

@@ -9,37 +9,40 @@
 import UIKit
 
 class NTTimePickerComponentView: UIPickerView {
-
-    let label = UILabel()
+  
+  let label = UILabel()
+  
+  init(frame: CGRect, type: NTTimePickerComponentViewType, numberWidth: CGFloat, textFont: UIFont = UIFont.systemFontOfSize(24), textColor: UIColor = UIColor.whiteColor()) {
+    super.init(frame: frame)
+    setup(type, numberWidth: numberWidth, textFont: textFont, textColor: textColor)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  func updateLabel(row: Int) {
+    label.text = row < 10 ? "0\(row)" : "\(row)"
+  }
+  
+  func updateLabelStyle(textFont: UIFont, textColor: UIColor) {
+    label.font = textFont
+    label.textColor = textColor
+  }
+  
+  private func setup(type: NTTimePickerComponentViewType, numberWidth: CGFloat, textFont: UIFont, textColor: UIColor) {
+    label.font = textFont
+    label.textColor = textColor
+    label.textAlignment = .Right
+    label.adjustsFontSizeToFitWidth = false
+    addSubview(label)
     
-    init(frame: CGRect, type: NTTimePickerComponentViewType, numberWidth: CGFloat) {
-        super.init(frame: frame)
-        setup(type, numberWidth: numberWidth)
+    switch (type) {
+    case .Hour:
+      label.frame = CGRectMake(0, 0, numberWidth, frame.size.height)
+    case .Minute:
+      label.frame = CGRectMake(frame.size.width / 2, CGFloat(0), numberWidth, frame.size.height)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    func updateLabel(row: Int) {
-        label.text = row < 10 ? "0\(row)" : "\(row)"
-    }
-    
-    private func setup(type: NTTimePickerComponentViewType, numberWidth: CGFloat) {
-        label.textAlignment = .Right
-        label.adjustsFontSizeToFitWidth = false
-        addSubview(label)
-
-        switch (type) {
-        case .Hour:
-            label.frame = CGRectMake(0, 0, numberWidth, frame.size.height)
-        case .Minute:
-            label.frame = CGRectMake(frame.size.width / 2, CGFloat(0), numberWidth, frame.size.height)
-        }
-    }
-
+  }
+  
 }

@@ -8,53 +8,53 @@
 
 
 struct ThemeComponent {
-    enum ThemeType: String {
-        case Default = "defaultTheme"
-        case Orange = "orangeTheme"
-    }
+  enum ThemeType: String {
+    case Default = "defaultTheme"
+    case Orange = "orangeTheme"
+  }
+  
+  enum ThemeAttribute: String {
+    case BackgroundImage = "BackgroundImage"
+    case BackgroundColor = "BackgroundColor"
+    case MandatoryColor = "MandatoryColor"
     
-    enum ThemeAttribute: String {
-        case BackgroundImage = "BackgroundImage"
-        case BackgroundColor = "BackgroundColor"
-        case MandatoryColor = "MandatoryColor"
-        
-        func getString() -> String {
-            return rawValue
-        }
+    func getString() -> String {
+      return rawValue
     }
-    typealias Theme = [ThemeAttribute: String]
+  }
+  typealias Theme = [ThemeAttribute: String]
 }
 
 
 extension ThemeComponent.ThemeAttribute {
-    init?(string: String) {
-        switch (string.lowercaseString) {
-        case ThemeComponent.ThemeAttribute.BackgroundImage.getString().lowercaseString:
-            self = .BackgroundImage
-        case ThemeComponent.ThemeAttribute.BackgroundColor.getString().lowercaseString:
-            self = .BackgroundColor
-        case ThemeComponent.ThemeAttribute.MandatoryColor.getString().lowercaseString:
-            self = .MandatoryColor
-        default:
-            return nil
-        }
+  init?(string: String) {
+    switch (string.lowercaseString) {
+    case ThemeComponent.ThemeAttribute.BackgroundImage.getString().lowercaseString:
+      self = .BackgroundImage
+    case ThemeComponent.ThemeAttribute.BackgroundColor.getString().lowercaseString:
+      self = .BackgroundColor
+    case ThemeComponent.ThemeAttribute.MandatoryColor.getString().lowercaseString:
+      self = .MandatoryColor
+    default:
+      return nil
     }
+  }
 }
 
 extension ThemeComponent.ThemeType {
-    init?(string: String) {
-        switch (string.lowercaseString) {
-        case ThemeComponent.ThemeType.Default.getString().lowercaseString:
-            self = .Default
-        case ThemeComponent.ThemeType.Orange.getString().lowercaseString:
-            self = .Orange
-        default:
-            return nil
-        }
+  init?(string: String) {
+    switch (string.lowercaseString) {
+    case ThemeComponent.ThemeType.Default.getString().lowercaseString:
+      self = .Default
+    case ThemeComponent.ThemeType.Orange.getString().lowercaseString:
+      self = .Orange
+    default:
+      return nil
     }
-    
-    
-    func getString() -> String {
-        return rawValue
-    }
+  }
+  
+  
+  func getString() -> String {
+    return rawValue
+  }
 }
