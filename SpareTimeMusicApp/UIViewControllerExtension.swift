@@ -11,11 +11,11 @@ import UIKit
 extension UIViewController {
     
     func setupNavigation() {
-        navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        navigationController!.navigationBar.shadowImage = UIImage()
-        navigationController!.navigationBar.translucent = true
-        navigationController!.view.backgroundColor = UIColor.clearColor()
-        navigationController!.view.backgroundColor = UIColor.clearColor()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.translucent = true
+        navigationController?.view.backgroundColor = UIColor.clearColor()
+        navigationController?.view.backgroundColor = UIColor.clearColor()
 
     }
     

@@ -12,20 +12,9 @@ class RepeatDateSelectionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var checkIconImageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func configureCell(dateNumber: Int, repeatDate: RepeatDate?) {

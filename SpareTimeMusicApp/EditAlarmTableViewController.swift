@@ -25,9 +25,9 @@ class EditAlarmTableViewController: UITableViewController {
         }()
     
     // Private constant
-    private let REPEAT_DATE_CELL: Int = 0
-    private let RINGTONE_TYPE_CELL: Int = 1
-    private let SALUTATION_TEXT_CELL: Int = 2
+    private let repeatDateCellLocationInTableView = 0
+    private let ringToneCellLocationInTableView = 1
+    private let salutationTextCellLocationInTableView = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,7 @@ class EditAlarmTableViewController: UITableViewController {
     
     let pushIdentifer: String = "showRepeatDates"
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == REPEAT_DATE_CELL {
+        if indexPath.row == repeatDateCellLocationInTableView {
             performSegueWithIdentifier(pushIdentifer, sender: alarmRecord)
         }
     }
@@ -160,7 +160,7 @@ class EditAlarmTableViewController: UITableViewController {
         // Toggle navigation bar
         toggleNavigationbar(true)
         
-        let textFieldCellRect = alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: SALUTATION_TEXT_CELL, inSection: 0))
+        let textFieldCellRect = alarmSettingTableView.rectForRowAtIndexPath(NSIndexPath(forRow: salutationTextCellLocationInTableView, inSection: 0))
         // Add Upper Blur View
         let upperBlurView: UIView = UIView(frame: CGRect(origin: CGPointZero, size: CGSizeMake(alarmSettingTableView.frame.width, textFieldCellRect.origin.y)))
         if let currentTheme = ThemeManager.getSharedInstance().stylesheet {

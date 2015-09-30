@@ -10,7 +10,7 @@ import UIKit
 
 class RepeatDateSelectionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let numberOfDates: Int = 7
+    let numberOfDates = 7
     var repeatDates: RepeatDate?
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backgroundImageView: UIImageView!

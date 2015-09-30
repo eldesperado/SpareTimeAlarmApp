@@ -15,7 +15,7 @@ class ThemeManager: NSObject {
     
     
     // Constants
-    private let storedKeyInUserDefaults: String = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager"
+    private let storedKeyInUserDefaults = "com.xmsofresh.SpareTimeAppAlarm.ThemeManager"
     
     // MARK: Singleton
     private static let sharedInstance = ThemeManager()

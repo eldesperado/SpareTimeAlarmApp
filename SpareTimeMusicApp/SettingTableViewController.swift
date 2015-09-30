@@ -14,10 +14,10 @@ class SettingTableViewController: UITableViewController, CircularViewDelegate {
     @IBOutlet weak var orangeThemeSelectorCircularView: CircularView!
     @IBOutlet weak var volumeNTSlider: NTSlider!
     // Private constant
-    private let THEME_CELL: Int = 0
-    private let VOLUME_CELL: Int = 1
-    private let DEVELOPER_CELL: Int = 2
-    private let DONATION_CELL: Int = 3
+    private let themeCellLocationInTableView = 0
+    private let volumeCellLocationInTableView = 1
+    private let developerCellLocationInTableView = 2
+    private let donationCellLocationInTableView = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
