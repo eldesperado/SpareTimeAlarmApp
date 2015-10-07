@@ -4,4 +4,3 @@ before_install:
 
 # Use when you have third party dependencies (CocoaPods generates a workspace)
 podfile: Pod/Podfile
-script: xctool -workspace Pod/Pod.xcworkspace -scheme Tests -sdk iphonesimulator build test
