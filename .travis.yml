@@ -4,3 +4,6 @@ before_install:
 
 # Use when you have third party dependencies (CocoaPods generates a workspace)
 podfile: Pod/Podfile
+
+notifications:
+  email: false
