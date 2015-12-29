@@ -7,3 +7,4 @@ podfile: Pod/Podfile
 
 notifications:
   email: false
+  slack: nhattrung:z2aR3yE5meUEx68TFstTMOeh
