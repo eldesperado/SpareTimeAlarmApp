@@ -15,8 +15,8 @@
 		25432C7F1BA18BEE00C64291 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25432C7D1BA18BEE00C64291 /* CoreData.xcdatamodeld */; };
 		25432C851BA18C9500C64291 /* RepeatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C841BA18C9500C64291 /* RepeatDate.swift */; };
 		25432C8C1BA18FB500C64291 /* AlarmRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25432C8B1BA18FB500C64291 /* AlarmRecord.swift */; };
-		254BD2671BB5476C00F24448 /* NTTimePickerComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254BD2661BB5476C00F24448 /* NTTimePickerComponentView.swift */; settings = {ASSET_TAGS = (); }; };
-		254BD2691BB5495200F24448 /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254BD2681BB5495200F24448 /* NSDate+Extension.swift */; settings = {ASSET_TAGS = (); }; };
+		254BD2671BB5476C00F24448 /* NTTimePickerComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254BD2661BB5476C00F24448 /* NTTimePickerComponentView.swift */; };
+		254BD2691BB5495200F24448 /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254BD2681BB5495200F24448 /* NSDate+Extension.swift */; };
 		25816DDE1B958F66009274CA /* ThemeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25816DDD1B958F66009274CA /* ThemeComponent.swift */; };
 		25831A561B81E4650088404D /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A551B81E4650088404D /* SettingTableViewController.swift */; };
 		25831A5B1B846CCC0088404D /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25831A5A1B846CCC0088404D /* CircularView.swift */; };
@@ -33,7 +33,6 @@
 		25AD761B1B7CACDE0087CED8 /* FancyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AD761A1B7CACDE0087CED8 /* FancyTextField.swift */; };
 		25B559F01B733C7800F47D84 /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B559EF1B733C7800F47D84 /* CoreDataStore.swift */; };
 		25B559F61B734B3300F47D84 /* CoreDataOperationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */; };
-		25D31E181B818AB100E54821 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D31E171B818AB100E54821 /* Reveal.framework */; };
 		25D614851B7214A20042544D /* NTSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D614841B7214A10042544D /* NTSwitch.swift */; };
 		25D614871B721EAA0042544D /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D614861B721EAA0042544D /* SevenSwitch.swift */; };
 		25D614901B7227FC0042544D /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6148F1B7227FC0042544D /* CoreDataHelper.swift */; };
@@ -108,7 +107,6 @@
 		25B559EF1B733C7800F47D84 /* CoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataStore.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25B559F51B734B3300F47D84 /* CoreDataOperationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataOperationHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25B86FCE1BA178D7000A534C /* Timepiece.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Timepiece.framework; path = "Pods/../build/Debug-iphoneos/Timepiece.framework"; sourceTree = "<group>"; };
-		25D31E171B818AB100E54821 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		25D614841B7214A10042544D /* NTSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NTSwitch.swift; sourceTree = "<group>"; };
 		25D614861B721EAA0042544D /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SevenSwitch.swift; sourceTree = "<group>"; };
 		25D6148F1B7227FC0042544D /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoreDataHelper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -147,7 +145,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25D31E181B818AB100E54821 /* Reveal.framework in Frameworks */,
 				FFC7784089BCD8DE9446B0CB /* Pods_SpareTimeAlarmApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,7 +260,6 @@
 		25D31E161B818AA400E54821 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				25D31E171B818AB100E54821 /* Reveal.framework */,
 			);
 			name = Framework;
 			sourceTree = "<group>";
@@ -540,7 +536,6 @@
 				TargetAttributes = {
 					25DB96A81B6F19290088B3FA = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = BRKG74MFU2;
 					};
 					25DB96BD1B6F19290088B3FA = {
 						CreatedOnToolsVersion = 6.4;
@@ -873,10 +868,6 @@
 					"$(inherited)",
 					"-framework",
 					"\"IQKeyboardManager\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmsofresh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpareTimeAlarmApp;
@@ -906,10 +897,6 @@
 					"$(inherited)",
 					"-framework",
 					"\"IQKeyboardManager\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmsofresh.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpareTimeAlarmApp;
